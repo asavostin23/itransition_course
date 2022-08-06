@@ -31,8 +31,10 @@ public class ApplicationDbContext : IdentityDbContext<User>
     }
     public void UserConfigure(EntityTypeBuilder<User> builder)
     {
-        builder.HasAlternateKey(x => x.UserName);
-        builder.Property(p => p.Active).HasDefaultValue(true);
+        builder.HasAlternateKey(user => user.UserName);
+        builder.Property(user => user.Active).HasDefaultValue(true);
+        builder.Property(user => user.Language).HasDefaultValue("en");
+        builder.Property(user => user.Theme).HasDefaultValue("light");
         builder.HasMany(user => user.Comments).WithOne(comment => comment.User).HasForeignKey(comment => comment.UserId).OnDelete(DeleteBehavior.NoAction);
         builder.HasMany(user => user.Items).WithOne(item => item.User).HasForeignKey(item => item.UserId).OnDelete(DeleteBehavior.NoAction);
         builder.HasMany(user => user.Collections).WithOne(collection => collection.User).HasForeignKey(collection => collection.UserId);
