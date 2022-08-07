@@ -1,0 +1,36 @@
+﻿@model ICollection<UserViewModel>
+@{
+    ViewData["Title"] = "Administration";
+}
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+</div>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <td>Id</td>
+            <td>Username</td>
+            <td>Email</td>
+            <td>Active</td>
+            <td>Admin</td>
+            <td>Language</td>
+            <td>Theme</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (UserViewModel userModel in Model)
+        {
+            <tr>
+                <td>@userModel.Id</td>
+                <td>@userModel.Username</td>
+                <td>@userModel.Email</td>
+                <td>@userModel.Active</td>
+                <td>@userModel.IsAdmin</td>
+                <td>@userModel.Language</td>
+                <td>@userModel.Theme</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
