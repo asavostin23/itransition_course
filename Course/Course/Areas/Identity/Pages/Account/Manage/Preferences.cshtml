@@ -1,0 +1,29 @@
+﻿@page
+@model Course.Areas.Identity.Pages.Account.Manage.PreferencesModel
+@{
+    ViewData["Title"] = "Manage Preferences";
+    ViewData["ActivePage"] = ManageNavPages.Preferences;
+}
+
+<h3>@ViewData["Title"]</h3>
+@*<partial name="_StatusMessage" for="StatusMessage" />*@
+<div class="row">
+    <div class="col-md-6">
+        <form id="preferences-form" method="post">
+            <div asp-validation-summary="None" class="text-danger"></div>
+            <div class="form-floating mb-1">
+                <select asp-for="Input.Language" class="form-select" aria-required="true" asp-items="Model.Languages"></select>
+                <label asp-for="Input.Language" class="form-label"></label>
+            </div>
+            <div class="form-floating mb-1">
+                <select asp-for="Input.Theme" class="form-select" aria-required="true" asp-items="Model.Themes"></select>
+                <label asp-for="Input.Theme" class="form-label"></label>
+            </div>
+            <button type="submit" class="w-100 btn btn-lg btn-primary">Update preferences</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+<partial name="_ValidationScriptsPartial" />
+}
