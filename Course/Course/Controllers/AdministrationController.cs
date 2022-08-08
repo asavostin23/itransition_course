@@ -26,6 +26,19 @@ namespace Course.Controllers
                     await _userManager.IsInRoleAsync(await _userManager.FindByIdAsync(userModel.Id), "Admin");
             return View(usersModel);
         }
+        public async Task<IActionResult> ToggleActive(string id)
+        {
+            if(id!=null)
+            {
+                User user = await _userManager.FindByIdAsync(id);
+                if (user != null)
+                {
+                    user.Active = !user.Active;
+                    await _userManager.UpdateAsync(user);
+                }
+            }
+            return RedirectToAction("Index");
+        }
     }
 }
 

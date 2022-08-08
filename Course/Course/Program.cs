@@ -1,4 +1,5 @@
 using Course.Data;
+using Course.Middleware;
 using Course.Models;
 using Course.Services;
 using Microsoft.AspNetCore.Identity;
@@ -38,6 +39,8 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseMiddleware<UserActiveMiddleware>();
 
 app.MapControllerRoute(
     name: "default",
