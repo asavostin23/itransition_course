@@ -1,4 +1,5 @@
 ﻿using Course.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -7,14 +8,24 @@ namespace Course.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private UserManager<User> _userManager;
+        private RoleManager<IdentityRole> _roleManager;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, UserManager<User> userManager,
+            RoleManager<IdentityRole> roleManager)
         {
             _logger = logger;
+            _userManager = userManager;
+            _roleManager = roleManager;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            User currentUser = await _userManager.GetUserAsync(HttpContext.User);
+            if (currentUser != null && await _userManager.IsInRoleAsync(currentUser, "Admin"))
+                ViewBag.IsAdmin = true;
+            else
+                ViewBag.IsAdmin = false;
             return View();
         }
 
