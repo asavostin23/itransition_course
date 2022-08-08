@@ -39,6 +39,22 @@ namespace Course.Controllers
             }
             return RedirectToAction("Index");
         }
+        public async Task<IActionResult> ToggleAdmin(string id)
+        {
+            if (id != null)
+            {
+                User user = await _userManager.FindByIdAsync(id);
+                if (user != null)
+                {
+                    if (await _userManager.IsInRoleAsync(user, "Admin"))
+                        await _userManager.RemoveFromRoleAsync(user, "Admin");
+                    else
+                        await _userManager.AddToRoleAsync(user, "Admin");
+                    await _userManager.UpdateAsync(user);
+                }
+            }
+            return RedirectToAction("Index");
+        }
     }
 }
 

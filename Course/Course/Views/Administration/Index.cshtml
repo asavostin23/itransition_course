@@ -3,7 +3,7 @@
     ViewData["Title"] = "Administration";
 }
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
+    <h1 class="display-4">Administration</h1>
 </div>
 <table class="table table-bordered">
     <thead>
@@ -24,8 +24,16 @@
                 <td>@userModel.Id</td>
                 <td>@userModel.Username</td>
                 <td>@userModel.Email</td>
-                <td>@userModel.Active</td>
-                <td>@userModel.IsAdmin</td>
+                <td>
+                    <a class="text-decoration-none" asp-action="ToggleActive" asp-controller="Administration" asp-route-id="@userModel.Id">
+                        @userModel.Active
+                    </a>
+                </td>
+                <td>
+                    <a class="text-decoration-none" asp-action="ToggleAdmin" asp-controller="Administration" asp-route-id="@userModel.Id">
+                        @userModel.IsAdmin
+                    </a>
+                </td>
                 <td>@userModel.Language</td>
                 <td>@userModel.Theme</td>
             </tr>
