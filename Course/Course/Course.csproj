@@ -23,6 +23,8 @@
 
   <ItemGroup>
     <Folder Include="Areas\Identity\Data\" />
+    <Folder Include="Resources\Controllers\" />
+    <Folder Include="Resources\Models\" />
   </ItemGroup>
 
 </Project>

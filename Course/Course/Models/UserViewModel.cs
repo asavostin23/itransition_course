@@ -9,7 +9,14 @@
         public string Language { get; set; }
         public string Theme { get; set; }
         public bool IsAdmin { get; set; }
-        public UserViewModel(string id, string username, string email, bool active, string language, string theme, bool isAdmin)
+        public UserViewModel(
+            string id,
+            string username,
+            string email,
+            bool active,
+            string language,
+            string theme,
+            bool isAdmin)
         {
             Id = id;
             Username = username;
