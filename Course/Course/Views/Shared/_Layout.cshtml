@@ -1,5 +1,9 @@
-﻿@using Microsoft.AspNetCore.Mvc.Localization
-@inject IHtmlLocalizer<SharedResource> SharedLocalizer
+﻿@{
+    IRequestCultureFeature requestCulture = Context.Features.Get<IRequestCultureFeature>();
+    var cultureItems = LocOptions.Value.SupportedUICultures
+        .Select(c => new SelectListItem { Value = c.Name, Text = c.Name })
+        .ToList();
+}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,6 +27,15 @@
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">@SharedLocalizer["Home"]</a>
+                        </li>
+                        <li class="nav-item">
+                            <form asp-controller="Home" asp-action="SetLanguage"
+                                  asp-route-returnUrl="@Context.Request.Path"
+                                  method="post" class="form-inline">
+                                <select class="form-select" name="culture" onchange="this.form.submit();"
+                                        asp-for="@requestCulture.RequestCulture.UICulture.Name"
+                                        asp-items="cultureItems"></select>
+                            </form>
                         </li>
                     </ul>
                     <partial name="_LoginPartial" />

@@ -20,7 +20,12 @@ namespace Course.Services
             message.Subject = subject;
             message.Body = htmlMessage;
             message.IsBodyHtml = true;
-            await SmtpClient.SendMailAsync(message);
+            try
+            {
+                await SmtpClient.SendMailAsync(message);
+            }
+            catch (SmtpFailedRecipientsException ex)
+            {}
         }
     }
 }

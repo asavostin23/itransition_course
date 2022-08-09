@@ -21,12 +21,12 @@ namespace Course.Areas.Identity.Pages.Account.Manage
         {
             [Required]
             [DataType(DataType.Text)]
-            [Display(Name = "Language")]
+            [Display(Name = "Language", ResourceType = typeof(Resources.DisplayNameResource))]
             public string Language { get; set; }
 
             [Required]
             [DataType(DataType.Text)]
-            [Display(Name = "Theme")]
+            [Display(Name = "Theme", ResourceType = typeof(Resources.DisplayNameResource))]
             public string Theme { get; set; }
         }
         [BindProperty]
