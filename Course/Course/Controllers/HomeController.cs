@@ -12,8 +12,11 @@ namespace Course.Controllers
         private UserManager<User> _userManager;
         private RoleManager<IdentityRole> _roleManager;
 
-        public HomeController(ILogger<HomeController> logger, UserManager<User> userManager,
-            RoleManager<IdentityRole> roleManager)
+        public HomeController(
+            ILogger<HomeController> logger,
+            UserManager<User> userManager,
+            RoleManager<IdentityRole> roleManager
+            )
         {
             _logger = logger;
             _userManager = userManager;

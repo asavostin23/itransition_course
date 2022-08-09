@@ -1,9 +1,9 @@
 ﻿@using Microsoft.AspNetCore.Mvc.Localization
-@inject IViewLocalizer Localizer
+@inject IHtmlLocalizer<SharedResource> SharedLocalizer
 @{
-    ViewData["Title"] = @Localizer["HomePage"];
+    ViewData["Title"] = @SharedLocalizer["Home Page"];
 }
 
 <div class="text-center">
-    <h1 class="display-4">@Localizer["Welcome"] @if(ViewBag.IsAdmin){<text>, @Localizer["Admin"]</text>}</h1>
+    <h1 class="display-4">@SharedLocalizer["Welcome"] @if(ViewBag.IsAdmin){<text>, @SharedLocalizer["Admin"]</text>}</h1>
 </div>

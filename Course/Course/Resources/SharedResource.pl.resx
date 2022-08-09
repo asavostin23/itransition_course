@@ -120,11 +120,97 @@
   <data name="Admin" xml:space="preserve">
     <value>Admin</value>
   </data>
-  <data name="HomePage" xml:space="preserve">
-    <value>Home Page</value>
-    <comment>Home page title</comment>
+  <data name="Administration" xml:space="preserve">
+    <value>Administracja</value>
+  </data>
+  <data name="Change email" xml:space="preserve">
+    <value>Zmień email</value>
+  </data>
+  <data name="Change password" xml:space="preserve">
+    <value>Zmień hasło</value>
+  </data>
+  <data name="Change your account settings" xml:space="preserve">
+    <value>Zmiana ustawień konta</value>
+  </data>
+  <data name="Confirm password" xml:space="preserve">
+    <value>Potwierdź hasło</value>
+  </data>
+  <data name="Current password" xml:space="preserve">
+    <value>Aktualne hasło</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="External logins" xml:space="preserve">
+    <value>Loginy zewnętrzne</value>
+  </data>
+  <data name="Forgot your password?" xml:space="preserve">
+    <value>Zapomniałeś hasła?</value>
+  </data>
+  <data name="Hello" xml:space="preserve">
+    <value>Witam</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>Główna</value>
+  </data>
+  <data name="Home Page" xml:space="preserve">
+    <value>Strona główna</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Język</value>
+  </data>
+  <data name="Log in" xml:space="preserve">
+    <value>Zaloguj się</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>Wyloguj</value>
+  </data>
+  <data name="Manage Email" xml:space="preserve">
+    <value>Zarządzaj Pocztą Email</value>
+  </data>
+  <data name="Manage Preferences" xml:space="preserve">
+    <value>Zarządzanie Preferencjami</value>
+  </data>
+  <data name="Manage your account" xml:space="preserve">
+    <value>Zarządzaj swoim kontem</value>
+  </data>
+  <data name="New Email" xml:space="preserve">
+    <value>Nowy Email</value>
+  </data>
+  <data name="New password" xml:space="preserve">
+    <value>Nowe hasło</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Hasło</value>
+  </data>
+  <data name="Preferences" xml:space="preserve">
+    <value>Preferencje</value>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>Zarejestruj się</value>
+  </data>
+  <data name="Register as a new user" xml:space="preserve">
+    <value>Zarejestruj się jako nowy użytkownik</value>
+  </data>
+  <data name="Send verification email" xml:space="preserve">
+    <value>Wyślij email weryfikacyjny</value>
+  </data>
+  <data name="Theme" xml:space="preserve">
+    <value>Temat</value>
+  </data>
+  <data name="Update password" xml:space="preserve">
+    <value>Zaktualizuj hasło</value>
+  </data>
+  <data name="Update preferences" xml:space="preserve">
+    <value>Zaktualizuj preferencje</value>
+  </data>
+  <data name="Use a local account to log in" xml:space="preserve">
+    <value>Użyj konta lokalnego, aby się zalogować</value>
   </data>
   <data name="Welcome" xml:space="preserve">
-    <value>Welcome</value>
+    <value>Witamy</value>
   </data>
 </root>

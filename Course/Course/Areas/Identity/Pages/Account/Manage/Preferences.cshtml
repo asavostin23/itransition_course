@@ -1,7 +1,10 @@
 ﻿@page
+@using Course.Areas.Identity.Pages.Account.Manage
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IHtmlLocalizer<Course.SharedResource> SharedLocalizer
 @model Course.Areas.Identity.Pages.Account.Manage.PreferencesModel
 @{
-    ViewData["Title"] = "Manage Preferences";
+    ViewData["Title"] = @SharedLocalizer["Manage Preferences"];
     ViewData["ActivePage"] = ManageNavPages.Preferences;
 }
 
@@ -13,13 +16,13 @@
             <div asp-validation-summary="None" class="text-danger"></div>
             <div class="form-floating mb-1">
                 <select asp-for="Input.Language" class="form-select" aria-required="true" asp-items="Model.Languages"></select>
-                <label asp-for="Input.Language" class="form-label"></label>
+                <label asp-for="Input.Language" class="form-label">@SharedLocalizer["Language"]</label>
             </div>
             <div class="form-floating mb-1">
                 <select asp-for="Input.Theme" class="form-select" aria-required="true" asp-items="Model.Themes"></select>
-                <label asp-for="Input.Theme" class="form-label"></label>
+                <label asp-for="Input.Theme" class="form-label">@SharedLocalizer["Theme"]</label>
             </div>
-            <button type="submit" class="w-100 btn btn-lg btn-primary">Update preferences</button>
+            <button type="submit" class="w-100 btn btn-lg btn-primary">@SharedLocalizer["Update preferences"]</button>
         </form>
     </div>
 </div>

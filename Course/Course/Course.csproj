@@ -25,6 +25,7 @@
     <Folder Include="Areas\Identity\Data\" />
     <Folder Include="Resources\Controllers\" />
     <Folder Include="Resources\Models\" />
+    <Folder Include="Resources\Views\Home\" />
   </ItemGroup>
 
 </Project>

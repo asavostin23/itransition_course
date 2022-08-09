@@ -10,7 +10,7 @@ namespace Course.Controllers
     {
         private UserManager<User> _userManager;
         private RoleManager<IdentityRole> _roleManager;
-        public InitiationController(UserManager<User> userManager, RoleManager<IdentityRole> roleManager) : base()
+        public InitiationController(UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
             _roleManager = roleManager;
