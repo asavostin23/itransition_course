@@ -49,7 +49,7 @@ namespace Course.Areas.Identity.Pages.Account.Manage
             {
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
-            Languages = new SelectList(_localizationOptions.Value.SupportedCultures, user.Language);
+            Languages = new SelectList(_localizationOptions.Value.SupportedCultures, new System.Globalization.CultureInfo(user.Language));
             Themes = new SelectList(new List<string> { "light", "dark" }, user.Theme);
             return Page();
         }
