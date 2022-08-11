@@ -1,1 +1,1 @@
-﻿
+﻿($('#bootstrapDark').length==0) ? $('#a-light-theme').first().hide() : $('#a-dark-theme').first().hide();

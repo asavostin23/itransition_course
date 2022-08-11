@@ -52,8 +52,7 @@ namespace Course.Controllers
         public IActionResult SetTheme(string theme, string returnUrl)
         {
             Response.Cookies.Append("Theme", theme,
-                new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) }
-            );
+                new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) });
             return LocalRedirect(returnUrl ??= "Index");
         }
     }

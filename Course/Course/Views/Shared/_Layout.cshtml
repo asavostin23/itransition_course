@@ -5,7 +5,7 @@
         .ToList();
 }
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -17,7 +17,7 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Course</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -27,7 +27,7 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">@SharedLocalizer["Home"]</a>
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">@SharedLocalizer["Home"]</a>
                         </li>
                         <li class="nav-item">
                             <form asp-controller="Home" asp-action="SetLanguage"
@@ -35,8 +35,13 @@
                                   method="post" class="form-inline">
                                 <select class="form-select" name="culture" onchange="this.form.submit();"
                                         asp-for="@requestCulture.RequestCulture.UICulture.Name"
-                                        asp-items="cultureItems"></select>
+                                        asp-items="cultureItems">
+                                </select>
                             </form>
+                        </li>
+                        <li class="nav-item">
+                            <a id="a-dark-theme" class="nav-link" asp-action="SetTheme" asp-controller="Home" asp-route-theme="dark" asp-route-returnUrl="@Context.Request.Path"><i class="bi bi-sun-fill"></i></a>
+                            <a id="a-light-theme" class="nav-link" asp-action="SetTheme" asp-controller="Home" asp-route-theme="light" asp-route-returnUrl="@Context.Request.Path"><i class="bi bi-moon-fill"></i></a>
                         </li>
                     </ul>
                     <partial name="_LoginPartial" />
