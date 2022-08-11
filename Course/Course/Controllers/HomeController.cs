@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Text.RegularExpressions;
 
 namespace Course.Controllers
 {
@@ -46,6 +47,13 @@ namespace Course.Controllers
                 new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) }
             );
 
+            return LocalRedirect(returnUrl ??= "Index");
+        }
+        public IActionResult SetTheme(string theme, string returnUrl)
+        {
+            Response.Cookies.Append("Theme", theme,
+                new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) }
+            );
             return LocalRedirect(returnUrl ??= "Index");
         }
     }

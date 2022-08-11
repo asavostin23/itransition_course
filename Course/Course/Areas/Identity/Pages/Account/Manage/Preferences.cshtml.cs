@@ -66,6 +66,9 @@ namespace Course.Areas.Identity.Pages.Account.Manage
             user.Language = Input.Language;
             user.Theme = Input.Theme;
             await _userManager.UpdateAsync(user);
+
+            HttpContext.Response.Cookies.Append("Theme", user.Theme);
+
             return RedirectToAction("SetLanguage", "Home", new { culture = user.Language, returnUrl = HttpContext.Request.Path });
         }
     }

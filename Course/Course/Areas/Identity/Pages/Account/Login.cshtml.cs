@@ -130,6 +130,8 @@ namespace Course.Areas.Identity.Pages.Account
                         new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1)}
                     );
 
+                    Response.Cookies.Append("Theme", loginUser.Theme);
+
                     return LocalRedirect(returnUrl);
                 }
                 if (result.RequiresTwoFactor)
