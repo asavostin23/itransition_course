@@ -120,6 +120,9 @@
   <data name="Access denied" xml:space="preserve">
     <value>Odmowa dostępu</value>
   </data>
+  <data name="Active" xml:space="preserve">
+    <value>Aktywny</value>
+  </data>
   <data name="Add a local account" xml:space="preserve">
     <value>Nie masz lokalnej nazwy użytkownika/hasła dla tej witryny. Dodaj konto lokalne, aby móc się zalogować bez logowania zewnętrznego.</value>
   </data>
@@ -156,6 +159,9 @@
   <data name="Create a new account." xml:space="preserve">
     <value>Utwórz nowe konto.</value>
   </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Usunąć</value>
+  </data>
   <data name="Email" xml:space="preserve">
     <value>Email</value>
   </data>
@@ -185,6 +191,12 @@
   </data>
   <data name="Home Page" xml:space="preserve">
     <value>Strona główna</value>
+  </data>
+  <data name="Id" xml:space="preserve">
+    <value>Id</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Język</value>
   </data>
   <data name="Locked out" xml:space="preserve">
     <value>Zablokowane</value>
@@ -258,6 +270,9 @@
   <data name="Thank you for confirming your email." xml:space="preserve">
     <value>Dziękujemy za potwierdzenie emaila.</value>
   </data>
+  <data name="Theme" xml:space="preserve">
+    <value>Temat</value>
+  </data>
   <data name="This account has been locked out, please try again later." xml:space="preserve">
     <value>To konto zostało zablokowane, spróbuj ponownie później.</value>
   </data>
@@ -275,6 +290,9 @@
   </data>
   <data name="Use a local account to log in" xml:space="preserve">
     <value>Użyj konta lokalnego, aby się zalogować</value>
+  </data>
+  <data name="Username" xml:space="preserve">
+    <value>Nazwa użytkownika</value>
   </data>
   <data name="Verification email sent. Please check your email." xml:space="preserve">
     <value>Email weryfikacyjny wysłany. Proszę sprawdzić pocztę.</value>

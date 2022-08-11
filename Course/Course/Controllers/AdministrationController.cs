@@ -28,7 +28,7 @@ namespace Course.Controllers
         }
         public async Task<IActionResult> ToggleActive(string id)
         {
-            if(id!=null)
+            if (id != null)
             {
                 User user = await _userManager.FindByIdAsync(id);
                 if (user != null)
@@ -52,6 +52,16 @@ namespace Course.Controllers
                         await _userManager.AddToRoleAsync(user, "Admin");
                     await _userManager.UpdateAsync(user);
                 }
+            }
+            return RedirectToAction("Index");
+        }
+        public async Task<IActionResult> DeleteUser(string id)
+        {
+            if (id != null)
+            {
+                User user = await _userManager.FindByIdAsync(id);
+                if (user != null)
+                    await _userManager.DeleteAsync(user);
             }
             return RedirectToAction("Index");
         }

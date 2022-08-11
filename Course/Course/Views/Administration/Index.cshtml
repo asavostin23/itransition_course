@@ -1,20 +1,21 @@
 ﻿@model ICollection<UserViewModel>
 @{
-    ViewData["Title"] = "Administration";
+    ViewData["Title"] = @SharedLocalizer["Administration"];
 }
 <div class="text-center">
-    <h1 class="display-4">Administration</h1>
+    <h1 class="display-4">@SharedLocalizer["Administration"]</h1>
 </div>
 <table class="table table-bordered">
     <thead>
         <tr>
-            <td>Id</td>
-            <td>Username</td>
-            <td>Email</td>
-            <td>Active</td>
-            <td>Admin</td>
-            <td>Language</td>
-            <td>Theme</td>
+            <td>@SharedLocalizer["Id"]</td>
+            <td>@SharedLocalizer["Username"]</td>
+            <td>@SharedLocalizer["Email"]</td>
+            <td>@SharedLocalizer["Active"]</td>
+            <td>@SharedLocalizer["Admin"]</td>
+            <td>@SharedLocalizer["Language"]</td>
+            <td>@SharedLocalizer["Theme"]</td>
+            <td>@SharedLocalizer["Delete"]</td>
         </tr>
     </thead>
     <tbody>
@@ -26,16 +27,28 @@
                 <td>@userModel.Email</td>
                 <td>
                     <a class="text-decoration-none" asp-action="ToggleActive" asp-controller="Administration" asp-route-id="@userModel.Id">
-                        @userModel.Active
+                        @if(userModel.Active)
+                        {<i class="bi bi-check-circle-fill"></i>}
+                        else
+                        {
+                            <i class="bi bi-dash-circle-fill text-danger"></i>
+                        }
                     </a>
                 </td>
                 <td>
                     <a class="text-decoration-none" asp-action="ToggleAdmin" asp-controller="Administration" asp-route-id="@userModel.Id">
-                        @userModel.IsAdmin
+                        @if(userModel.IsAdmin)
+                        {<i class="bi bi-hand-thumbs-up-fill"></i>}
+                        else{<i class="bi bi-hand-thumbs-down-fill text-danger"></i>}
                     </a>
                 </td>
                 <td>@userModel.Language</td>
                 <td>@userModel.Theme</td>
+                <td>
+                    <a class="text-decoration-none" asp-action="DeleteUser" asp-controller="Administration" asp-route-id="@userModel.Id">
+                        <i class="bi bi-x-circle-fill text-danger"></i>
+                    </a>
+                </td>
             </tr>
         }
     </tbody>
