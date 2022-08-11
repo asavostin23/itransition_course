@@ -67,7 +67,8 @@ namespace Course.Areas.Identity.Pages.Account.Manage
             user.Theme = Input.Theme;
             await _userManager.UpdateAsync(user);
 
-            HttpContext.Response.Cookies.Append("Theme", user.Theme);
+            HttpContext.Response.Cookies.Append("Theme", user.Theme,
+                        new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) });
 
             return RedirectToAction("SetLanguage", "Home", new { culture = user.Language, returnUrl = HttpContext.Request.Path });
         }
