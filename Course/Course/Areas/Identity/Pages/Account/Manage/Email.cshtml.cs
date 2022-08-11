@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Course.Models;
+using Microsoft.Extensions.Localization;
 
 namespace Course.Areas.Identity.Pages.Account.Manage
 {
@@ -21,15 +22,18 @@ namespace Course.Areas.Identity.Pages.Account.Manage
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly IEmailSender _emailSender;
+        private readonly IStringLocalizer<SharedResource> _sharedLocalizer;
 
         public EmailModel(
             UserManager<User> userManager,
             SignInManager<User> signInManager,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            IStringLocalizer<SharedResource> sharedLocalizer)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
+            _sharedLocalizer = sharedLocalizer;
         }
 
         /// <summary>
@@ -92,7 +96,7 @@ namespace Course.Areas.Identity.Pages.Account.Manage
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                return NotFound(_sharedLocalizer["Unable to load user with ID"] + _userManager.GetUserId(User) + ".");
             }
 
             await LoadAsync(user);
@@ -104,7 +108,7 @@ namespace Course.Areas.Identity.Pages.Account.Manage
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                return NotFound(_sharedLocalizer["Unable to load user with ID"] + _userManager.GetUserId(User) + ".");
             }
 
             if (!ModelState.IsValid)
@@ -126,14 +130,14 @@ namespace Course.Areas.Identity.Pages.Account.Manage
                     protocol: Request.Scheme);
                 await _emailSender.SendEmailAsync(
                     Input.NewEmail,
-                    "Confirm your email",
-                    $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                    _sharedLocalizer["Confirm your email"],
+                    _sharedLocalizer["Please confirm your account by"] + "$<a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>" + _sharedLocalizer["clicking here"] + "</a>.");
 
-                StatusMessage = "Confirmation link to change email sent. Please check your email.";
+                StatusMessage = _sharedLocalizer["Confirmation link to change email sent. Please check your email."];
                 return RedirectToPage();
             }
 
-            StatusMessage = "Your email is unchanged.";
+            StatusMessage = _sharedLocalizer["Your email is unchanged."];
             return RedirectToPage();
         }
 
@@ -142,7 +146,7 @@ namespace Course.Areas.Identity.Pages.Account.Manage
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                return NotFound(_sharedLocalizer["Unable to load user with ID"] + _userManager.GetUserId(User) + ".");
             }
 
             if (!ModelState.IsValid)
@@ -162,10 +166,10 @@ namespace Course.Areas.Identity.Pages.Account.Manage
                 protocol: Request.Scheme);
             await _emailSender.SendEmailAsync(
                 email,
-                "Confirm your email",
-                $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                _sharedLocalizer["Confirm your email"],
+                _sharedLocalizer["Please confirm your account by"] + "<a href="+HtmlEncoder.Default.Encode(callbackUrl)+">" + _sharedLocalizer["clicking here"] + "</a>.");
 
-            StatusMessage = "Verification email sent. Please check your email.";
+            StatusMessage = _sharedLocalizer["Verification email sent. Please check your email."];
             return RedirectToPage();
         }
     }

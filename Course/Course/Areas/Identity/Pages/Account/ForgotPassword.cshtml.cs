@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Course.Models;
 using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.Extensions.Localization;
 
 namespace Course.Areas.Identity.Pages.Account
 {
@@ -21,11 +22,13 @@ namespace Course.Areas.Identity.Pages.Account
     {
         private readonly UserManager<User> _userManager;
         private readonly IEmailSender _emailSender;
+        private readonly IStringLocalizer<SharedResource> _sharedLocalizer;
 
-        public ForgotPasswordModel(UserManager<User> userManager, IEmailSender emailSender)
+        public ForgotPasswordModel(UserManager<User> userManager, IEmailSender emailSender, IStringLocalizer<SharedResource> sharedLocalizer)
         {
             _userManager = userManager;
             _emailSender = emailSender;
+            _sharedLocalizer = sharedLocalizer;
         }
 
         /// <summary>
@@ -73,8 +76,8 @@ namespace Course.Areas.Identity.Pages.Account
 
                 await _emailSender.SendEmailAsync(
                     Input.Email,
-                    "Reset Password",
-                    $"Please reset your password by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                    _sharedLocalizer["Reset Password"],
+                    _sharedLocalizer["Please reset your password by"] +"<a href="+HtmlEncoder.Default.Encode(callbackUrl)+">" + _sharedLocalizer["clicking here"] + "</a>.");
 
                 return RedirectToPage("./ForgotPasswordConfirmation");
             }

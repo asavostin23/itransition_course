@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Access denied" xml:space="preserve">
+    <value>Odmowa dostępu</value>
+  </data>
+  <data name="Add a local account" xml:space="preserve">
+    <value>Nie masz lokalnej nazwy użytkownika/hasła dla tej witryny. Dodaj konto lokalne, aby móc się zalogować bez logowania zewnętrznego.</value>
+  </data>
   <data name="Admin" xml:space="preserve">
     <value>Admin</value>
   </data>
@@ -132,11 +138,38 @@
   <data name="Change your account settings" xml:space="preserve">
     <value>Zmiana ustawień konta</value>
   </data>
+  <data name="clicking here" xml:space="preserve">
+    <value>kliknij tutaj</value>
+  </data>
+  <data name="Confirm email" xml:space="preserve">
+    <value>Potwierdź email</value>
+  </data>
+  <data name="Confirm email change" xml:space="preserve">
+    <value>Potwierdź zmianę adresu email</value>
+  </data>
+  <data name="Confirm your email" xml:space="preserve">
+    <value>Potwierdź swój e-mail</value>
+  </data>
+  <data name="Confirmation link to change email sent. Please check your email." xml:space="preserve">
+    <value>Link potwierdzający zmianę wysłanego emaila. Proszę sprawdzić pocztę.</value>
+  </data>
   <data name="Create a new account." xml:space="preserve">
     <value>Utwórz nowe konto.</value>
   </data>
   <data name="Email" xml:space="preserve">
     <value>Email</value>
+  </data>
+  <data name="Enter your email." xml:space="preserve">
+    <value>Wpisz swój adres email.</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Błąd</value>
+  </data>
+  <data name="Error changing email." xml:space="preserve">
+    <value>Błąd zmiany adresu email.</value>
+  </data>
+  <data name="Error changing user name." xml:space="preserve">
+    <value>Błąd zmiany nazwy użytkownika.</value>
   </data>
   <data name="External logins" xml:space="preserve">
     <value>Loginy zewnętrzne</value>
@@ -152,6 +185,9 @@
   </data>
   <data name="Home Page" xml:space="preserve">
     <value>Strona główna</value>
+  </data>
+  <data name="Locked out" xml:space="preserve">
+    <value>Zablokowane</value>
   </data>
   <data name="Log in" xml:space="preserve">
     <value>Zaloguj się</value>
@@ -175,7 +211,13 @@
     <value>Hasło</value>
   </data>
   <data name="Please check your email to confirm your account." xml:space="preserve">
-    <value>Sprawdź swój adres e-mail, aby potwierdzić swoje konto.</value>
+    <value>Sprawdź swój adres email, aby potwierdzić swoje konto.</value>
+  </data>
+  <data name="Please confirm your account by" xml:space="preserve">
+    <value>Potwierdź swoje konto przez</value>
+  </data>
+  <data name="Please reset your password by" xml:space="preserve">
+    <value>Proszę zresetować hasło przez</value>
   </data>
   <data name="Preferences" xml:space="preserve">
     <value>Preferencje</value>
@@ -189,8 +231,41 @@
   <data name="Register confirmation" xml:space="preserve">
     <value>Potwierdzenie rejestracji</value>
   </data>
+  <data name="Resend" xml:space="preserve">
+    <value>Wyślij ponownie</value>
+  </data>
+  <data name="Resend email confirmation" xml:space="preserve">
+    <value>Wyślij ponownie email z potwierdzeniem</value>
+  </data>
+  <data name="Reset Password" xml:space="preserve">
+    <value>Zresetuj Hasło</value>
+  </data>
+  <data name="Reset password confirmation" xml:space="preserve">
+    <value>Zresetuj potwierdzenie hasła</value>
+  </data>
+  <data name="Reset your password." xml:space="preserve">
+    <value>Zresetuj hasło.</value>
+  </data>
   <data name="Send verification email" xml:space="preserve">
     <value>Wyślij email weryfikacyjny</value>
+  </data>
+  <data name="Set password" xml:space="preserve">
+    <value>Ustaw hasło</value>
+  </data>
+  <data name="Thank you for confirming your email change." xml:space="preserve">
+    <value>Dziękujemy za potwierdzenie zmiany adresu e-mail.</value>
+  </data>
+  <data name="Thank you for confirming your email." xml:space="preserve">
+    <value>Dziękujemy za potwierdzenie emaila.</value>
+  </data>
+  <data name="This account has been locked out, please try again later." xml:space="preserve">
+    <value>To konto zostało zablokowane, spróbuj ponownie później.</value>
+  </data>
+  <data name="Unable to load user with email" xml:space="preserve">
+    <value>Nie można załadować użytkownika emailem</value>
+  </data>
+  <data name="Unable to load user with ID" xml:space="preserve">
+    <value>Nie można załadować użytkownika z identyfikatorem</value>
   </data>
   <data name="Update password" xml:space="preserve">
     <value>Zaktualizuj hasło</value>
@@ -201,10 +276,25 @@
   <data name="Use a local account to log in" xml:space="preserve">
     <value>Użyj konta lokalnego, aby się zalogować</value>
   </data>
+  <data name="Verification email sent. Please check your email." xml:space="preserve">
+    <value>Email weryfikacyjny wysłany. Proszę sprawdzić pocztę.</value>
+  </data>
   <data name="Welcome" xml:space="preserve">
     <value>Witamy</value>
   </data>
+  <data name="You do not have access to this resource." xml:space="preserve">
+    <value>Nie masz dostępu do tego zasobu.</value>
+  </data>
+  <data name="Your email is unchanged." xml:space="preserve">
+    <value>Twój email pozostaje bez zmian.</value>
+  </data>
   <data name="Your password has been changed." xml:space="preserve">
     <value>Twoje hasło zostało zmienione.</value>
+  </data>
+  <data name="Your password has been reset. Please" xml:space="preserve">
+    <value>Twoje hasło zostało zresetowane. Proszę</value>
+  </data>
+  <data name="Your password has been set." xml:space="preserve">
+    <value>Twoje hasło zostało ustawione.</value>
   </data>
 </root>
