@@ -83,7 +83,7 @@ namespace Course.Areas.Identity.Pages.Account
             await _emailSender.SendEmailAsync(
                 Input.Email,
                 _sharedLocalizer["Confirm your email"],
-                _sharedLocalizer["Please confirm your account by"] + "<a href="+HtmlEncoder.Default.Encode(callbackUrl)+">" + _sharedLocalizer["clicking here"] + "</a>.");
+                _sharedLocalizer["Please confirm your account by"] + " <a href='"+HtmlEncoder.Default.Encode(callbackUrl)+"'>" + _sharedLocalizer["clicking here"] + "</a>.");
 
             ModelState.AddModelError(string.Empty, _sharedLocalizer["Verification email sent. Please check your email."]);
             return Page();
