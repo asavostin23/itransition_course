@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Course.Models;
+using Microsoft.Extensions.Localization;
 
 namespace Course.Areas.Identity.Pages.Account
 {
@@ -22,11 +23,13 @@ namespace Course.Areas.Identity.Pages.Account
     {
         private readonly UserManager<User> _userManager;
         private readonly IEmailSender _emailSender;
+        private readonly IStringLocalizer<SharedResource> _sharedLocalizer;
 
-        public ResendEmailConfirmationModel(UserManager<User> userManager, IEmailSender emailSender)
+        public ResendEmailConfirmationModel(UserManager<User> userManager, IEmailSender emailSender, IStringLocalizer<SharedResource> sharedLocalizer)
         {
             _userManager = userManager;
             _emailSender = emailSender;
+            _sharedLocalizer = sharedLocalizer;
         }
 
         /// <summary>
@@ -46,8 +49,8 @@ namespace Course.Areas.Identity.Pages.Account
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
-            [Required]
-            [EmailAddress]
+            [Required(ErrorMessageResourceName = "RequiredError", ErrorMessageResourceType = typeof(Resources.ErrorMessageResource))]
+            [EmailAddress(ErrorMessageResourceName = "EmailError", ErrorMessageResourceType = typeof(Resources.ErrorMessageResource))]
             public string Email { get; set; }
         }
 
@@ -65,7 +68,7 @@ namespace Course.Areas.Identity.Pages.Account
             var user = await _userManager.FindByEmailAsync(Input.Email);
             if (user == null)
             {
-                ModelState.AddModelError(string.Empty, "Verification email sent. Please check your email.");
+                ModelState.AddModelError(string.Empty, _sharedLocalizer["Verification email sent. Please check your email."]);
                 return Page();
             }
 
@@ -79,10 +82,10 @@ namespace Course.Areas.Identity.Pages.Account
                 protocol: Request.Scheme);
             await _emailSender.SendEmailAsync(
                 Input.Email,
-                "Confirm your email",
-                $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                _sharedLocalizer["Confirm your email"],
+                _sharedLocalizer["Please confirm your account by"] + " <a href='"+HtmlEncoder.Default.Encode(callbackUrl)+"'>" + _sharedLocalizer["clicking here"] + "</a>.");
 
-            ModelState.AddModelError(string.Empty, "Verification email sent. Please check your email.");
+            ModelState.AddModelError(string.Empty, _sharedLocalizer["Verification email sent. Please check your email."]);
             return Page();
         }
     }

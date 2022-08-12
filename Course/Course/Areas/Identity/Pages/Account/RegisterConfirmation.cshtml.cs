@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Course.Models;
+using Microsoft.Extensions.Localization;
 
 namespace Course.Areas.Identity.Pages.Account
 {
@@ -20,11 +21,16 @@ namespace Course.Areas.Identity.Pages.Account
     {
         private readonly UserManager<User> _userManager;
         private readonly IEmailSender _sender;
+        private readonly IStringLocalizer<SharedResource> _sharedLocalizer;
 
-        public RegisterConfirmationModel(UserManager<User> userManager, IEmailSender sender)
+        public RegisterConfirmationModel(
+            UserManager<User> userManager,
+            IEmailSender sender,
+            IStringLocalizer<SharedResource> sharedLocalizer)
         {
             _userManager = userManager;
             _sender = sender;
+            _sharedLocalizer = sharedLocalizer;
         }
 
         /// <summary>
@@ -56,23 +62,10 @@ namespace Course.Areas.Identity.Pages.Account
             var user = await _userManager.FindByEmailAsync(email);
             if (user == null)
             {
-                return NotFound($"Unable to load user with email '{email}'.");
+                return NotFound(_sharedLocalizer["Unable to load user with email"] + email + ".");
             }
 
             Email = email;
-            // Once you add a real email sender, you should remove this code that lets you confirm the account
-            DisplayConfirmAccountLink = true;
-            if (DisplayConfirmAccountLink)
-            {
-                var userId = await _userManager.GetUserIdAsync(user);
-                var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-                EmailConfirmationUrl = Url.Page(
-                    "/Account/ConfirmEmail",
-                    pageHandler: null,
-                    values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl },
-                    protocol: Request.Scheme);
-            }
 
             return Page();
         }

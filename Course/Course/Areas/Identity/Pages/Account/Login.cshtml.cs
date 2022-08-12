@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using Course.Models;
+using Microsoft.AspNetCore.Localization;
 
 namespace Course.Areas.Identity.Pages.Account
 {
@@ -65,15 +66,15 @@ namespace Course.Areas.Identity.Pages.Account
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
-            [Required]
-            [EmailAddress]
+            [Required(ErrorMessageResourceName = "RequiredError", ErrorMessageResourceType = typeof(Resources.ErrorMessageResource))]
+            [EmailAddress(ErrorMessageResourceName = "EmailError", ErrorMessageResourceType = typeof(Resources.ErrorMessageResource))]
             public string Email { get; set; }
 
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
-            [Required]
+            [Required(ErrorMessageResourceName = "RequiredError", ErrorMessageResourceType = typeof(Resources.ErrorMessageResource))]
             [DataType(DataType.Password)]
             public string Password { get; set; }
 
@@ -81,7 +82,7 @@ namespace Course.Areas.Identity.Pages.Account
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
-            [Display(Name = "Remember me?")]
+            [Display(Name = "RememberMe", ResourceType = typeof(Resources.DisplayNameResource))]
             public bool RememberMe { get; set; }
         }
 
@@ -113,16 +114,25 @@ namespace Course.Areas.Identity.Pages.Account
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
                 User loginUser = await _signInManager.UserManager.FindByEmailAsync(Input.Email);
-                if(loginUser == null)
+                if (loginUser == null)
                 {
                     ModelState.AddModelError(string.Empty, "Invalid login attempt.");
                     return Page();
                 }
-                   
                 var result = await _signInManager.PasswordSignInAsync(loginUser, Input.Password, Input.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
+
+                    Response.Cookies.Append(
+                        CookieRequestCultureProvider.DefaultCookieName,
+                        CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(loginUser.Language)),
+                        new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1)}
+                    );
+
+                    Response.Cookies.Append("Theme", loginUser.Theme,
+                        new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) });
+
                     return LocalRedirect(returnUrl);
                 }
                 if (result.RequiresTwoFactor)

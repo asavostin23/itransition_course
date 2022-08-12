@@ -1,6 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
-// The .NET Foundation licenses this file to you under the MIT license.
-#nullable disable
+﻿#nullable disable
 
 using System;
 using System.ComponentModel.DataAnnotations;
@@ -10,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using Course.Models;
+using Microsoft.Extensions.Localization;
 
 namespace Course.Areas.Identity.Pages.Account.Manage
 {
@@ -18,15 +17,18 @@ namespace Course.Areas.Identity.Pages.Account.Manage
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly ILogger<ChangePasswordModel> _logger;
+        private readonly IStringLocalizer<SharedResource> _sharedLocalizer;
 
         public ChangePasswordModel(
             UserManager<User> userManager,
             SignInManager<User> signInManager,
-            ILogger<ChangePasswordModel> logger)
+            ILogger<ChangePasswordModel> logger,
+            IStringLocalizer<SharedResource> sharedLocalizer)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
+            _sharedLocalizer = sharedLocalizer;
         }
 
         /// <summary>
@@ -53,19 +55,19 @@ namespace Course.Areas.Identity.Pages.Account.Manage
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
-            [Required]
+            [Required(ErrorMessageResourceName = "RequiredError", ErrorMessageResourceType = typeof(Resources.ErrorMessageResource))]
             [DataType(DataType.Password)]
-            [Display(Name = "Current password")]
+            [Display(Name = "CurrentPassword", ResourceType = typeof(Resources.DisplayNameResource))]
             public string OldPassword { get; set; }
 
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
-            [Required]
+            [Required(ErrorMessageResourceName = "RequiredError", ErrorMessageResourceType = typeof(Resources.ErrorMessageResource))]
             [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
             [DataType(DataType.Password)]
-            [Display(Name = "New password")]
+            [Display(Name = "NewPassword", ResourceType = typeof(Resources.DisplayNameResource))]
             public string NewPassword { get; set; }
 
             /// <summary>
@@ -73,8 +75,8 @@ namespace Course.Areas.Identity.Pages.Account.Manage
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
             [DataType(DataType.Password)]
-            [Display(Name = "Confirm new password")]
-            [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
+            [Display(Name = "ConfirmNewPassword", ResourceType = typeof(Resources.DisplayNameResource))]
+            [Compare("NewPassword", ErrorMessageResourceName = "ConfirmPasswordError", ErrorMessageResourceType = typeof(Resources.ErrorMessageResource))]
             public string ConfirmPassword { get; set; }
         }
 
@@ -83,7 +85,7 @@ namespace Course.Areas.Identity.Pages.Account.Manage
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                return NotFound(_sharedLocalizer["Unable to load user with ID"] + _userManager.GetUserId(User) + ".");
             }
 
             var hasPassword = await _userManager.HasPasswordAsync(user);
@@ -105,7 +107,7 @@ namespace Course.Areas.Identity.Pages.Account.Manage
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                return NotFound(_sharedLocalizer["Unable to load user with ID"] + _userManager.GetUserId(User) + ".");
             }
 
             var changePasswordResult = await _userManager.ChangePasswordAsync(user, Input.OldPassword, Input.NewPassword);
@@ -120,7 +122,7 @@ namespace Course.Areas.Identity.Pages.Account.Manage
 
             await _signInManager.RefreshSignInAsync(user);
             _logger.LogInformation("User changed their password successfully.");
-            StatusMessage = "Your password has been changed.";
+            StatusMessage = _sharedLocalizer["Your password has been changed."];
 
             return RedirectToPage();
         }
