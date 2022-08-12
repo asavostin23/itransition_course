@@ -8,6 +8,17 @@ namespace Course.Data;
 
 public class ApplicationDbContext : IdentityDbContext<User>
 {
+    public DbSet<User> Users { get; set; }
+    public DbSet<Collection> Collections { get; set; }
+    public DbSet<CollectionField> CollectionFields { get; set; }
+    public DbSet<Item> Items { get; set; }
+    public DbSet<Comment> Comments { get; set; }
+    public DbSet<Tag> Tags { get; set; }
+    public DbSet<IntegerItemField> IntegerItemFields { get; set; }
+    public DbSet<StringItemField> StringItemFields { get; set; }
+    public DbSet<TextItemField> TextItemFields { get; set; }
+    public DbSet<BoolItemField> BoolItemFields { get; set; }
+    public DbSet<DatetimeItemField> DatetimeItemFields { get; set; }
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : base(options)
     {
@@ -45,7 +56,11 @@ public class ApplicationDbContext : IdentityDbContext<User>
     }
     public void CollectionFieldConfigure(EntityTypeBuilder<CollectionField> builder)
     {
-
+        builder.HasMany(cf => cf.BoolItemFields).WithOne(BoolItemField => BoolItemField.CollectionField).OnDelete(DeleteBehavior.NoAction);
+        builder.HasMany(cf => cf.IntegerItemFields).WithOne(IntegerItemField => IntegerItemField.CollectionField).OnDelete(DeleteBehavior.NoAction);
+        builder.HasMany(cf => cf.DatetimeItemFields).WithOne(DatetimeItemField => DatetimeItemField.CollectionField).OnDelete(DeleteBehavior.NoAction);
+        builder.HasMany(cf => cf.StringItemFields).WithOne(StringItemField => StringItemField.CollectionField).OnDelete(DeleteBehavior.NoAction);
+        builder.HasMany(cf => cf.TextItemFields).WithOne(TextItemField => TextItemField.CollectionField).OnDelete(DeleteBehavior.NoAction);
     }
     public void ItemConfigure(EntityTypeBuilder<Item> builder)
     {

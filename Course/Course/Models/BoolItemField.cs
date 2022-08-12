@@ -2,8 +2,10 @@
 {
     public class BoolItemField : ItemField<bool>
     {
-        public BoolItemField(bool value, int itemId) : base(value, itemId)
+        public BoolItemField(bool value, int itemId, int collectionFieldId) : base(value, itemId, collectionFieldId)
         {
         }
+
+        public override string Type => "Bool";
     }
 }

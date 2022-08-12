@@ -4,6 +4,7 @@ using Course.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Course.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220812084540_dbSetsAdded")]
+    partial class dbSetsAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,9 +32,6 @@ namespace Course.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("CollectionFieldId")
-                        .HasColumnType("int");
-
                     b.Property<int>("ItemId")
                         .HasColumnType("int");
 
@@ -40,8 +39,6 @@ namespace Course.Data.Migrations
                         .HasColumnType("bit");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CollectionFieldId");
 
                     b.HasIndex("ItemId");
 
@@ -116,9 +113,6 @@ namespace Course.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<int>("ItemId")
                         .HasColumnType("int");
 
@@ -147,9 +141,6 @@ namespace Course.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("CollectionFieldId")
-                        .HasColumnType("int");
-
                     b.Property<int>("ItemId")
                         .HasColumnType("int");
 
@@ -157,8 +148,6 @@ namespace Course.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CollectionFieldId");
 
                     b.HasIndex("ItemId");
 
@@ -173,9 +162,6 @@ namespace Course.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("CollectionFieldId")
-                        .HasColumnType("int");
-
                     b.Property<int>("ItemId")
                         .HasColumnType("int");
 
@@ -183,8 +169,6 @@ namespace Course.Data.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CollectionFieldId");
 
                     b.HasIndex("ItemId");
 
@@ -230,9 +214,6 @@ namespace Course.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("CollectionFieldId")
-                        .HasColumnType("int");
-
                     b.Property<int>("ItemId")
                         .HasColumnType("int");
 
@@ -242,8 +223,6 @@ namespace Course.Data.Migrations
                         .HasColumnType("nvarchar(140)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CollectionFieldId");
 
                     b.HasIndex("ItemId");
 
@@ -277,9 +256,6 @@ namespace Course.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("CollectionFieldId")
-                        .HasColumnType("int");
-
                     b.Property<int>("ItemId")
                         .HasColumnType("int");
 
@@ -289,11 +265,9 @@ namespace Course.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CollectionFieldId");
-
                     b.HasIndex("ItemId");
 
-                    b.ToTable("TextItemFields");
+                    b.ToTable("TextItemField");
                 });
 
             modelBuilder.Entity("Course.Models.User", b =>
@@ -531,19 +505,11 @@ namespace Course.Data.Migrations
 
             modelBuilder.Entity("Course.Models.BoolItemField", b =>
                 {
-                    b.HasOne("Course.Models.CollectionField", "CollectionField")
-                        .WithMany("BoolItemFields")
-                        .HasForeignKey("CollectionFieldId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
                     b.HasOne("Course.Models.Item", "Item")
                         .WithMany("BoolFields")
                         .HasForeignKey("ItemId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("CollectionField");
 
                     b.Navigation("Item");
                 });
@@ -591,38 +557,22 @@ namespace Course.Data.Migrations
 
             modelBuilder.Entity("Course.Models.DatetimeItemField", b =>
                 {
-                    b.HasOne("Course.Models.CollectionField", "CollectionField")
-                        .WithMany("DatetimeItemFields")
-                        .HasForeignKey("CollectionFieldId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
                     b.HasOne("Course.Models.Item", "Item")
                         .WithMany("DatetimeFields")
                         .HasForeignKey("ItemId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("CollectionField");
-
                     b.Navigation("Item");
                 });
 
             modelBuilder.Entity("Course.Models.IntegerItemField", b =>
                 {
-                    b.HasOne("Course.Models.CollectionField", "CollectionField")
-                        .WithMany("IntegerItemFields")
-                        .HasForeignKey("CollectionFieldId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
                     b.HasOne("Course.Models.Item", "Item")
                         .WithMany("IntegerFields")
                         .HasForeignKey("ItemId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("CollectionField");
 
                     b.Navigation("Item");
                 });
@@ -648,38 +598,22 @@ namespace Course.Data.Migrations
 
             modelBuilder.Entity("Course.Models.StringItemField", b =>
                 {
-                    b.HasOne("Course.Models.CollectionField", "CollectionField")
-                        .WithMany("StringItemFields")
-                        .HasForeignKey("CollectionFieldId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
                     b.HasOne("Course.Models.Item", "Item")
                         .WithMany("StringFields")
                         .HasForeignKey("ItemId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("CollectionField");
-
                     b.Navigation("Item");
                 });
 
             modelBuilder.Entity("Course.Models.TextItemField", b =>
                 {
-                    b.HasOne("Course.Models.CollectionField", "CollectionField")
-                        .WithMany("TextItemFields")
-                        .HasForeignKey("CollectionFieldId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
                     b.HasOne("Course.Models.Item", "Item")
                         .WithMany("TextFields")
                         .HasForeignKey("ItemId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("CollectionField");
 
                     b.Navigation("Item");
                 });
@@ -755,19 +689,6 @@ namespace Course.Data.Migrations
                     b.Navigation("CollectionFields");
 
                     b.Navigation("Items");
-                });
-
-            modelBuilder.Entity("Course.Models.CollectionField", b =>
-                {
-                    b.Navigation("BoolItemFields");
-
-                    b.Navigation("DatetimeItemFields");
-
-                    b.Navigation("IntegerItemFields");
-
-                    b.Navigation("StringItemFields");
-
-                    b.Navigation("TextItemFields");
                 });
 
             modelBuilder.Entity("Course.Models.Item", b =>

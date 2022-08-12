@@ -1,0 +1,25 @@
+﻿@{
+    ViewData["Title"] = @SharedLocalizer["New collection"];
+}
+@model CollectionViewModel
+<form class="form" method="post" asp-action="New" asp-controller="Collection">
+    <div class="mb-3">
+        <label class="form-label" asp-for="Name"></label>
+        <input asp-for="Name" type="text" class="form-control" id="inputCollectionName" placeholder='@SharedLocalizer["Name"]'>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" asp-for="Description"></label>
+        <textarea asp-for="Description" class="form-control" id="inputCollectionDescription" placeholder='@SharedLocalizer["Description"]'>
+        </textarea>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" asp-for="Theme"></label>
+        <input asp-for="Theme" type="text" class="form-control" id="inputCollectionTheme" placeholder='@SharedLocalizer["Theme"]'>
+    </div>
+    <div class="mb-3">
+        <button type="submit" class="btn btn-primary">@SharedLocalizer["Submit"]</button>
+    </div>
+</form>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

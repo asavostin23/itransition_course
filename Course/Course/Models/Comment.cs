@@ -6,6 +6,7 @@
         public string UserId { get; set; }
         public int ItemId { get; set; }
         public string Text { get; set; }
+        public DateTime CreatedDate { get; set; }
 
         public User User { get; set; }
         public Item Item { get; set; }
@@ -15,6 +16,7 @@
             UserId = userId;
             ItemId = itemId;
             Text = text;
+            CreatedDate = DateTime.Now;
         }
     }
 }

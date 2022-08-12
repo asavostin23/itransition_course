@@ -1,0 +1,35 @@
+﻿@{
+    ViewData["Title"] = SharedLocalizer["Item"];
+}
+@model ItemViewModel
+<div class="display-5">
+    <h2>@Model.Name</h2>
+    <h5 class="text-secondary">@Model.CollectionName - @Model.CollectionTheme - @SharedLocalizer["Item"] </h5>
+</div>
+<ul class="list-unstyled">
+    <li>@SharedLocalizer["Id"] - @Model.Id</li>
+    <li>@SharedLocalizer["Author"] - @Model.UserName</li>
+    @for (int i = 0; i < Model.ItemFieldValues.Count; i++)
+    {
+        <li>Model.ItemFieldNames[i] - @Model.ItemFieldValues[i]</li>
+    }
+    <li>@SharedLocalizer["Date created"] - @Model.CreatedDate</li>
+    <li>@SharedLocalizer["Tags"]
+        <ul>
+            @foreach (string tag in Model.Tags)
+            {
+                <li>@tag</li>
+            }
+        </ul>
+    </li>
+    <li>@SharedLocalizer["Author"] - @Model.Id</li>
+</ul>
+<div>
+    <h5>Comments</h5>
+    <ul class="list-unstyled">
+        @foreach (string comment in Model.Comments)
+        {
+            <li>comment</li>
+        }
+    </ul>
+</div>

@@ -2,8 +2,10 @@
 {
     public class TextItemField : ItemField<string>
     {
-        public TextItemField(string value, int itemId) : base(value, itemId)
+        public TextItemField(string value, int itemId, int collectionFieldId) : base(value, itemId, collectionFieldId)
         {
         }
+
+        public override string Type => "Text";
     }
 }
