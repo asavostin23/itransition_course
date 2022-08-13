@@ -106,6 +106,15 @@ namespace Course.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Field name.
+        /// </summary>
+        public static string FieldName {
+            get {
+                return ResourceManager.GetString("FieldName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Language.
         /// </summary>
         public static string Language {

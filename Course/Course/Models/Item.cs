@@ -10,13 +10,13 @@
 
         public User User { get; set; }
         public Collection Collection { get; set; }
-        public ICollection<Comment> Comments { get; set; }
-        public ICollection<Tag> Tags { get; set; }
-        public ICollection<IntegerItemField> IntegerFields { get; set; }
-        public ICollection<StringItemField> StringFields { get; set; }
-        public ICollection<TextItemField> TextFields { get; set; }
-        public ICollection<BoolItemField> BoolFields { get; set; }
-        public ICollection<DatetimeItemField> DatetimeFields { get; set; }
+        public List<Comment> Comments { get; set; } = new();
+        public List<Tag> Tags { get; set; } = new();
+        public List<IntegerItemField> IntegerFields { get; set; } = new();
+        public List<StringItemField> StringFields { get; set; } = new();
+        public List<TextItemField> TextFields { get; set; } = new();
+        public List<BoolItemField> BoolFields { get; set; } = new();
+        public List<DatetimeItemField> DatetimeFields { get; set; } = new();
         private Item()
         {
             CreatedDate = DateTime.Now;

@@ -45,7 +45,7 @@ namespace Course.Data.Migrations
 
                     b.HasIndex("ItemId");
 
-                    b.ToTable("BoolItemFields");
+                    b.ToTable("BoolItemFields", (string)null);
                 });
 
             modelBuilder.Entity("Course.Models.Collection", b =>
@@ -79,7 +79,7 @@ namespace Course.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Collections");
+                    b.ToTable("Collections", (string)null);
                 });
 
             modelBuilder.Entity("Course.Models.CollectionField", b =>
@@ -105,7 +105,7 @@ namespace Course.Data.Migrations
 
                     b.HasIndex("CollectionId");
 
-                    b.ToTable("CollectionFields");
+                    b.ToTable("CollectionFields", (string)null);
                 });
 
             modelBuilder.Entity("Course.Models.Comment", b =>
@@ -136,7 +136,7 @@ namespace Course.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Comments");
+                    b.ToTable("Comments", (string)null);
                 });
 
             modelBuilder.Entity("Course.Models.DatetimeItemField", b =>
@@ -162,7 +162,7 @@ namespace Course.Data.Migrations
 
                     b.HasIndex("ItemId");
 
-                    b.ToTable("DatetimeItemFields");
+                    b.ToTable("DatetimeItemFields", (string)null);
                 });
 
             modelBuilder.Entity("Course.Models.IntegerItemField", b =>
@@ -188,7 +188,7 @@ namespace Course.Data.Migrations
 
                     b.HasIndex("ItemId");
 
-                    b.ToTable("IntegerItemFields");
+                    b.ToTable("IntegerItemFields", (string)null);
                 });
 
             modelBuilder.Entity("Course.Models.Item", b =>
@@ -219,7 +219,7 @@ namespace Course.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Items");
+                    b.ToTable("Items", (string)null);
                 });
 
             modelBuilder.Entity("Course.Models.StringItemField", b =>
@@ -247,7 +247,7 @@ namespace Course.Data.Migrations
 
                     b.HasIndex("ItemId");
 
-                    b.ToTable("StringItemFields");
+                    b.ToTable("StringItemFields", (string)null);
                 });
 
             modelBuilder.Entity("Course.Models.Tag", b =>
@@ -266,7 +266,7 @@ namespace Course.Data.Migrations
 
                     b.HasAlternateKey("Name");
 
-                    b.ToTable("Tags");
+                    b.ToTable("Tags", (string)null);
                 });
 
             modelBuilder.Entity("Course.Models.TextItemField", b =>
@@ -293,7 +293,7 @@ namespace Course.Data.Migrations
 
                     b.HasIndex("ItemId");
 
-                    b.ToTable("TextItemFields");
+                    b.ToTable("TextItemFields", (string)null);
                 });
 
             modelBuilder.Entity("Course.Models.User", b =>
@@ -393,7 +393,7 @@ namespace Course.Data.Migrations
 
                     b.HasIndex("TagsId");
 
-                    b.ToTable("ItemTag");
+                    b.ToTable("ItemTag", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

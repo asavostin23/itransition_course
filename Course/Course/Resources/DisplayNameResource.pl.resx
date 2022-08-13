@@ -132,6 +132,9 @@
   <data name="Email" xml:space="preserve">
     <value>Email</value>
   </data>
+  <data name="FieldName" xml:space="preserve">
+    <value>Nazwa pola</value>
+  </data>
   <data name="Language" xml:space="preserve">
     <value>Język</value>
   </data>

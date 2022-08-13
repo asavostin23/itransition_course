@@ -6,15 +6,41 @@
     <div class="mb-3">
         <label class="form-label" asp-for="Name"></label>
         <input asp-for="Name" type="text" class="form-control" id="inputCollectionName" placeholder='@SharedLocalizer["Name"]'>
+        <span asp-validation-for="Name" class="text-danger"></span>
     </div>
     <div class="mb-3">
         <label class="form-label" asp-for="Description"></label>
         <textarea asp-for="Description" class="form-control" id="inputCollectionDescription" placeholder='@SharedLocalizer["Description"]'>
         </textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
     </div>
     <div class="mb-3">
         <label class="form-label" asp-for="Theme"></label>
         <input asp-for="Theme" type="text" class="form-control" id="inputCollectionTheme" placeholder='@SharedLocalizer["Theme"]'>
+        <span asp-validation-for="Theme" class="text-danger"></span>
+    </div>
+    <div class="row mb-3">
+        <div class="col-4">
+            <label class="form-label" asp-for="FieldNames"></label>
+            <input asp-for="FieldNames" type="text" class="form-control" placeholder='@SharedLocalizer["Field name"]'>
+            <select class="form-select" asp-for="FieldTypes[0]" asp-items="ViewBag.PossibleCollectionTypes">
+                <option selected="selected">@SharedLocalizer["Nothing"]</option>
+            </select>
+        </div>
+        <div class="col-4">
+            <label class="form-label" asp-for="FieldNames"></label>
+            <input asp-for="FieldNames" type="text" class="form-control" placeholder='@SharedLocalizer["Field name"]'>
+            <select class="form-select" asp-for="FieldTypes[1]" asp-items="ViewBag.PossibleCollectionTypes">
+                <option selected="selected">@SharedLocalizer["Nothing"]</option>
+            </select>
+        </div>
+        <div class="col-4">
+            <label class="form-label" asp-for="FieldNames"></label>
+            <input asp-for="FieldNames" type="text" class="form-control" placeholder='@SharedLocalizer["Field name"]'>
+            <select class="form-select" asp-for="FieldTypes[2]" asp-items="ViewBag.PossibleCollectionTypes">
+                <option selected="selected">@SharedLocalizer["Nothing"]</option>
+            </select>
+        </div>
     </div>
     <div class="mb-3">
         <button type="submit" class="btn btn-primary">@SharedLocalizer["Submit"]</button>

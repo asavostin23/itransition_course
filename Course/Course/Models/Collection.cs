@@ -10,8 +10,8 @@
         public byte[]? ImageData { get; set; }
 
         public User User { get; set; }
-        public ICollection<Item> Items { get; set; }
-        public ICollection<CollectionField> CollectionFields { get; set; }
+        public List<Item> Items { get; set; } = new();
+        public List<CollectionField> CollectionFields { get; set; } = new();
 
         public Collection(string name, string description, string theme, string userId, byte[]? imageData = null)
         {

@@ -8,9 +8,9 @@ namespace Course.Models
         public string Language { get; set; } = "en";
         public string Theme { get; set; } = "light";
 
-        public ICollection<Collection> Collections { get; set; }
-        public ICollection<Item> Items { get; set; }
-        public ICollection<Comment> Comments { get; set; }
+        public List<Collection> Collections { get; set; } = new();
+        public List<Item> Items { get; set; } = new();
+        public List<Comment> Comments { get; set; } = new();
 
     }
 }
