@@ -15,6 +15,6 @@ namespace Course.Models
         public string[] FieldTypes { get; set; } = new string[3];
         [Display(Name = "FieldName", ResourceType = typeof(Resources.DisplayNameResource))]
         public string[] FieldNames { get; set; } = new string[3];
-        public byte[]? ImageData { get; set; }
+        public IFormFile? ImageData { get; set; }
     }
 }

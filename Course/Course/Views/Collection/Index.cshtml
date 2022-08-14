@@ -1,3 +1,16 @@
 ﻿@{
     ViewData["Title"] = @SharedLocalizer["Collection"];
 }
+@model Collection
+<div class="row">
+    <div class="col-lg">
+        <h1 class="display-4">@Model.Name</h1>
+        <h1 class="display-6 text-muted">@SharedLocalizer["Author"] - @Model.User.UserName</h1>
+    </div>
+    @if(Model.ImageData != null)// && Model.ImageData.Count() > 0)
+    {
+        <div class="col-lg-4">
+            <img src="data:image/jpeg;base64,@(Convert.ToBase64String(Model.ImageData))" width="100%"/>
+        </div>
+    }
+</div>

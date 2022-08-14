@@ -132,6 +132,9 @@
   <data name="Administration" xml:space="preserve">
     <value>Administration</value>
   </data>
+  <data name="Author" xml:space="preserve">
+    <value>Author</value>
+  </data>
   <data name="Change email" xml:space="preserve">
     <value>Change email</value>
   </data>
@@ -146,6 +149,9 @@
   </data>
   <data name="Collection" xml:space="preserve">
     <value>Collection</value>
+  </data>
+  <data name="Collections" xml:space="preserve">
+    <value>Collections</value>
   </data>
   <data name="Confirm email" xml:space="preserve">
     <value>Confirm email</value>
@@ -167,6 +173,9 @@
   </data>
   <data name="Description" xml:space="preserve">
     <value>Description</value>
+  </data>
+  <data name="Drop the image here to upload" xml:space="preserve">
+    <value>Drop the image here to upload</value>
   </data>
   <data name="Email" xml:space="preserve">
     <value>Email</value>
@@ -317,6 +326,9 @@
   </data>
   <data name="Update preferences" xml:space="preserve">
     <value>Update preferences</value>
+  </data>
+  <data name="Upload image" xml:space="preserve">
+    <value>Upload image</value>
   </data>
   <data name="Use a local account to log in" xml:space="preserve">
     <value>Use a local account to log in</value>

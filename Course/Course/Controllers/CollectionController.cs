@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 
 namespace Course.Controllers
@@ -27,8 +28,11 @@ namespace Course.Controllers
         }
         public IActionResult Index(int id)
         {
-
-            return View("NotFound");
+            Collection? collection = _db.Collections.FirstOrDefault(collection => collection.Id == id);
+            if (collection == null)
+                return View("NotFound");
+            //_db.Collections.Where(collection => collection.Id == id).Load();
+            return View(collection);
         }
         [Authorize]
         [HttpGet]
@@ -62,6 +66,15 @@ namespace Course.Controllers
                         collection.CollectionFields
                             .Add(new CollectionField(collectionModel.FieldNames[i], collectionModel.FieldTypes[i]));
                     }
+                }
+                if (collectionModel.ImageData != null)
+                {
+                    byte[] imageData = null;
+                    using (BinaryReader binaryReader = new BinaryReader(collectionModel.ImageData.OpenReadStream()))
+                    {
+                        imageData = binaryReader.ReadBytes((int)collectionModel.ImageData.Length);
+                    }
+                    collection.ImageData = imageData;
                 }
                 _db.Collections.Add(collection);
                 await _db.SaveChangesAsync();

@@ -2,50 +2,59 @@
     ViewData["Title"] = @SharedLocalizer["New collection"];
 }
 @model CollectionViewModel
-<form class="form" method="post" asp-action="New" asp-controller="Collection">
-    <div class="mb-3">
-        <label class="form-label" asp-for="Name"></label>
-        <input asp-for="Name" type="text" class="form-control" id="inputCollectionName" placeholder='@SharedLocalizer["Name"]'>
-        <span asp-validation-for="Name" class="text-danger"></span>
-    </div>
-    <div class="mb-3">
-        <label class="form-label" asp-for="Description"></label>
-        <textarea asp-for="Description" class="form-control" id="inputCollectionDescription" placeholder='@SharedLocalizer["Description"]'>
-        </textarea>
-        <span asp-validation-for="Description" class="text-danger"></span>
-    </div>
-    <div class="mb-3">
-        <label class="form-label" asp-for="Theme"></label>
-        <input asp-for="Theme" type="text" class="form-control" id="inputCollectionTheme" placeholder='@SharedLocalizer["Theme"]'>
-        <span asp-validation-for="Theme" class="text-danger"></span>
+<form class="form" id="newCollectionForm" method="post" asp-action="New" asp-controller="Collection" enctype="multipart/form-data">
+    <div class="row">
+        <div class="col">
+            <div class="mb-3">
+                <label class="form-label" asp-for="Name"></label>
+                <input asp-for="Name" type="text" class="form-control formInput" id="inputCollectionName" placeholder='@SharedLocalizer["Name"]'>
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" asp-for="Theme"></label>
+                <input asp-for="Theme" type="text" class="form-control formInput" id="inputCollectionTheme" placeholder='@SharedLocalizer["Theme"]'>
+                <span asp-validation-for="Theme" class="text-danger"></span>
+            </div>
+        </div>
     </div>
     <div class="row mb-3">
-        <div class="col-4">
+        <div>
+            <label class="form-label" asp-for="Description"></label>
+            <textarea asp-for="Description" class="form-control formInput" id="inputCollectionDescription" placeholder='@SharedLocalizer["Description"]'></textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-lg-4">
             <label class="form-label" asp-for="FieldNames"></label>
-            <input asp-for="FieldNames" type="text" class="form-control" placeholder='@SharedLocalizer["Field name"]'>
-            <select class="form-select" asp-for="FieldTypes[0]" asp-items="ViewBag.PossibleCollectionTypes">
+            <input asp-for="FieldNames" type="text" class="form-control formInput" placeholder='@SharedLocalizer["Field name"]'>
+            <select class="form-select formInput" asp-for="FieldTypes[0]" asp-items="ViewBag.PossibleCollectionTypes">
                 <option selected="selected">@SharedLocalizer["Nothing"]</option>
             </select>
         </div>
-        <div class="col-4">
+        <div class="col-lg-4">
             <label class="form-label" asp-for="FieldNames"></label>
-            <input asp-for="FieldNames" type="text" class="form-control" placeholder='@SharedLocalizer["Field name"]'>
+            <input asp-for="FieldNames" type="text" class="form-control formInput" placeholder='@SharedLocalizer["Field name"]'>
             <select class="form-select" asp-for="FieldTypes[1]" asp-items="ViewBag.PossibleCollectionTypes">
                 <option selected="selected">@SharedLocalizer["Nothing"]</option>
             </select>
         </div>
-        <div class="col-4">
+        <div class="col-lg-4">
             <label class="form-label" asp-for="FieldNames"></label>
-            <input asp-for="FieldNames" type="text" class="form-control" placeholder='@SharedLocalizer["Field name"]'>
+            <input asp-for="FieldNames" type="text" class="form-control formInput" placeholder='@SharedLocalizer["Field name"]'>
             <select class="form-select" asp-for="FieldTypes[2]" asp-items="ViewBag.PossibleCollectionTypes">
                 <option selected="selected">@SharedLocalizer["Nothing"]</option>
             </select>
         </div>
     </div>
+    <p><label asp-for="ImageData">@SharedLocalizer["Upload image"]</label></p>
+    <input class="form-input mb-3" type="file" name="ImageData" />
     <div class="mb-3">
         <button type="submit" class="btn btn-primary">@SharedLocalizer["Submit"]</button>
     </div>
 </form>
+
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+
 }
