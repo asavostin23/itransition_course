@@ -2,20 +2,13 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 #nullable disable
 
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+using Course.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Extensions.Logging;
-using Course.Models;
-using Microsoft.AspNetCore.Localization;
+using System.ComponentModel.DataAnnotations;
 
 namespace Course.Areas.Identity.Pages.Account
 {
@@ -127,7 +120,7 @@ namespace Course.Areas.Identity.Pages.Account
                     Response.Cookies.Append(
                         CookieRequestCultureProvider.DefaultCookieName,
                         CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(loginUser.Language)),
-                        new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1)}
+                        new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) }
                     );
 
                     Response.Cookies.Append("Theme", loginUser.Theme,

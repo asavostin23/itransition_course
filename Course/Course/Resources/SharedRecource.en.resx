@@ -168,6 +168,9 @@
   <data name="Create a new account." xml:space="preserve">
     <value>Create a new account.</value>
   </data>
+  <data name="Date of creation" xml:space="preserve">
+    <value>Date of creation</value>
+  </data>
   <data name="Delete" xml:space="preserve">
     <value>Delete</value>
   </data>
@@ -242,6 +245,9 @@
   </data>
   <data name="Name" xml:space="preserve">
     <value>Name</value>
+  </data>
+  <data name="New" xml:space="preserve">
+    <value>New</value>
   </data>
   <data name="New collection" xml:space="preserve">
     <value>New collection</value>

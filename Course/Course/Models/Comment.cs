@@ -16,7 +16,7 @@
             UserId = userId;
             ItemId = itemId;
             Text = text;
-            CreatedDate = DateTime.Now;
+            CreatedDate = DateTime.Now.ToUniversalTime();
         }
     }
 }

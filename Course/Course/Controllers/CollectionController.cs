@@ -31,7 +31,15 @@ namespace Course.Controllers
             Collection? collection = _db.Collections.FirstOrDefault(collection => collection.Id == id);
             if (collection == null)
                 return View("NotFound");
-            //_db.Collections.Where(collection => collection.Id == id).Load();
+
+            _db.CollectionFields.Where(cf => cf.CollectionId == id).Load();
+            _db.Items.Where(item => item.CollectionId == id).Load();
+            _db.IntegerItemFields.Where(field => field.CollectionField.CollectionId == id).Load();
+            _db.StringItemFields.Where(field => field.CollectionField.CollectionId == id).Load();
+            _db.TextItemFields.Where(field => field.CollectionField.CollectionId == id).Load();
+            _db.DatetimeItemFields.Where(field => field.CollectionField.CollectionId == id).Load();
+            _db.BoolItemFields.Where(field => field.CollectionField.CollectionId == id).Load();
+            _db.Tags.Load();
             return View(collection);
         }
         [Authorize]

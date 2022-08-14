@@ -1,14 +1,11 @@
 ﻿#nullable disable
 
-using System;
-using System.ComponentModel.DataAnnotations;
-using System.Threading.Tasks;
+using Course.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Extensions.Logging;
-using Course.Models;
 using Microsoft.Extensions.Localization;
+using System.ComponentModel.DataAnnotations;
 
 namespace Course.Areas.Identity.Pages.Account.Manage
 {

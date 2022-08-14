@@ -2,10 +2,8 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 #nullable disable
 
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Extensions.Logging;
 
 namespace Course.Areas.Identity.Pages.Account.Manage
 {
@@ -16,12 +14,12 @@ namespace Course.Areas.Identity.Pages.Account.Manage
     public class ShowRecoveryCodesModel : PageModel
     {
 
-        public async Task<IActionResult> OnGet()
+        public IActionResult OnGet()
         {
             return RedirectToPage("Email");
         }
 
-        public async Task<IActionResult> OnPostAsync()
+        public IActionResult OnPost()
         {
             return RedirectToPage("Email");
         }

@@ -9,7 +9,7 @@
 
         public Collection Collection { get; set; }
 
-        public List<BoolItemField> BoolItemFields { get; set; } = new(); 
+        public List<BoolItemField> BoolItemFields { get; set; } = new();
         public List<IntegerItemField> IntegerItemFields { get; set; } = new();
         public List<DatetimeItemField> DatetimeItemFields { get; set; } = new();
         public List<StringItemField> StringItemFields { get; set; } = new();

@@ -64,7 +64,7 @@ namespace Course.Models
                 }
             }
             _db.Comments.Where(comment => comment.ItemId == item.Id).Load();
-            foreach(Comment comment in item.Comments)
+            foreach (Comment comment in item.Comments)
             {
                 itemModel.Comments.Add($"{comment.User.UserName} - {comment.CreatedDate} - {comment.Text}");
             }

@@ -2,24 +2,16 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 #nullable disable
 
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Text.Encodings.Web;
-using System.Threading;
-using System.Threading.Tasks;
 using Course.Models;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Localization;
-using Microsoft.Extensions.Logging;
+using System.ComponentModel.DataAnnotations;
+using System.Text;
+using System.Text.Encodings.Web;
 
 namespace Course.Areas.Identity.Pages.Account
 {
@@ -144,7 +136,7 @@ namespace Course.Areas.Identity.Pages.Account
                         protocol: Request.Scheme);
 
                     await _emailSender.SendEmailAsync(Input.Email, _sharedLocalizer["Confirm your email"],
-                        _sharedLocalizer["Please confirm your account by"] + " <a href='"+HtmlEncoder.Default.Encode(callbackUrl)+"'>" + _sharedLocalizer["clicking here"] + "</a>.");
+                        _sharedLocalizer["Please confirm your account by"] + " <a href='" + HtmlEncoder.Default.Encode(callbackUrl) + "'>" + _sharedLocalizer["clicking here"] + "</a>.");
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {

@@ -1,6 +1,4 @@
-﻿using Course.Models;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace Course.ViewComponents
 {

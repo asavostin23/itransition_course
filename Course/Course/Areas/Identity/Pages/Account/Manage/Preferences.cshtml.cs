@@ -1,6 +1,5 @@
 using Course.Models;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -13,7 +12,6 @@ namespace Course.Areas.Identity.Pages.Account.Manage
     public class PreferencesModel : PageModel
     {
         private readonly UserManager<User> _userManager;
-        private readonly SignInManager<User> _signInManager;
         private readonly IOptions<RequestLocalizationOptions> _localizationOptions;
         private readonly IStringLocalizer<SharedResource> _sharedLocalizer;
         public SelectList Languages { get; set; }
@@ -42,7 +40,6 @@ namespace Course.Areas.Identity.Pages.Account.Manage
             )
         {
             _userManager = userManager;
-            _signInManager = signInManager;
             _localizationOptions = localizationOptions;
         }
         public async Task<IActionResult> OnGetAsync()

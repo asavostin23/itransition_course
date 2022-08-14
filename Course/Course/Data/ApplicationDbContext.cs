@@ -1,5 +1,4 @@
 ﻿using Course.Models;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -64,7 +63,7 @@ public class ApplicationDbContext : IdentityDbContext<User>
     }
     public void ItemConfigure(EntityTypeBuilder<Item> builder)
     {
-        
+
     }
     public void CommentConfigure(EntityTypeBuilder<Comment> builder)
     {

@@ -1,5 +1,4 @@
-﻿using Course.Data;
-using Course.Models;
+﻿using Course.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;

@@ -25,7 +25,7 @@ namespace Course.Services
                 await SmtpClient.SendMailAsync(message);
             }
             catch (SmtpFailedRecipientsException ex)
-            {}
+            { }
         }
     }
 }

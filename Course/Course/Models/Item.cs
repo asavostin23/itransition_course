@@ -19,7 +19,7 @@
         public List<DatetimeItemField> DatetimeFields { get; set; } = new();
         private Item()
         {
-            CreatedDate = DateTime.Now;
+            CreatedDate = DateTime.Now.ToUniversalTime();
         }
         public Item(string name, string userId, int collectionId) : this()
         {
