@@ -1,0 +1,99 @@
+﻿@model Collection
+@{
+    ViewData["Title"] = @SharedLocalizer["Edit collection"];
+}
+<div class="row mb-3">
+    <div class="col-lg">
+        <h1 class="display-4">@Model.Name</h1>
+        <h1 class="display-6 text-muted">@SharedLocalizer["Author"] - @Model.User.UserName</h1>
+    </div>
+    @if (Model.ImageData != null)
+    {
+        <div class="col-lg-4">
+            <img src="data:image/jpeg;base64,@(Convert.ToBase64String(Model.ImageData))" width="100%" />
+        </div>
+    }
+</div>
+<form class="form" method="post" asp-action="Edit" asp-controller="Collection" enctype="multipart/form-data">
+    <div class="row">
+        <div class="col">
+            <div class="mb-3">
+                <label class="form-label" asp-for="Name"></label>
+                <input asp-for="Name" type="text" class="form-control formInput" id="inputCollectionName" placeholder='@SharedLocalizer["Name"]' value="@Model.Name">
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" asp-for="Theme"></label>
+                <input asp-for="Theme" type="text" class="form-control formInput" id="inputCollectionTheme" placeholder='@SharedLocalizer["Theme"]' value="@Model.Theme">
+                <span asp-validation-for="Theme" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-md">
+            <label class="form-label" asp-for="Description"></label>
+            <textarea asp-for="Description" class="form-control formInput" id="inputCollectionDescription" placeholder='@SharedLocalizer["Description"]'>@Model.Description</textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+        <div class="col-md-2">
+            <div>
+                <p><label asp-for="ImageData">@SharedLocalizer["Upload image"]</label></p>
+                <input class="form-input mb-3" type="file" name="ImageData" />
+            </div>
+            <div>
+                <a class="btn btn-danger" asp-action="EditDeleteImage" asp-controller="Collection" asp-route-id=@Model.Id>@SharedLocalizer["Delete image"]</a>
+            </div class="mb-1">
+            <div>
+                <a class="btn btn-primary" asp-action="NewItem" asp-controller="Collection" asp-route-id=@Model.Id>@SharedLocalizer["Add item"]</a>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <table class="table table-striped table-hover table-responsive-sm">
+            <thead>
+                <tr>
+                    <th>@SharedLocalizer["Id"]</th>
+                    <th>@SharedLocalizer["Name"]</th>
+                    @foreach (CollectionField collectionField in Model.CollectionFields)
+                    {
+                        <th>@collectionField.Name</th>
+                    }
+                    <th>@SharedLocalizer["Date of creation"]</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Item item in Model.Items)
+                {
+                    <tr>
+                        <td>@item.Id</td>
+                        <td>@item.Name</td>
+                        @foreach (CollectionField field in Model.CollectionFields)
+                        {
+                            string fieldData = field.Type switch
+                            {
+                                "Integer" =>
+                                item.IntegerFields.FirstOrDefault(itemField => itemField.CollectionFieldId == field.Id).Value.ToString(),
+                                "String" =>
+                                item.StringFields.FirstOrDefault(itemField => itemField.CollectionFieldId == field.Id).Value.ToString(),
+                                "Text" =>
+                                item.TextFields.FirstOrDefault(itemField => itemField.CollectionFieldId == field.Id).Value.ToString(),
+                                "Datetime" =>
+                                item.DatetimeFields.FirstOrDefault(itemField => itemField.CollectionFieldId == field.Id).Value.ToString(),
+                                "Bool" =>
+                                item.BoolFields.FirstOrDefault(itemField => itemField.CollectionFieldId == field.Id).Value.ToString()
+                            };
+                            <td>@fieldData</td>
+                        }
+                        <td>@item.CreatedDate</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="row mb-3">
+        <button type="submit" class="btn btn-primary">@SharedLocalizer["Submit"]</button>
+    </div>
+</form>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

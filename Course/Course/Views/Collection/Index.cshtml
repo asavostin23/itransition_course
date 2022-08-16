@@ -3,16 +3,20 @@
     ViewData["Title"] = @SharedLocalizer["Collection"];
 }
 <div class="row mb-3">
-    <div class="col-lg">
+    <div class="col-md">
         <h1 class="display-4">@Model.Name</h1>
         <h1 class="display-6 text-muted">@SharedLocalizer["Author"] - @Model.User.UserName</h1>
+        <p>
+            <a asp-action="Edit" asp-controller="Collection" asp-route-id="@Model.Id" class="btn btn-primary">@SharedLocalizer["Edit collection"]</a>
+        </p>
     </div>
     @if (Model.ImageData != null)
     {
-        <div class="col-lg-4">
+        <div class="col-md-4">
             <img src="data:image/jpeg;base64,@(Convert.ToBase64String(Model.ImageData))" width="100%" />
         </div>
     }
+
 </div>
 <div class="row mb-3">
     <table class="table table-striped table-hover table-responsive-sm">

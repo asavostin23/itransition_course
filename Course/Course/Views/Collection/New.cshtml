@@ -1,7 +1,7 @@
 ﻿@{
     ViewData["Title"] = @SharedLocalizer["New collection"];
 }
-@model CollectionViewModel
+@model CollectionNewViewModel
 <form class="form" id="newCollectionForm" method="post" asp-action="New" asp-controller="Collection" enctype="multipart/form-data">
     <div class="row">
         <div class="col">
@@ -47,9 +47,11 @@
             </select>
         </div>
     </div>
-    <p><label asp-for="ImageData">@SharedLocalizer["Upload image"]</label></p>
-    <input class="form-input mb-3" type="file" name="ImageData" />
-    <div class="mb-3">
+    <div class="row mb-3">
+        <p><label asp-for="ImageData">@SharedLocalizer["Upload image"]</label></p>
+        <input class="form-input mb-3" type="file" name="ImageData" />
+    </div>
+    <div class="row mb-3">
         <button type="submit" class="btn btn-primary">@SharedLocalizer["Submit"]</button>
     </div>
 </form>

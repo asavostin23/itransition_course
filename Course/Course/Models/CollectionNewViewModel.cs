@@ -2,7 +2,7 @@
 
 namespace Course.Models
 {
-    public class CollectionViewModel
+    public class CollectionNewViewModel
     {
         [Required(ErrorMessageResourceName = "RequiredError", ErrorMessageResourceType = typeof(Resources.ErrorMessageResource))]
         [Display(Name = "Name", ResourceType = typeof(Resources.DisplayNameResource))]

@@ -126,6 +126,9 @@
   <data name="Add a local account" xml:space="preserve">
     <value>You do not have a local username/password for this site. Add a local account so you can log in without an external login.</value>
   </data>
+  <data name="Add item" xml:space="preserve">
+    <value>Add item</value>
+  </data>
   <data name="Admin" xml:space="preserve">
     <value>Admin</value>
   </data>
@@ -174,11 +177,17 @@
   <data name="Delete" xml:space="preserve">
     <value>Delete</value>
   </data>
+  <data name="Delete image" xml:space="preserve">
+    <value>Delete image</value>
+  </data>
   <data name="Description" xml:space="preserve">
     <value>Description</value>
   </data>
   <data name="Drop the image here to upload" xml:space="preserve">
     <value>Drop the image here to upload</value>
+  </data>
+  <data name="Edit collection" xml:space="preserve">
+    <value>Edit collection</value>
   </data>
   <data name="Email" xml:space="preserve">
     <value>Email</value>
