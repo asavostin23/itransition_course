@@ -1,0 +1,44 @@
+﻿@{
+    ViewData["Title"] = SharedLocalizer["New item"];
+}
+@model ItemViewModel
+<form method="post" asp-action="NewItem" asp-controller="Collection">
+    <div class="mb-3">
+        <input type="hidden" asp-for="CollectionId" value='@ViewContext.RouteData.Values["id"]' />
+
+        <label class="form-label" asp-for="Name"></label>
+        <input asp-for="Name" type="text" class="form-control formInput h2">
+        <span asp-validation-for="Name" class="text-danger"></span>
+        <h5 class="text-secondary">@Model.CollectionName - @Model.CollectionTheme - @SharedLocalizer["Item"] </h5>
+    </div>
+    <ul class="list-unstyled mb-3">
+        @for (int i = 0; i < Model.ItemFieldNames.Count(); i++)
+        {
+            <li>
+                <label class="form-label">@Model.ItemFieldNames[i]</label>
+                <input type="text" class="form-control" asp-for="ItemFieldValues" value="" placeholder="@Model.ItemFieldNames[i]">
+            </li>
+        }
+    </ul>
+    <div class="mb-3">
+        <label class="form-label">@SharedLocalizer["Tags"]</label>
+        <button class="btn" type="button" id="newTagBtn"><i class="bi bi-bookmark-plus"></i></button>
+        <ul id="tagUl">
+        </ul>
+    </div>
+    <button type="submit" class="btn btn-primary">@SharedLocalizer["Submit"]</button>
+</form>
+@section Scripts{
+    <script>
+        $(document).ready(function(){
+            $('#newTagBtn').click(function () {
+                let inputEl = $('<input type="text" class="form-control" name="tags" />');
+                let deleteInputButtonEl = $(`<button type="button" class="btn-danger" onclick="$(this).parent().remove()"><i class="bi bi-x-circle-fill"></i></button>`);
+                let liEl = $('<li></li>');
+                liEl.append(inputEl);
+                liEl.append(deleteInputButtonEl);
+                $('#tagUl').append(liEl);
+            });
+        });
+    </script>
+}

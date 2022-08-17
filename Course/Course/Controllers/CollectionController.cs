@@ -97,12 +97,11 @@ namespace Course.Controllers
             }
             return View();
         }
-        public IActionResult Item(int id)
+        public async Task<IActionResult> Item(int id)
         {
-            Item? item = _db.Items.FirstOrDefault(item => item.Id == id);
-            if (item == null)
+            if (!_db.Items.Where(item => item.Id == id).Any())
                 return View("NotFound");
-            ItemViewModel itemModel = ItemViewModel.CreateFromItem(item, _db);
+            ItemViewModel itemModel = await ItemViewModel.CreateFromItemId(id, _db);
             return View(itemModel);
         }
         [Authorize]
@@ -128,7 +127,7 @@ namespace Course.Controllers
                 return Redirect("/Identity/Account/AccessDenied");
             if (!ModelState.IsValid)
                 return View(collection);
-            
+
             collection.UpdateFromEditModel(updatedCollection);
             await _db.SaveChangesAsync();
             return RedirectToAction("Index", new { id = collection.Id.ToString() });
@@ -144,6 +143,51 @@ namespace Course.Controllers
             collection.ImageData = null;
             await _db.SaveChangesAsync();
             return RedirectToAction("Edit", new { id = collection.Id.ToString() });
+        }
+        [Authorize]
+        [HttpGet]
+        public IActionResult NewItem(int id)
+        {
+            _db.CollectionFields.Where(cf => cf.CollectionId == id).Load();
+            Collection? collection = _db.Collections.FirstOrDefault(collection => collection.Id == id);
+            if (collection == null)
+                return View(viewName: "NotFound");
+            if (!(collection.UserId == _userManager.GetUserId(User) || User.IsInRole("Admin")))
+                return Redirect("/Identity/Account/AccessDenied");
+
+            ItemViewModel itemViewModel = new ItemViewModel();
+            itemViewModel.CollectionName = collection.Name;
+            itemViewModel.CollectionTheme = collection.Theme;
+            itemViewModel.ItemFieldNames = collection.CollectionFields.Select(cf => cf.Name).ToArray();
+            return View(itemViewModel);
+        }
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> NewItem(ItemViewModel model)
+        {
+            _db.CollectionFields.Where(cf => cf.CollectionId == model.CollectionId).Load();
+            Collection? collection = _db.Collections.FirstOrDefault(collection => collection.Id == model.CollectionId);
+            if (collection == null)
+                return View(viewName: "NotFound");
+            if (!(collection.UserId == _userManager.GetUserId(User) || User.IsInRole("Admin")))
+                return Redirect("/Identity/Account/AccessDenied");
+
+            Item item = new Item(model.Name, _userManager.GetUserId(User), collection.Id);
+            _db.Items.Add(item);
+
+            foreach (string newTagName in model.Tags.Except(_db.Tags.Select(cf => cf.Name)))
+            {
+                _db.Tags.Add(new Tag(newTagName));
+            }
+            item.Tags.AddRange(await _db.Tags.Where(tag => model.Tags.Contains(tag.Name)).ToListAsync());
+            List<CollectionField> collectionFields = collection.CollectionFields.ToList();
+            for (int i = 0; i < model.ItemFieldValues.Count(); i++)
+            {
+                await item.AddField(model.ItemFieldValues[i],
+                    collectionFields[i], _db);
+            }
+            await _db.SaveChangesAsync();
+            return RedirectToAction("Item", new { id = item.Id });
         }
     }
 }

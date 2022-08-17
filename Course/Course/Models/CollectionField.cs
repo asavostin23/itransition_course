@@ -1,4 +1,6 @@
-﻿namespace Course.Models
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace Course.Models
 {
     public class CollectionField
     {
@@ -26,5 +28,6 @@
             Name = name;
             Type = type;
         }
+        
     }
 }

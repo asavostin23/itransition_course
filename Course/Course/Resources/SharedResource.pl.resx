@@ -156,6 +156,9 @@
   <data name="Collections" xml:space="preserve">
     <value>Kolekcje</value>
   </data>
+  <data name="Comments" xml:space="preserve">
+    <value>Komentarze</value>
+  </data>
   <data name="Confirm email" xml:space="preserve">
     <value>Potwierdź email</value>
   </data>
@@ -260,6 +263,9 @@
   </data>
   <data name="New collection" xml:space="preserve">
     <value>Nowa kolekcja</value>
+  </data>
+  <data name="New item" xml:space="preserve">
+    <value>Nowa rzecz</value>
   </data>
   <data name="Not found" xml:space="preserve">
     <value>Nie znaleziono</value>
