@@ -18,7 +18,7 @@ namespace Course.Controllers
         public async Task<IActionResult> Index()
         {
             List<UserViewModel> usersModel = _userManager.Users
-                .Select(u => new UserViewModel(u.Id, u.UserName, u.Email, u.Active, u.Language, u.Theme, false))
+                .Select(u => new UserViewModel(u.Id, u.UserName, u.Email, u.Active , u.Language, u.Theme, false))
                 .ToList();
             foreach (UserViewModel userModel in usersModel)
                 userModel.IsAdmin =

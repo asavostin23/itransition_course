@@ -26,25 +26,27 @@
     </div>
     <div class="row mb-3">
         <div class="col-lg-4">
-            <label class="form-label" asp-for="FieldNames"></label>
-            <input asp-for="FieldNames" type="text" class="form-control formInput" placeholder='@SharedLocalizer["Field name"]'>
             <select class="form-select formInput" asp-for="FieldTypes[0]" asp-items="ViewBag.PossibleCollectionTypes">
                 <option selected="selected">@SharedLocalizer["Nothing"]</option>
             </select>
+            <label class="form-label" asp-for="FieldNames"></label>
+            <input disabled asp-for="FieldNames" type="text" class="form-control formInput" placeholder='@SharedLocalizer["Field name"]'>
+
         </div>
         <div class="col-lg-4">
-            <label class="form-label" asp-for="FieldNames"></label>
-            <input asp-for="FieldNames" type="text" class="form-control formInput" placeholder='@SharedLocalizer["Field name"]'>
             <select class="form-select" asp-for="FieldTypes[1]" asp-items="ViewBag.PossibleCollectionTypes">
                 <option selected="selected">@SharedLocalizer["Nothing"]</option>
             </select>
+            <label class="form-label" asp-for="FieldNames"></label>
+            <input disabled asp-for="FieldNames" type="text" class="form-control formInput" placeholder='@SharedLocalizer["Field name"]'>
+
         </div>
         <div class="col-lg-4">
-            <label class="form-label" asp-for="FieldNames"></label>
-            <input asp-for="FieldNames" type="text" class="form-control formInput" placeholder='@SharedLocalizer["Field name"]'>
             <select class="form-select" asp-for="FieldTypes[2]" asp-items="ViewBag.PossibleCollectionTypes">
                 <option selected="selected">@SharedLocalizer["Nothing"]</option>
             </select>
+            <label class="form-label" asp-for="FieldNames"></label>
+            <input disabled asp-for="FieldNames" type="text" class="form-control formInput" placeholder='@SharedLocalizer["Field name"]'>
         </div>
     </div>
     <div class="row mb-3">
@@ -58,5 +60,18 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
-
+    <script>
+        $(function() {
+            $('#newCollectionForm .form-select').change(function () {
+                let inputEl = $(this).parent().children('input');
+                if ($(this).val() == 'Nothing') {
+                    inputEl.attr('disabled', 'disabled');
+                    inputEl.val('');
+                }
+                else {
+                    inputEl.removeAttr('disabled');
+                }
+            });
+        });
+    </script>
 }

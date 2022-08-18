@@ -83,7 +83,7 @@ namespace Course.Areas.Identity.Pages.Account
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
             [Required(ErrorMessageResourceName = "RequiredError", ErrorMessageResourceType = typeof(Resources.ErrorMessageResource))]
-            [StringLength(100, ErrorMessageResourceName = "MinxMaxLengthError", ErrorMessageResourceType = typeof(Resources.ErrorMessageResource), MinimumLength = 6)]
+            [StringLength(100, ErrorMessageResourceName = "MinMaxLengthError", ErrorMessageResourceType = typeof(Resources.ErrorMessageResource), MinimumLength = 6)]
             [DataType(DataType.Password)]
             [Display(Name = "Password", ResourceType = typeof(Resources.DisplayNameResource))]
             public string Password { get; set; }

@@ -267,6 +267,9 @@
   <data name="New item" xml:space="preserve">
     <value>Nowa rzecz</value>
   </data>
+  <data name="No tags" xml:space="preserve">
+    <value>Brak tagów</value>
+  </data>
   <data name="Not found" xml:space="preserve">
     <value>Nie znaleziono</value>
   </data>

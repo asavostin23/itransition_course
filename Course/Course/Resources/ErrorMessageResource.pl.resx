@@ -135,7 +135,7 @@
   <data name="MinLengthError" xml:space="preserve">
     <value>{0} nie może być mniejszy niż {1} znak</value>
   </data>
-  <data name="MinxMaxLengthError" xml:space="preserve">
+  <data name="MinMaxLengthError" xml:space="preserve">
     <value>Minimalna długość {0} to {1} znak, a maksymalna długość to {2} Znak</value>
   </data>
   <data name="RequiredError" xml:space="preserve">

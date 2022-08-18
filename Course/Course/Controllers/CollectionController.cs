@@ -71,7 +71,7 @@ namespace Course.Controllers
             {
                 Collection collection = new Collection
                     (collectionModel.Name,
-                    collectionModel.Description,
+                    collectionModel.Description ?? "",
                     collectionModel.Theme,
                     (await _userManager.GetUserAsync(User)).Id);
                 for (int i = 0; i < collectionModel.FieldTypes.Count(); i++)
@@ -175,16 +175,22 @@ namespace Course.Controllers
             Item item = new Item(model.Name, _userManager.GetUserId(User), collection.Id);
             _db.Items.Add(item);
 
-            foreach (string newTagName in model.Tags.Except(_db.Tags.Select(cf => cf.Name)))
+            if (model.Tags is not null)
             {
-                _db.Tags.Add(new Tag(newTagName));
+                foreach (string newTagName in model.Tags.Except(_db.Tags.Select(tag => tag.Name)))
+                {
+                    _db.Tags.Add(new Tag(newTagName));
+                }
+                item.Tags.AddRange(await _db.Tags.Where(tag => model.Tags.Contains(tag.Name)).ToListAsync());
             }
-            item.Tags.AddRange(await _db.Tags.Where(tag => model.Tags.Contains(tag.Name)).ToListAsync());
             List<CollectionField> collectionFields = collection.CollectionFields.ToList();
-            for (int i = 0; i < model.ItemFieldValues.Count(); i++)
+            if (collectionFields.Count > 0)
             {
-                await item.AddField(model.ItemFieldValues[i],
-                    collectionFields[i], _db);
+                for (int i = 0; i < model.ItemFieldValues.Count(); i++)
+                {
+                    await item.AddField(model.ItemFieldValues[i],
+                        collectionFields[i], _db);
+                }
             }
             await _db.SaveChangesAsync();
             return RedirectToAction("Item", new { id = item.Id });

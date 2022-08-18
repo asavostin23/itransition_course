@@ -117,9 +117,9 @@ namespace Course.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Minimum length of {0} is {1} character and maximum length is {2} character.
         /// </summary>
-        public static string MinxMaxLengthError {
+        public static string MinMaxLengthError {
             get {
-                return ResourceManager.GetString("MinxMaxLengthError", resourceCulture);
+                return ResourceManager.GetString("MinMaxLengthError", resourceCulture);
             }
         }
         

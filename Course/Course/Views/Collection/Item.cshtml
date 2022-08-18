@@ -16,11 +16,18 @@
     <li>@SharedLocalizer["Date created"] - @Model.CreatedDate</li>
     <li>@SharedLocalizer["Tags"]
         <ul>
-            
-            @foreach (string tag in Model.Tags)
+            @if(Model.Tags.Length > 0)
             {
-                <li>@tag</li>
+                foreach (string tag in Model.Tags)
+                {
+                    <li>@tag</li>
+                }
             }
+            else
+            {
+                <li>@SharedLocalizer["No tags"]</li>
+            }
+            
         </ul>
     </li>
 </ul>
