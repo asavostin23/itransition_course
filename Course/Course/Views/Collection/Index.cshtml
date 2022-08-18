@@ -34,7 +34,7 @@
         <tbody>
             @foreach (Item item in Model.Items)
             {
-                <tr>
+                <tr class="trLink" data-href="/Collection/Item/@item.Id">
                     <td>@item.Id</td>
                     <td>@item.Name</td>
                     @foreach (CollectionField field in Model.CollectionFields)
@@ -60,3 +60,12 @@
         </tbody>
     </table>
 </div>
+@section Scripts{
+    <script>
+        $(document).ready(function(){
+            $('.trLink').click(function(){
+                window.location.href = $(this).data('href');
+            });
+        });
+    </script> 
+}

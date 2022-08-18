@@ -23,9 +23,8 @@ namespace Course.Models
             await _db.Collections.Where(collection => collection.Items.Where(item => item.Id == itemId).Any()).LoadAsync();
             await _db.Users.Where(u => u.Items.Where(item => item.Id == itemId).Any()).LoadAsync();
             await _db.Comments.Where(comment => comment.ItemId == itemId).LoadAsync();
-            await _db.Tags.LoadAsync();
             await Item.LoadFieldsAsync(itemId, _db);
-            Item item = _db.Items.Where(item => item.Id == itemId).FirstOrDefault();
+            Item item = _db.Items.Where(item => item.Id == itemId).Include(item => item.Tags).FirstOrDefault();
 
             ItemViewModel itemModel = new ItemViewModel();
             itemModel.Id = item.Id;
