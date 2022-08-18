@@ -1,0 +1,50 @@
+﻿@model List<Collection>
+@{
+    ViewData["Title"] = SharedLocalizer["Collections of user"].Value + " " + ViewBag.UserName;
+}
+<div class="mb-3">
+    <h1 class="display-4">@SharedLocalizer["Collections of user"] @ViewBag.UserName</h1>
+</div>
+<div class="row">
+
+
+    @foreach (Collection collection in Model)
+    {
+        <div class="card mb-3 col-lg-4 col-md-6">
+            <div class="card-header">
+                <p class="display-5"><a asp-action="Index" asp-controller="Collection" asp-route-id="@collection.Id">@collection.Name</a></p>
+                @if (collection.ImageData != null)
+                {
+                    <img class="card-img-top" src="data:image/jpeg;base64,@(Convert.ToBase64String(collection.ImageData))" />
+                }
+                else
+                {
+                    <img class="card-img-top" src="~/default-image.jpg" />
+                }
+            </div>
+            <div class="card-body">
+                <p class="display-5">@collection.Theme</p>
+                @if (collection.Description != null)
+                {
+                    <p class="card-text">@collection.Description</p>
+                }
+                else
+                {
+                    <p class="card-text">@SharedLocalizer["NoCardDesc"]</p>
+                }
+            </div>
+            <div class="card-footer text-muted">
+                @collection.Items.Count @SharedLocalizer["item(s)"]
+            </div>
+        </div>
+    }
+</div>
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $('.trLink').click(function () {
+                window.location.href = $(this).data('href');
+            });
+        });
+    </script>
+}

@@ -156,6 +156,9 @@
   <data name="Collections" xml:space="preserve">
     <value>Collections</value>
   </data>
+  <data name="Collections of user" xml:space="preserve">
+    <value>Collections of user</value>
+  </data>
   <data name="Comments" xml:space="preserve">
     <value>Comments</value>
   </data>
@@ -231,6 +234,9 @@
   <data name="Item" xml:space="preserve">
     <value>Item</value>
   </data>
+  <data name="item(s)" xml:space="preserve">
+    <value>item(s)</value>
+  </data>
   <data name="Language" xml:space="preserve">
     <value>Language</value>
   </data>
@@ -269,6 +275,9 @@
   </data>
   <data name="No tags" xml:space="preserve">
     <value>No tags</value>
+  </data>
+  <data name="NoCardDesc" xml:space="preserve">
+    <value>This collection has no description</value>
   </data>
   <data name="Not found" xml:space="preserve">
     <value>Not found</value>

@@ -6,7 +6,7 @@
     @if (SignInManager.IsSignedIn(User))
     {
         <li class="nav-item">
-            <a class="nav-link" asp-area="" asp-action="Index" asp-controller="Collection" title="Collection">@SharedLocalizer["Collections"]</a>
+            <a class="nav-link" asp-area="" asp-action="UserCollections" asp-controller="Collection" title="Collection">@SharedLocalizer["Collections"]</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" asp-area="" asp-action="New" asp-controller="Collection" title="Collection">@SharedLocalizer["New"]</a>

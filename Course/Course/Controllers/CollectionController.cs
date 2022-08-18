@@ -26,29 +26,28 @@ namespace Course.Controllers
             _roleManager = roleManager;
             _sharedLocalizer = sharedLocalizer;
         }
-        protected static void LoadCollection(Collection collection, ApplicationDbContext _db)
+        protected async static Task LoadCollectionAsync(Collection collection, ApplicationDbContext _db)
         {
             if (collection == null)
                 return;
-            _db.CollectionFields.Where(cf => cf.CollectionId == collection.Id).Load();
-            _db.Users.Where(user => user.Id == collection.UserId).Load();
-            _db.Items.Where(item => item.CollectionId == collection.Id).Load();
-            _db.IntegerItemFields.Where(field => field.CollectionField.CollectionId == collection.Id).Load();
-            _db.StringItemFields.Where(field => field.CollectionField.CollectionId == collection.Id).Load();
-            _db.TextItemFields.Where(field => field.CollectionField.CollectionId == collection.Id).Load();
-            _db.DatetimeItemFields.Where(field => field.CollectionField.CollectionId == collection.Id).Load();
-            _db.BoolItemFields.Where(field => field.CollectionField.CollectionId == collection.Id).Load();
-            _db.Tags.Load();
+            await _db.CollectionFields.Where(cf => cf.CollectionId == collection.Id).LoadAsync();
+            await _db.Users.Where(user => user.Id == collection.UserId).LoadAsync();
+            await _db.Items.Where(item => item.CollectionId == collection.Id).LoadAsync();
+            await _db.IntegerItemFields.Where(field => field.CollectionField.CollectionId == collection.Id).LoadAsync();
+            await _db.StringItemFields.Where(field => field.CollectionField.CollectionId == collection.Id).LoadAsync();
+            await _db.TextItemFields.Where(field => field.CollectionField.CollectionId == collection.Id).LoadAsync();
+            await _db.DatetimeItemFields.Where(field => field.CollectionField.CollectionId == collection.Id).LoadAsync();
+            await _db.BoolItemFields.Where(field => field.CollectionField.CollectionId == collection.Id).LoadAsync();
+            await _db.Tags.LoadAsync();
         }
-        public IActionResult Index(int id)
+        public async Task<IActionResult> Index(int id)
         {
             Collection? collection = _db.Collections.FirstOrDefault(collection => collection.Id == id);
             if (collection == null)
                 return View("NotFound");
-            LoadCollection(collection, this._db);
+            await LoadCollectionAsync(collection, this._db);
             return View(collection);
         }
-
         [Authorize]
         [HttpGet]
         public IActionResult New()
@@ -106,14 +105,14 @@ namespace Course.Controllers
         }
         [Authorize]
         [HttpGet]
-        public IActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
             Collection? collection = _db.Collections.FirstOrDefault(collection => collection.Id == id);
             if (collection == null)
                 return View("NotFound");
             if (!(collection.UserId == _userManager.GetUserId(User) || User.IsInRole("Admin")))
                 return Redirect("/Identity/Account/AccessDenied");
-            LoadCollection(collection, _db);
+            await LoadCollectionAsync(collection, _db);
             return View(collection);
         }
         [Authorize]
@@ -208,6 +207,27 @@ namespace Course.Controllers
             await _db.SaveChangesAsync();
 
             return LocalRedirect(returnUrl ??= $"Index/{collectionId}");
+        }
+        [Route("{controller}/{action}/{username?}")]
+        public async Task<IActionResult> UserCollections(string username)
+        {
+            if(username is null)
+            {
+                if (User.Identity != null && User.Identity.IsAuthenticated)
+                    username = User.Identity.Name;
+                else
+                    return View(viewName: "NotFound");
+            }
+            User? user = await _userManager.FindByNameAsync(username);
+            if (user is null)
+                return View(viewName: "NotFound");
+            ViewBag.UserName = user.UserName;
+
+            await _db.Entry(user).Collection(user => user.Collections).LoadAsync();
+            List<Collection> userCollections = user.Collections.ToList();
+            foreach (Collection collection in userCollections)
+                await LoadCollectionAsync(collection, _db);
+            return View(userCollections);
         }
     }
 }
