@@ -195,5 +195,19 @@ namespace Course.Controllers
             await _db.SaveChangesAsync();
             return RedirectToAction("Item", new { id = item.Id });
         }
+        public async Task<IActionResult> DeleteItem(int id, string returnUrl)
+        {
+            Item? item = _db.Items.FirstOrDefault(item => item.Id == id);
+            if(item is null)
+                return View(viewName: "NotFound");
+            if(!(item.UserId == _userManager.GetUserId(User) || User.IsInRole("Admin")))
+                return Redirect("/Identity/Account/AccessDenied");
+            int collectionId = item.CollectionId;
+
+            _db.Items.Remove(item);
+            await _db.SaveChangesAsync();
+
+            return LocalRedirect(returnUrl ??= $"Index/{collectionId}");
+        }
     }
 }

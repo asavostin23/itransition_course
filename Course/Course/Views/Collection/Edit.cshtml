@@ -85,6 +85,9 @@
                             <td>@fieldData</td>
                         }
                         <td>@item.CreatedDate</td>
+                        <td>
+                            <a class="btn btn-danger" asp-action="DeleteItem" asp-controller="Collection" asp-route-id="@item.Id" asp-route-returnUrl="@Context.Request.Path">@SharedLocalizer["Delete"]</a>
+                        </td>
                     </tr>
                 }
             </tbody>
