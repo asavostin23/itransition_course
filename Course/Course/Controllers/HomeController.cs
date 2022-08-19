@@ -12,11 +12,9 @@ namespace Course.Controllers
         private UserManager<User> _userManager;
         private RoleManager<IdentityRole> _roleManager;
 
-        public HomeController(
-            ILogger<HomeController> logger,
+        public HomeController(ILogger<HomeController> logger,
             UserManager<User> userManager,
-            RoleManager<IdentityRole> roleManager
-            )
+            RoleManager<IdentityRole> roleManager)
         {
             _logger = logger;
             _userManager = userManager;
@@ -43,15 +41,12 @@ namespace Course.Controllers
             Response.Cookies.Append(
                 CookieRequestCultureProvider.DefaultCookieName,
                 CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
-                new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) }
-            );
-
+                new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) });
             return LocalRedirect(returnUrl ??= "Index");
         }
         public IActionResult SetTheme(string theme, string returnUrl)
         {
-            Response.Cookies.Append("Theme", theme,
-                new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) });
+            Response.Cookies.Append("Theme", theme, new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) });
             return LocalRedirect(returnUrl ??= "Index");
         }
     }

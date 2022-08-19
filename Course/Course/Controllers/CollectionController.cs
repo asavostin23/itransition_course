@@ -15,8 +15,7 @@ namespace Course.Controllers
         private readonly UserManager<User> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IStringLocalizer<SharedResource> _sharedLocalizer;
-        public CollectionController(
-            ApplicationDbContext db,
+        public CollectionController(ApplicationDbContext db,
             UserManager<User> userManager,
             RoleManager<IdentityRole> roleManager,
             IStringLocalizer<SharedResource> sharedLocalizer)
@@ -70,7 +69,7 @@ namespace Course.Controllers
             {
                 Collection collection = new Collection
                     (collectionModel.Name,
-                    collectionModel.Description ?? "",
+                    collectionModel.Description,
                     collectionModel.Theme,
                     (await _userManager.GetUserAsync(User)).Id);
                 for (int i = 0; i < collectionModel.FieldTypes.Count(); i++)
@@ -83,7 +82,7 @@ namespace Course.Controllers
                 }
                 if (collectionModel.ImageData != null)
                 {
-                    byte[] imageData = null;
+                    byte[] imageData;
                     using (BinaryReader binaryReader = new BinaryReader(collectionModel.ImageData.OpenReadStream()))
                     {
                         imageData = binaryReader.ReadBytes((int)collectionModel.ImageData.Length);
@@ -100,6 +99,7 @@ namespace Course.Controllers
         {
             if (!_db.Items.Where(item => item.Id == id).Any())
                 return View("NotFound");
+
             ItemViewModel itemModel = await ItemViewModel.CreateFromItemId(id, _db);
             return View(itemModel);
         }
@@ -112,6 +112,7 @@ namespace Course.Controllers
                 return View("NotFound");
             if (!(collection.UserId == _userManager.GetUserId(User) || User.IsInRole("Admin")))
                 return Redirect("/Identity/Account/AccessDenied");
+
             await LoadCollectionAsync(collection, _db);
             return View(collection);
         }
@@ -139,6 +140,7 @@ namespace Course.Controllers
                 return View("NotFound");
             if (!(collection.UserId == _userManager.GetUserId(User) || User.IsInRole("Admin")))
                 return Redirect("/Identity/Account/AccessDenied");
+
             collection.ImageData = null;
             await _db.SaveChangesAsync();
             return RedirectToAction("Edit", new { id = collection.Id.ToString() });

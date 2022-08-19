@@ -13,7 +13,7 @@
         public List<Item> Items { get; set; } = new();
         public List<CollectionField> CollectionFields { get; set; } = new();
 
-        public Collection(string name, string description, string theme, string userId, byte[]? imageData = null)
+        public Collection(string name, string? description, string theme, string userId, byte[]? imageData = null)
         {
             Name = name;
             UserId = userId;
