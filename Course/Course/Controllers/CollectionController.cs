@@ -178,7 +178,9 @@ namespace Course.Controllers
             {
                 foreach (string newTagName in model.Tags.Except(_db.Tags.Select(tag => tag.Name)))
                 {
-                    _db.Tags.Add(new Tag(newTagName));
+                    Tag tempTag = new Tag(newTagName);
+                    _db.Tags.Add(tempTag);
+                    item.Tags.Add(tempTag);
                 }
                 item.Tags.AddRange(await _db.Tags.Where(tag => model.Tags.Contains(tag.Name)).ToListAsync());
             }
