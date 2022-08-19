@@ -23,7 +23,7 @@
     <div class="mb-3">
         <label class="form-label">@SharedLocalizer["Tags"]</label>
         <button class="btn" type="button" id="newTagBtn"><i class="bi bi-bookmark-plus"></i></button>
-        <ul id="tagUl">
+        <ul id="tagUl" class="list-unstyled">
         </ul>
     </div>
     <button type="submit" class="btn btn-primary">@SharedLocalizer["Submit"]</button>
@@ -32,11 +32,11 @@
     <script>
         $(document).ready(function(){
             $('#newTagBtn').click(function () {
-                let inputEl = $('<input type="text" class="form-control" name="tags" />');
-                let deleteInputButtonEl = $(`<button type="button" class="btn-danger" onclick="$(this).parent().remove()"><i class="bi bi-x-circle-fill"></i></button>`);
-                let liEl = $('<li></li>');
-                liEl.append(inputEl);
+                let inputEl = $('<input type="text" class="form-control" name="tags" style="width:calc(100% - 46px);display:inline-block"/>');
+                let deleteInputButtonEl = $(`<button type="button" class="btn me-1" onclick="$(this).parent().remove()"><i class="bi bi-x-circle-fill"></i></button>`);
+                let liEl = $('<li class="mt-1"></li>');
                 liEl.append(deleteInputButtonEl);
+                liEl.append(inputEl);
                 $('#tagUl').append(liEl);
             });
         });
