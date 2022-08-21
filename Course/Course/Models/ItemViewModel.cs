@@ -1,10 +1,30 @@
 ﻿using Course.Data;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 
 namespace Course.Models
 {
     public class ItemViewModel
     {
+        public class ItemField
+        {
+            public string Name { get; set; }
+            [Required(ErrorMessageResourceName = "RequiredError", ErrorMessageResourceType = typeof(Resources.ErrorMessageResource))]
+            public string Value { get; set; }
+            public string Type { get; set; }
+            public string GetInputType()
+            {
+                return Type switch
+                {
+                    "Integer" => "number",
+                    "Text" => "text",
+                    "String" => "text",
+                    "Datetime" => "date",
+                    "Bool" => "checkbox",
+                    _ => ""
+                };
+            }
+        }
         public int Id { get; set; }
         public string Name { get; set; }
         public string UserId { get; set; }
@@ -14,8 +34,7 @@ namespace Course.Models
         public string CollectionName { get; set; }
         public string CollectionTheme { get; set; }
 
-        public string[] ItemFieldValues { get; set; }
-        public string[] ItemFieldNames { get; set; }
+        public ItemField[] ItemFields { get; set; }
         public List<string> Comments { get; set; } = new();
         public string[] Tags { get; set; }
         public static async Task<ItemViewModel> CreateFromItemId(int itemId, ApplicationDbContext _db)
@@ -38,27 +57,26 @@ namespace Course.Models
 
             List<CollectionField> collectionFields = _db.CollectionFields
                 .Where(cf => cf.CollectionId == item.CollectionId).ToList();
-            itemModel.ItemFieldNames = collectionFields.Select(cf => cf.Name).ToArray();
-            itemModel.ItemFieldValues = new string[itemModel.ItemFieldNames.Length];
-
-            for (int i = 0; i < collectionFields.Count; i++)
+            itemModel.ItemFields = new ItemField[collectionFields.Count()];
+            for (int i = 0; i < collectionFields.Count(); i++)
             {
+                itemModel.ItemFields[i] = new ItemField { Name = collectionFields[i].Name, Type = collectionFields[i].Type };
                 switch (collectionFields[i].Type)
                 {
                     case "Integer":
-                        itemModel.ItemFieldValues[i] = collectionFields[i].IntegerItemFields.FirstOrDefault(itemField => itemField.ItemId == item.Id).Value.ToString();
+                        itemModel.ItemFields[i].Value = collectionFields[i].IntegerItemFields.FirstOrDefault(itemField => itemField.ItemId == item.Id).Value.ToString();
                         break;
                     case "String":
-                        itemModel.ItemFieldValues[i] = collectionFields[i].StringItemFields.FirstOrDefault(itemField => itemField.ItemId == item.Id).Value;
+                        itemModel.ItemFields[i].Value = collectionFields[i].StringItemFields.FirstOrDefault(itemField => itemField.ItemId == item.Id).Value;
                         break;
                     case "Text":
-                        itemModel.ItemFieldValues[i] = collectionFields[i].TextItemFields.FirstOrDefault(itemField => itemField.ItemId == item.Id).Value;
+                        itemModel.ItemFields[i].Value = collectionFields[i].TextItemFields.FirstOrDefault(itemField => itemField.ItemId == item.Id).Value;
                         break;
                     case "Datetime":
-                        itemModel.ItemFieldValues[i] = collectionFields[i].DatetimeItemFields.FirstOrDefault(itemField => itemField.ItemId == item.Id).Value.ToString();
+                        itemModel.ItemFields[i].Value = collectionFields[i].DatetimeItemFields.FirstOrDefault(itemField => itemField.ItemId == item.Id).Value.ToString();
                         break;
                     case "Bool":
-                        itemModel.ItemFieldValues[i] = collectionFields[i].BoolItemFields.FirstOrDefault(itemField => itemField.ItemId == item.Id).Value.ToString();
+                        itemModel.ItemFields[i].Value = collectionFields[i].BoolItemFields.FirstOrDefault(itemField => itemField.ItemId == item.Id).Value.ToString();
                         break;
                 }
             }

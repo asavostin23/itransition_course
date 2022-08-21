@@ -29,41 +29,51 @@ namespace Course.Models
             UserId = userId;
             CollectionId = collectionId;
         }
-        public async Task AddField(object value, CollectionField collectionField, Data.ApplicationDbContext db)
+        public async Task AddField(string value, CollectionField collectionField, Data.ApplicationDbContext db)
         {
+
             switch (collectionField.Type)
             {
                 case "Integer":
-                    IntegerItemField integerField = new IntegerItemField((int)value, Id, collectionField.Id);
-                    db.IntegerItemFields.Add(integerField);
-                    IntegerFields.Add(integerField);
+                    if (int.TryParse(value, out var intResult))
+                    {
+                        IntegerItemField integerField = new IntegerItemField(intResult, Id, collectionField.Id);
+                        db.IntegerItemFields.Add(integerField);
+                        IntegerFields.Add(integerField);
+                    }
                     break;
                 case "Text":
-                    TextItemField textField = new TextItemField((string)value, Id, collectionField.Id);
+                    TextItemField textField = new TextItemField(value, Id, collectionField.Id);
                     db.TextItemFields.Add(textField);
                     TextFields.Add(textField);
                     break;
                 case "String":
-                    StringItemField stringField = new StringItemField((string)value, Id, collectionField.Id);
+                    StringItemField stringField = new StringItemField(value, Id, collectionField.Id);
                     db.StringItemFields.Add(stringField);
                     StringFields.Add(stringField);
                     break;
                 case "Datetime":
-                    DatetimeItemField datetimeField = new DatetimeItemField((DateTime)value, Id, collectionField.Id);
-                    db.DatetimeItemFields.Add(datetimeField);
-                    DatetimeFields.Add(datetimeField);
+                    if (DateTime.TryParse(value, out var datetimeResult))
+                    {
+                        DatetimeItemField datetimeField = new DatetimeItemField(datetimeResult, Id, collectionField.Id);
+                        db.DatetimeItemFields.Add(datetimeField);
+                        DatetimeFields.Add(datetimeField);
+                    }
                     break;
                 case "Bool":
-                    BoolItemField boolField = new BoolItemField((bool)value, Id, collectionField.Id);
-                    db.BoolItemFields.Add(boolField);
-                    BoolFields.Add(boolField);
+                    if(bool.TryParse(value, out var boolResult))
+                    {
+                        BoolItemField boolField = new BoolItemField(boolResult, Id, collectionField.Id);
+                        db.BoolItemFields.Add(boolField);
+                        BoolFields.Add(boolField);
+                    }
                     break;
                 default:
                     break;
             }
             await db.SaveChangesAsync();
         }
-        public async static Task LoadFieldsAsync(int itemId,Data.ApplicationDbContext db)
+        public async static Task LoadFieldsAsync(int itemId, Data.ApplicationDbContext db)
         {
             await db.IntegerItemFields.Where(field => field.ItemId == itemId).LoadAsync();
             await db.StringItemFields.Where(field => field.ItemId == itemId).LoadAsync();

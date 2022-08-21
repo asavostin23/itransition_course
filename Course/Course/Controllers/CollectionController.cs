@@ -159,7 +159,9 @@ namespace Course.Controllers
             ItemViewModel itemViewModel = new ItemViewModel();
             itemViewModel.CollectionName = collection.Name;
             itemViewModel.CollectionTheme = collection.Theme;
-            itemViewModel.ItemFieldNames = collection.CollectionFields.Select(cf => cf.Name).ToArray();
+            itemViewModel.ItemFields = new ItemViewModel.ItemField[collection.CollectionFields.Count()];
+            for(int i = 0; i < itemViewModel.ItemFields.Count();i++)
+                itemViewModel.ItemFields[i] = new ItemViewModel.ItemField { Name = collection.CollectionFields[i].Name, Type = collection.CollectionFields[i].Type };
             return View(itemViewModel);
         }
         [Authorize]
@@ -189,10 +191,9 @@ namespace Course.Controllers
             List<CollectionField> collectionFields = collection.CollectionFields.ToList();
             if (collectionFields.Count > 0)
             {
-                for (int i = 0; i < model.ItemFieldValues.Count(); i++)
+                for (int i = 0; i < model.ItemFields.Count(); i++)
                 {
-                    await item.AddField(model.ItemFieldValues[i],
-                        collectionFields[i], _db);
+                    await item.AddField(model.ItemFields[i].Value, collectionFields[i], _db);
                 }
             }
             await _db.SaveChangesAsync();
