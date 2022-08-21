@@ -72,6 +72,7 @@ namespace Course.Controllers
                     collectionModel.Description,
                     collectionModel.Theme,
                     (await _userManager.GetUserAsync(User)).Id);
+
                 for (int i = 0; i < collectionModel.FieldTypes.Count(); i++)
                 {
                     if (collectionModel.FieldTypes[i] != "Nothing")
@@ -171,10 +172,7 @@ namespace Course.Controllers
             if (!ModelState.IsValid)
             {
                 if (model.CollectionId != 0)
-                    //return RedirectToAction("NewItem", model.CollectionId);
-                    return Content(string.Join("; ", ModelState.Values
-                                        .SelectMany(x => x.Errors)
-                                        .Select(x => x.ErrorMessage)));
+                    return RedirectToAction("NewItem", model.CollectionId);
                 else
                     return View("NotFound");
             }    

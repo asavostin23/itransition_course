@@ -30,23 +30,24 @@
                 <option selected="selected" value="Nothing">@SharedLocalizer["Nothing"]</option>
             </select>
             <label class="form-label" asp-for="FieldNames"></label>
-            <input disabled asp-for="FieldNames" type="text" class="form-control formInput" placeholder='@SharedLocalizer["Field name"]'>
-
+            <input disabled asp-for="FieldNames[0]" type="text" class="form-control formInput" placeholder='@SharedLocalizer["Field name"]' data-val="true" data-val-required="@SharedLocalizer["Field name required"]" required>
+            <span data-valmsg-for="FieldNames[0]" class="text-danger field-validation-valid" data-valmsg-replace="true"></span>
         </div>
         <div class="col-lg-4">
-            <select class="form-select" asp-for="FieldTypes[1]" asp-items="ViewBag.PossibleCollectionTypes">
+            <select class="form-select" asp-for="FieldTypes[1]" asp-items="ViewBag.PossibleCollectionTypes" disabled>
                 <option selected="selected" value="Nothing">@SharedLocalizer["Nothing"]</option>
             </select>
             <label class="form-label" asp-for="FieldNames"></label>
-            <input disabled asp-for="FieldNames" type="text" class="form-control formInput" placeholder='@SharedLocalizer["Field name"]'>
-
+            <input disabled asp-for="FieldNames[1]" type="text" class="form-control formInput" placeholder='@SharedLocalizer["Field name"]' data-val="true" data-val-required="@SharedLocalizer["Field name required"]" required>
+            <span data-valmsg-for="FieldNames[1]" class="text-danger field-validation-valid" data-valmsg-replace="true"></span>
         </div>
         <div class="col-lg-4">
-            <select class="form-select" asp-for="FieldTypes[2]" asp-items="ViewBag.PossibleCollectionTypes">
+            <select class="form-select" asp-for="FieldTypes[2]" asp-items="ViewBag.PossibleCollectionTypes" disabled>
                 <option selected="selected" value="Nothing">@SharedLocalizer["Nothing"]</option>
             </select>
             <label class="form-label" asp-for="FieldNames"></label>
-            <input disabled asp-for="FieldNames" type="text" class="form-control formInput" placeholder='@SharedLocalizer["Field name"]'>
+            <input disabled asp-for="FieldNames[2]" type="text" class="form-control formInput" placeholder='@SharedLocalizer["Field name"]' data-val="true" data-val-required="@SharedLocalizer["Field name required"]" required>
+            <span data-valmsg-for="FieldNames[2]" class="text-danger field-validation-valid" data-valmsg-replace="true"></span>
         </div>
     </div>
     <div class="row mb-3">
@@ -61,16 +62,28 @@
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
     <script>
-        $(function() {
+        $(function () {
             $('#newCollectionForm .form-select').change(function () {
-                let inputEl = $(this).parent().children('input');
-                if ($(this).val() == 'Nothing') {
-                    inputEl.attr('disabled', 'disabled');
-                    inputEl.val('');
+                function turnOffEl(element) {
+                    let inputEl = $(element).parent().children('input');
+                    let nextTypeSelectEl = $(element).parent().next().children('select');
+                    if ($(element).val() == 'Nothing') {
+                        inputEl.attr('disabled', 'disabled');
+                        inputEl.val('');
+                        if (nextTypeSelectEl != null) {
+                            nextTypeSelectEl.val('Nothing');
+                            nextTypeSelectEl.attr('disabled', 'disabled');
+                            turnOffEl(nextTypeSelectEl);
+                        }
+                    }
+                    else {
+                        inputEl.removeAttr('disabled');
+                        if (nextTypeSelectEl != null) {
+                            nextTypeSelectEl.removeAttr('disabled');
+                        }
+                    }
                 }
-                else {
-                    inputEl.removeAttr('disabled');
-                }
+                turnOffEl(this);
             });
         });
     </script>
