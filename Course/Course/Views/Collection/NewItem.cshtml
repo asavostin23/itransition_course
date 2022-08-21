@@ -33,12 +33,15 @@
     <partial name="_ValidationScriptsPartial" />
     <script>
         $(document).ready(function(){
+            let tagNumber = 0;
             $('#newTagBtn').click(function () {
-                let inputEl = $('<input type="text" class="form-control" name="tags" style="width:calc(100% - 46px);display:inline-block"/ required>');
+                let inputEl = $(`<input type="text" class="form-control" name="tags[`+ tagNumber +`]" style="width:calc(100% - 46px);display:inline-block" placeholder='@SharedLocalizer["Tag"]' data-val="true" data-val-required="@SharedLocalizer["Tag required"]" required/>`);
+                let inputValidationEl = $(`<span class="text-danger field-validation-valid" data-valmsg-for="tags[`+ tagNumber++ +`]" data-valmsg-replace="true"></span>`);
                 let deleteInputButtonEl = $(`<button type="button" class="btn me-1" onclick="$(this).parent().remove()"><i class="bi bi-x-circle-fill"></i></button>`);
                 let liEl = $('<li class="mt-1"></li>');
                 liEl.append(deleteInputButtonEl);
                 liEl.append(inputEl);
+                liEl.append(inputValidationEl);
                 $('#tagUl').append(liEl);
             });
         });

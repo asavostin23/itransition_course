@@ -8,10 +8,12 @@ namespace Course.Models
     {
         public class ItemField
         {
-            public string Name { get; set; }
+            public string? Name { get; set; }
+
             [Required(ErrorMessageResourceName = "RequiredError", ErrorMessageResourceType = typeof(Resources.ErrorMessageResource))]
             public string Value { get; set; }
-            public string Type { get; set; }
+
+            public string? Type { get; set; }
             public string GetInputType()
             {
                 return Type switch
@@ -26,13 +28,16 @@ namespace Course.Models
             }
         }
         public int Id { get; set; }
+        [Required(ErrorMessageResourceName = "RequiredError", ErrorMessageResourceType = typeof(Resources.ErrorMessageResource))]
+        [Display(Name = "Name", ResourceType = typeof(Resources.DisplayNameResource))]
         public string Name { get; set; }
-        public string UserId { get; set; }
-        public string UserName { get; set; }
+        public string? UserId { get; set; }
+        public string? UserName { get; set; }
         public DateTime CreatedDate { get; set; }
+        [Required]
         public int CollectionId { get; set; }
-        public string CollectionName { get; set; }
-        public string CollectionTheme { get; set; }
+        public string? CollectionName { get; set; }
+        public string? CollectionTheme { get; set; }
 
         public ItemField[] ItemFields { get; set; }
         public List<string> Comments { get; set; } = new();

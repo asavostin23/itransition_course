@@ -168,6 +168,13 @@ namespace Course.Controllers
         [HttpPost]
         public async Task<IActionResult> NewItem(ItemViewModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                if (model.CollectionId != 0)
+                    return RedirectToAction("NewItem", model.CollectionId);
+                else
+                    return View("NotFound");
+            }    
             _db.CollectionFields.Where(cf => cf.CollectionId == model.CollectionId).Load();
             Collection? collection = _db.Collections.FirstOrDefault(collection => collection.Id == model.CollectionId);
             if (collection == null)
@@ -182,12 +189,16 @@ namespace Course.Controllers
             {
                 foreach (string newTagName in model.Tags.Except(_db.Tags.Select(tag => tag.Name)))
                 {
-                    Tag tempTag = new Tag(newTagName);
-                    _db.Tags.Add(tempTag);
-                    item.Tags.Add(tempTag);
+                    if(!string.IsNullOrWhiteSpace(newTagName))
+                    {
+                        Tag tempTag = new Tag(newTagName);
+                        _db.Tags.Add(tempTag);
+                        item.Tags.Add(tempTag);
+                    }
                 }
                 item.Tags.AddRange(await _db.Tags.Where(tag => model.Tags.Contains(tag.Name)).ToListAsync());
             }
+
             List<CollectionField> collectionFields = collection.CollectionFields.ToList();
             if (collectionFields.Count > 0)
             {

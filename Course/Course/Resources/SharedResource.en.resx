@@ -333,6 +333,15 @@
   <data name="Set password" xml:space="preserve">
     <value>Set password</value>
   </data>
+  <data name="Submit" xml:space="preserve">
+    <value>Submit</value>
+  </data>
+  <data name="Tag" xml:space="preserve">
+    <value>Tag</value>
+  </data>
+  <data name="Tag required" xml:space="preserve">
+    <value>Tag required</value>
+  </data>
   <data name="Tags" xml:space="preserve">
     <value>Tags</value>
   </data>
