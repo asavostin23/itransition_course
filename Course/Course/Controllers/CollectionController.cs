@@ -171,7 +171,10 @@ namespace Course.Controllers
             if (!ModelState.IsValid)
             {
                 if (model.CollectionId != 0)
-                    return RedirectToAction("NewItem", model.CollectionId);
+                    //return RedirectToAction("NewItem", model.CollectionId);
+                    return Content(string.Join("; ", ModelState.Values
+                                        .SelectMany(x => x.Errors)
+                                        .Select(x => x.ErrorMessage)));
                 else
                     return View("NotFound");
             }    

@@ -14,11 +14,20 @@
     <ul class="list-unstyled mb-3">
         @for (int i = 0; i < Model.ItemFields.Count(); i++)
         {
-            <li>
-                <label class="form-label">@Model.ItemFields[i].Name</label>
-                <input type="@Model.ItemFields[i].GetInputType()" class="form-control" asp-for="ItemFields[i].Value" value="" placeholder="@Model.ItemFields[i].Name">
-                <span asp-validation-for="ItemFields[i].Value" class="text-danger"></span>
-            </li>
+            if (Model.ItemFields[i].GetInputType() == "checkbox")
+            {
+                <li>
+                    <label class="form-check-label">@Model.ItemFields[i].Name</label>
+                    <input type="checkbox" class="form-check-input" asp-for="ItemFields[i].Value" value="true">
+                </li>
+            }
+            else{
+                <li>
+                    <label class="form-label">@Model.ItemFields[i].Name</label>
+                    <input type="@Model.ItemFields[i].GetInputType()" class="form-control" asp-for="ItemFields[i].Value" value="" placeholder="@Model.ItemFields[i].Name">
+                    <span asp-validation-for="ItemFields[i].Value" class="text-danger"></span>
+                </li>
+            }   
         }
     </ul>
     <div class="mb-3">
@@ -32,11 +41,11 @@
 @section Scripts{
     <partial name="_ValidationScriptsPartial" />
     <script>
-        $(document).ready(function(){
+        $(document).ready(function () {
             let tagNumber = 0;
             $('#newTagBtn').click(function () {
-                let inputEl = $(`<input type="text" class="form-control" name="tags[`+ tagNumber +`]" style="width:calc(100% - 46px);display:inline-block" placeholder='@SharedLocalizer["Tag"]' data-val="true" data-val-required="@SharedLocalizer["Tag required"]" required/>`);
-                let inputValidationEl = $(`<span class="text-danger field-validation-valid" data-valmsg-for="tags[`+ tagNumber++ +`]" data-valmsg-replace="true"></span>`);
+                let inputEl = $(`<input type="text" class="form-control" name="tags[` + tagNumber + `]" style="width:calc(100% - 46px);display:inline-block" placeholder='@SharedLocalizer["Tag"]' data-val="true" data-val-required="@SharedLocalizer["Tag required"]" required/>`);
+                let inputValidationEl = $(`<span class="text-danger field-validation-valid" data-valmsg-for="tags[` + tagNumber++ + `]" data-valmsg-replace="true"></span>`);
                 let deleteInputButtonEl = $(`<button type="button" class="btn me-1" onclick="$(this).parent().remove()"><i class="bi bi-x-circle-fill"></i></button>`);
                 let liEl = $('<li class="mt-1"></li>');
                 liEl.append(deleteInputButtonEl);

@@ -21,7 +21,7 @@ namespace Course.Models
                     "Integer" => "number",
                     "Text" => "text",
                     "String" => "text",
-                    "Datetime" => "date",
+                    "Datetime" => "datetime-local",
                     "Bool" => "checkbox",
                     _ => ""
                 };
@@ -41,7 +41,7 @@ namespace Course.Models
 
         public ItemField[] ItemFields { get; set; }
         public List<string> Comments { get; set; } = new();
-        public string[] Tags { get; set; }
+        public string[]? Tags { get; set; }
         public static async Task<ItemViewModel> CreateFromItemId(int itemId, ApplicationDbContext _db)
         {
             await _db.Collections.Where(collection => collection.Items.Where(item => item.Id == itemId).Any()).LoadAsync();
