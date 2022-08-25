@@ -4,7 +4,7 @@
 @model ItemViewModel
 <div class="display-5">
     <h2>@Model.Name</h2>
-    <h5 class="text-secondary">@Model.CollectionName - @Model.CollectionTheme - @SharedLocalizer["Item"] </h5>
+    <h5 class="text-muted">@Model.CollectionName - @Model.CollectionTheme - @SharedLocalizer["Item"] </h5>
 </div>
 <ul class="list-unstyled">
     <li>@SharedLocalizer["Id"] - @Model.Id</li>
@@ -14,9 +14,10 @@
         <li>@Model.ItemFields[i].Name - @Model.ItemFields[i].Value</li>
     }
     <li>@SharedLocalizer["Date created"] - @Model.CreatedDate</li>
-    <li>@SharedLocalizer["Tags"]
+    <li>
+        @SharedLocalizer["Tags"]
         <ul>
-            @if(Model.Tags.Length > 0)
+            @if (Model.Tags.Length > 0)
             {
                 foreach (string tag in Model.Tags)
                 {
@@ -27,12 +28,34 @@
             {
                 <li>@SharedLocalizer["No tags"]</li>
             }
-            
+
         </ul>
     </li>
 </ul>
 <div>
     <a class="btn btn-primary" asp-action="EditItem" asp-route-id="@Model.Id">@SharedLocalizer["Edit"]</a>
+    <button type="button" class="btn btn-danger" onclick="$('#deleteModal').modal('show')">
+        @SharedLocalizer["Delete item"]
+    </button>
+</div>
+<div class="modal fade" id="deleteModal" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">@SharedLocalizer["Delete item"]</h5>
+                <button type="button" class="close btn btn-sm btn-outline-danger" data-dismiss="modal" onclick="$('#deleteModal').modal('hide')">
+                    <i class="bi bi-x"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>@SharedLocalizer["DeleteItemModal"]</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="$('#deleteModal').modal('hide')">@SharedLocalizer["Close"]</button>
+                <a class="btn btn-danger" asp-action="DeleteItem" asp-route-id="@Model.Id" asp-route-returnUrl="/collection/index/@Model.CollectionId">@SharedLocalizer["Delete item"]</a>
+            </div>
+        </div>
+    </div>
 </div>
 <div>
     <h5>@SharedLocalizer["Comments"]</h5>

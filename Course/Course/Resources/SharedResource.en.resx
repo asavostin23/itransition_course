@@ -150,6 +150,9 @@
   <data name="clicking here" xml:space="preserve">
     <value>clicking here</value>
   </data>
+  <data name="Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
   <data name="Collection" xml:space="preserve">
     <value>Collection</value>
   </data>
@@ -185,6 +188,13 @@
   </data>
   <data name="Delete image" xml:space="preserve">
     <value>Delete image</value>
+  </data>
+  <data name="Delete item" xml:space="preserve">
+    <value>Delete item</value>
+  </data>
+  <data name="DeleteItemModal" xml:space="preserve">
+    <value>Are you sure you want to delete this item?</value>
+    <comment>Are you sure you want to delete this item?</comment>
   </data>
   <data name="Description" xml:space="preserve">
     <value>Description</value>
