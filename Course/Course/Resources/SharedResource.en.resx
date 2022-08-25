@@ -192,6 +192,9 @@
   <data name="Drop the image here to upload" xml:space="preserve">
     <value>Drop the image here to upload</value>
   </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
   <data name="Edit collection" xml:space="preserve">
     <value>Edit collection</value>
   </data>

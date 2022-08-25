@@ -211,6 +211,7 @@ namespace Course.Controllers
             await _db.SaveChangesAsync();
             return RedirectToAction("Item", new { id = item.Id });
         }
+        [Authorize]
         public async Task<IActionResult> DeleteItem(int id, string returnUrl)
         {
             Item? item = _db.Items.FirstOrDefault(item => item.Id == id);
@@ -245,6 +246,34 @@ namespace Course.Controllers
             foreach (Collection collection in userCollections)
                 await LoadCollectionAsync(collection, _db);
             return View(userCollections);
+        }
+        [Authorize]
+        [HttpGet]
+        public async Task<IActionResult> EditItem(int id)
+        {
+            Item? item = _db.Items.FirstOrDefault(item => item.Id == id);
+            if (item is null)
+                return View("NotFound");
+            if (!(item.UserId == _userManager.GetUserId(User) || User.IsInRole("Admin")))
+                return Redirect("/Identity/Account/AccessDenied");
+
+            return View(await ItemEditViewModel.CreateFromItemId(id, _db));
+        }
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> EditItem(ItemEditViewModel model)
+        {
+            Item? item = await _db.Items.Where(item => item.Id == model.Id).Include(item => item.Tags).FirstOrDefaultAsync();
+            if (item is null)
+                return View("NotFound");
+            if (!(item.UserId == _userManager.GetUserId(User) || User.IsInRole("Admin")))
+                return Redirect("/Identity/Account/AccessDenied");
+            if (!ModelState.IsValid)
+                return View(await ItemEditViewModel.CreateFromItemId(model.Id, _db));
+
+            await item.UpdateFromEditModel(model, _db);
+            await _db.SaveChangesAsync();
+            return RedirectToAction("Item", new { id = item.Id });
         }
     }
 }

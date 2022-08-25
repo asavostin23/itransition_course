@@ -81,5 +81,59 @@ namespace Course.Models
             await db.DatetimeItemFields.Where(field => field.ItemId == itemId).LoadAsync();
             await db.BoolItemFields.Where(field => field.ItemId == itemId).LoadAsync();
         }
+        public async Task UpdateFromEditModel(ItemEditViewModel model, Data.ApplicationDbContext db)
+        {
+            await Item.LoadFieldsAsync(model.Id, db);
+            if (model.Name is not null) Name = model.Name;
+
+            Tags = new List<Tag>();
+            if (model.Tags is not null)
+            {
+                foreach (string newTagName in model.Tags.Except(db.Tags.Select(tag => tag.Name)))
+                {
+                    if (!string.IsNullOrWhiteSpace(newTagName))
+                    {
+                        Tag tempTag = new Tag(newTagName);
+                        db.Tags.Add(tempTag);
+                        Tags.Add(tempTag);
+                    }
+                }
+                Tags.AddRange(await db.Tags.Where(tag => model.Tags.Contains(tag.Name)).ToListAsync());
+                await db.SaveChangesAsync();
+            }
+
+            var collectionFields = db.CollectionFields.Where(cf => cf.CollectionId == CollectionId);
+            foreach(ItemViewModel.ItemField modelItemField in model.ItemFields)
+            {
+                switch(modelItemField.Type)
+                {
+                    case "Integer":
+                        IntegerFields
+                            .First(field => field.CollectionFieldId == collectionFields.First(cf => cf.Name == modelItemField.Name).Id)
+                            .Value = int.Parse(modelItemField.Value);
+                        break;
+                    case "Text":
+                        TextFields
+                            .First(field => field.CollectionFieldId == collectionFields.First(cf => cf.Name == modelItemField.Name).Id)
+                            .Value = modelItemField.Value;
+                        break;
+                    case "String":
+                        StringFields
+                            .First(field => field.CollectionFieldId == collectionFields.First(cf => cf.Name == modelItemField.Name).Id)
+                            .Value = modelItemField.Value;
+                        break;
+                    case "Datetime":
+                        DatetimeFields
+                            .First(field => field.CollectionFieldId == collectionFields.First(cf => cf.Name == modelItemField.Name).Id)
+                            .Value = DateTime.Parse(modelItemField.Value);
+                        break;
+                    case "Bool":
+                        BoolFields
+                            .First(field => field.CollectionFieldId == collectionFields.First(cf => cf.Name == modelItemField.Name).Id)
+                            .Value = bool.Parse(modelItemField.Value);
+                        break;
+                }
+            }
+        }
     }
 }

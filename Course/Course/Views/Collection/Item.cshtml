@@ -32,6 +32,9 @@
     </li>
 </ul>
 <div>
+    <a class="btn btn-primary" asp-action="EditItem" asp-route-id="@Model.Id">@SharedLocalizer["Edit"]</a>
+</div>
+<div>
     <h5>@SharedLocalizer["Comments"]</h5>
     <ul class="list-unstyled">
         @foreach (string comment in Model.Comments)
