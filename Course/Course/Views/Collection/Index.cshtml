@@ -1,17 +1,24 @@
-﻿@model Collection
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+@model Collection
 @{
     ViewData["Title"] = @SharedLocalizer["Collection"];
 }
 <div class="row mb-3">
     <div class="col-md">
         <h1 class="display-4">@Model.Name</h1>
-        <h1 class="display-6 text-muted">@SharedLocalizer["Author"] - @Model.User.UserName</h1>
-        <p>
-            <a asp-action="Edit" asp-controller="Collection" asp-route-id="@Model.Id" class="btn btn-primary">@SharedLocalizer["Edit collection"]</a>
-        </p>
-        <p>
-            <a class="btn btn-primary" asp-action="NewItem" asp-controller="Collection" asp-route-id=@Model.Id>@SharedLocalizer["Add item"]</a>
-        </p>
+        <h1 class="display-6 text-muted">@SharedLocalizer["Author"] - <a class="text-decoration-none" asp-action="UserCollections" asp-route-userName="@Model.User.UserName">@Model.User.UserName</a></h1>
+        @if (SignInManager.IsSignedIn(User) && ( Model.UserId == UserManager.GetUserId(User) || User.IsInRole("Admin") ))
+        {
+            <p>
+                <a asp-action="Edit" asp-controller="Collection" asp-route-id="@Model.Id" class="btn btn-primary">@SharedLocalizer["Edit collection"]</a>
+            </p>
+            <p>
+                <a class="btn btn-primary" asp-action="NewItem" asp-controller="Collection" asp-route-id=@Model.Id>@SharedLocalizer["Add item"]</a>
+            </p>
+        }
+
     </div>
     @if (Model.ImageData != null)
     {

@@ -277,6 +277,9 @@
   <data name="Manage your account" xml:space="preserve">
     <value>Manage your account</value>
   </data>
+  <data name="My collections" xml:space="preserve">
+    <value>My collections</value>
+  </data>
   <data name="Name" xml:space="preserve">
     <value>Name</value>
   </data>
