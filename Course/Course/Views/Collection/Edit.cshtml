@@ -87,17 +87,50 @@
                         }
                         <td>@item.CreatedDate</td>
                         <td>
-                            <a class="btn btn-danger" asp-action="DeleteItem" asp-controller="Collection" asp-route-id="@item.Id" asp-route-returnUrl="@Context.Request.Path">@SharedLocalizer["Delete"]</a>
+                            <button type="button" class="btn btn-danger showModalBtn" data-itemId="@item.Id" data-toggle="modal" data-target="#deleteModal" >
+                                @SharedLocalizer["Delete"]
+                            </button>
                         </td>
                     </tr>
                 }
             </tbody>
         </table>
     </div>
+    <div class="modal fade" id="deleteModal" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">@SharedLocalizer["Delete item"]</h5>
+                <button type="button" class="close btn btn-sm btn-outline-danger" data-dismiss="modal" onclick="$('#deleteModal').modal('hide')">
+                    <i class="bi bi-x"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>@SharedLocalizer["DeleteItemModal"]</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="$('#deleteModal').modal('hide')">@SharedLocalizer["Close"]</button>
+                <a id="deleteItemLink" class="btn btn-sm btn-danger" asp-action="DeleteItem" asp-route-returnUrl="/collection/edit/@Model.Id">@SharedLocalizer["Delete item"]</a>
+            </div>
+        </div>
+    </div>
+</div>
     <div class="row mb-3">
         <button type="submit" class="btn btn-primary">@SharedLocalizer["Submit"]</button>
     </div>
 </form>
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    <script>
+        $(function(){
+            $('.showModalBtn').on('click' ,function(){
+                 $('#deleteModal').data('itemid', $(this).data('itemid'));
+                $('#deleteModal').modal('show');
+            });
+            $('#deleteModal').on('show.bs.modal', function(){
+                $('#deleteItemLink').prop('href', $('#deleteItemLink').prop('href').replace(/&id=[^&]*/,'') + '&id=' + $(this).data('itemid'));
+            });
+            
+        })
+    </script>
 }
