@@ -40,7 +40,7 @@ namespace Course.Models
         public string? CollectionTheme { get; set; }
 
         public ItemField[] ItemFields { get; set; }
-        public List<string> Comments { get; set; } = new();
+        public List<Comment> Comments { get; set; } = new();
         public string[]? Tags { get; set; }
         public static async Task<ItemViewModel> CreateFromItemId(int itemId, ApplicationDbContext _db)
         {
@@ -87,10 +87,9 @@ namespace Course.Models
                         break;
                 }
             }
-            foreach (Comment comment in item.Comments)
-            {
-                itemModel.Comments.Add($"{comment.User.UserName} - {comment.CreatedDate} - {comment.Text}");
-            }
+            
+                itemModel.Comments = itemComments;
+            
             itemModel.Tags = new string[item.Tags.Count];
             for (int i = 0; i < item.Tags.Count; i++)
                 itemModel.Tags[i] = item.Tags[i].Name;

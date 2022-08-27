@@ -64,18 +64,30 @@
     </div>
 </div>
 <div>
-    <p class="display-5">@SharedLocalizer["Comments"]</p>
-    <form class="mb-3" id="newCommentForm" asp-action="CommentItem" method="post">
+    <h4 class="mt-2">@SharedLocalizer["Comments"]</h4>
+    <form class="mb-2" id="newCommentForm" asp-action="CommentItem" method="post">
         <textarea class="form-control" name="model.Text" placeholder='@SharedLocalizer["Type your comment here"]' rows="1" required></textarea>
-        <input type="hidden" name="model.ItemId" value="@Model.Id"/>
+        <input type="hidden" name="model.ItemId" value="@Model.Id" />
         <button type="submit" class="btn btn-primary mt-1">@SharedLocalizer["Send"]</button>
     </form>
-    <ul class="list-unstyled">
-        @foreach (string comment in Model.Comments)
+    <div id="comments">
+        @foreach (Comment comment in Model.Comments)
         {
-            <li>@comment</li>
+            <div class="card mb-2 border-0">
+                <div class="card-body">
+                    <b>
+                        <a asp-action="UserCollections" asp-route-id="@comment.User.Id" asp-controller="Collection" class="text-decoration-none">
+                            @comment.User.UserName
+                        </a>
+                    </b>
+                    <span>@comment.Text </span>
+                </div>
+                <div class="card-footer text-muted">
+                    @comment.CreatedDate
+                </div>
+            </div>
         }
-    </ul>
+    </div>
 </div>
 
 @section Scripts{
