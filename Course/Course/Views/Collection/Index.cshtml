@@ -15,7 +15,7 @@
                 <a asp-action="Edit" asp-controller="Collection" asp-route-id="@Model.Id" class="btn btn-primary">@SharedLocalizer["Edit collection"]</a>
             </p>
             <p>
-                <a class="btn btn-primary" asp-action="NewItem" asp-controller="Collection" asp-route-id=@Model.Id>@SharedLocalizer["Add item"]</a>
+                <a class="btn btn-primary" asp-action="NewItem" asp-controller="Item" asp-route-id=@Model.Id>@SharedLocalizer["Add item"]</a>
             </p>
         }
 
@@ -43,7 +43,7 @@
         <tbody>
             @foreach (Item item in Model.Items)
             {
-                <tr class="trLink" data-href="/Collection/Item/@item.Id">
+                <tr class="trLink" data-href="/Item/Index/@item.Id">
                     <td>@item.Id</td>
                     <td>@item.Name</td>
                     @foreach (CollectionField field in Model.CollectionFields)

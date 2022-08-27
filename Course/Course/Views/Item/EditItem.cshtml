@@ -2,7 +2,7 @@
     ViewData["Title"] = SharedLocalizer["Edit item"];
 }
 @model ItemEditViewModel
-<form method="post" asp-action="EditItem" asp-controller="Collection">
+<form method="post" asp-action="EditItem" asp-controller="Item">
     <div class="mb-3">
         <input type="hidden" asp-for="Id" value='@ViewContext.RouteData.Values["id"]' />
 
