@@ -61,6 +61,15 @@ namespace Course.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Comment body.
+        /// </summary>
+        public static string CommentBody {
+            get {
+                return ResourceManager.GetString("CommentBody", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Confirm new password.
         /// </summary>
         public static string ConfirmNewPassword {

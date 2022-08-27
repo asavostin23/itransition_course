@@ -346,6 +346,9 @@
   <data name="Reset your password." xml:space="preserve">
     <value>Reset your password.</value>
   </data>
+  <data name="Send" xml:space="preserve">
+    <value>Send</value>
+  </data>
   <data name="Send verification email" xml:space="preserve">
     <value>Send verification email</value>
   </data>
@@ -375,6 +378,9 @@
   </data>
   <data name="This account has been locked out, please try again later." xml:space="preserve">
     <value>This account has been locked out, please try again later.</value>
+  </data>
+  <data name="Type your comment here" xml:space="preserve">
+    <value>Type your comment here</value>
   </data>
   <data name="Unable to load user with email" xml:space="preserve">
     <value>Unable to load user with email</value>

@@ -138,7 +138,21 @@ namespace Course.Controllers
 
             await item.UpdateFromEditModel(model, _db);
             await _db.SaveChangesAsync();
-            return RedirectToAction("Item", new { id = item.Id });
+            return RedirectToAction("Index", new { id = item.Id });
+        }
+        [Authorize]
+        public async Task<IActionResult> CommentItem(CommentItemViewModel model)
+        {
+            Item? item = _db.Items.FirstOrDefault(item => item.Id == model.ItemId);
+            if (item is null)
+                return View("NotFound");
+            if (!string.IsNullOrWhiteSpace(model.Text))
+            {
+                Comment comment = new Comment(model.Text, _userManager.GetUserId(User), model.ItemId);
+                _db.Comments.Add(comment);
+                await _db.SaveChangesAsync();
+            }
+            return RedirectToAction("Index", new { id = model.ItemId });
         }
     }
 }

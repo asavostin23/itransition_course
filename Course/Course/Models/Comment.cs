@@ -1,4 +1,10 @@
-﻿namespace Course.Models
+﻿using Course.Resources;
+using Microsoft.Build.Framework;
+using System.ComponentModel.DataAnnotations;
+using System.Security.AccessControl;
+using System.Xml.Linq;
+
+namespace Course.Models
 {
     public class Comment
     {

@@ -44,11 +44,13 @@ namespace Course.Models
         public string[]? Tags { get; set; }
         public static async Task<ItemViewModel> CreateFromItemId(int itemId, ApplicationDbContext _db)
         {
-            await _db.Collections.Where(collection => collection.Items.Where(item => item.Id == itemId).Any()).LoadAsync();
-            await _db.Users.Where(u => u.Items.Where(item => item.Id == itemId).Any()).LoadAsync();
-            await _db.Comments.Where(comment => comment.ItemId == itemId).LoadAsync();
+            
+            List<Comment> itemComments = await _db.Comments.Where(comment => comment.ItemId == itemId).ToListAsync();
             await Item.LoadFieldsAsync(itemId, _db);
-            Item item = _db.Items.Where(item => item.Id == itemId).Include(item => item.Tags).FirstOrDefault();
+            Item item = _db.Items.Where(item => item.Id == itemId).Include(item => item.Tags).First();
+            await _db.Collections.Where(collection => collection.Id == item.CollectionId).LoadAsync();
+            await _db.Users.Where(user => user.Id == item.UserId).LoadAsync();
+            await _db.Users.Where(user => itemComments.Select(comment => comment.UserId).Contains(user.Id)).LoadAsync();
 
             ItemViewModel itemModel = new ItemViewModel();
             itemModel.Id = item.Id;

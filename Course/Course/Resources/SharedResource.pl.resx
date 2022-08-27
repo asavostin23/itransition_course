@@ -346,6 +346,9 @@
   <data name="Reset your password." xml:space="preserve">
     <value>Zresetuj hasło.</value>
   </data>
+  <data name="Send" xml:space="preserve">
+    <value>Wyślij</value>
+  </data>
   <data name="Send verification email" xml:space="preserve">
     <value>Wyślij email weryfikacyjny</value>
   </data>
@@ -375,6 +378,9 @@
   </data>
   <data name="This account has been locked out, please try again later." xml:space="preserve">
     <value>To konto zostało zablokowane, spróbuj ponownie później.</value>
+  </data>
+  <data name="Type your comment here" xml:space="preserve">
+    <value>Wpisz tutaj swój komentarz</value>
   </data>
   <data name="Unable to load user with email" xml:space="preserve">
     <value>Nie można załadować użytkownika emailem</value>

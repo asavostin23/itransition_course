@@ -64,7 +64,12 @@
     </div>
 </div>
 <div>
-    <h5>@SharedLocalizer["Comments"]</h5>
+    <p class="display-5">@SharedLocalizer["Comments"]</p>
+    <form class="mb-3" id="newCommentForm" asp-action="CommentItem" method="post">
+        <textarea class="form-control" name="model.Text" placeholder='@SharedLocalizer["Type your comment here"]' rows="1" required></textarea>
+        <input type="hidden" name="model.ItemId" value="@Model.Id"/>
+        <button type="submit" class="btn btn-primary mt-1">@SharedLocalizer["Send"]</button>
+    </form>
     <ul class="list-unstyled">
         @foreach (string comment in Model.Comments)
         {
@@ -72,3 +77,18 @@
         }
     </ul>
 </div>
+
+@section Scripts{
+    <script type="module">
+        import Autogrow from "https://cdn.jsdelivr.net/npm/vanilla-autogrow@1.0.0/autogrow.min.js";
+        var inst = new Autogrow();
+    </script>
+    @if (!SignInManager.IsSignedIn(User))
+    {
+        <script>
+            $('form').click(function () {
+                window.location.href = '/Identity/Account/Login';
+            })
+        </script>
+    }
+}
