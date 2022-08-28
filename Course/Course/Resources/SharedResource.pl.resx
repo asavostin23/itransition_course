@@ -346,6 +346,12 @@
   <data name="Reset your password." xml:space="preserve">
     <value>Zresetuj hasło.</value>
   </data>
+  <data name="Search" xml:space="preserve">
+    <value>Szukać</value>
+  </data>
+  <data name="Search results" xml:space="preserve">
+    <value>Wyniki wyszukiwania</value>
+  </data>
   <data name="Send" xml:space="preserve">
     <value>Wyślij</value>
   </data>

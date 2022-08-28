@@ -1,0 +1,58 @@
+﻿@model SearchViewModel;
+@{
+    ViewData["Title"] = @SharedLocalizer["Search"];
+}
+
+<p class="display-4">@SharedLocalizer["Search results"]</p>
+<table class="table table-striped table-hover table-responsive-sm">
+    <thead>
+        <th>Name</th>
+        <th>Type</th>
+    </thead>
+    <tbody>
+        @foreach(User user in Model.Users)
+        {
+            <tr>
+                <td>
+                    @user.UserName
+                </td>
+                <td>
+                    User
+                </td>
+            </tr>
+        }
+        @foreach (Collection collection in Model.Collections)
+        {
+            <tr>
+                <td>
+                    @collection.Name
+                </td>
+                <td>
+                    Collection
+                </td>
+            </tr>
+        }
+        @foreach (Item item in Model.Items)
+        {
+            <tr>
+                <td>
+                    @item.Name
+                </td>
+                <td>
+                    Item
+                </td>
+            </tr>
+        }
+        @foreach (Tag tag in Model.Tags)
+        {
+            <tr>
+                <td>
+                    @tag.Name
+                </td>
+                <td>
+                    Tag
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -346,6 +346,12 @@
   <data name="Reset your password." xml:space="preserve">
     <value>Reset your password.</value>
   </data>
+  <data name="Search" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="Search results" xml:space="preserve">
+    <value>Search results</value>
+  </data>
   <data name="Send" xml:space="preserve">
     <value>Send</value>
   </data>
