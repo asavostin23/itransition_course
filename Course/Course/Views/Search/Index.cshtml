@@ -4,55 +4,64 @@
 }
 
 <p class="display-4">@SharedLocalizer["Search results"]</p>
-<table class="table table-striped table-hover table-responsive-sm">
-    <thead>
-        <th>Name</th>
-        <th>Type</th>
-    </thead>
-    <tbody>
-        @foreach(User user in Model.Users)
-        {
-            <tr>
-                <td>
-                    @user.UserName
-                </td>
-                <td>
-                    User
-                </td>
-            </tr>
-        }
-        @foreach (Collection collection in Model.Collections)
-        {
-            <tr>
-                <td>
-                    @collection.Name
-                </td>
-                <td>
-                    Collection
-                </td>
-            </tr>
-        }
-        @foreach (Item item in Model.Items)
-        {
-            <tr>
-                <td>
-                    @item.Name
-                </td>
-                <td>
-                    Item
-                </td>
-            </tr>
-        }
-        @foreach (Tag tag in Model.Tags)
-        {
-            <tr>
-                <td>
-                    @tag.Name
-                </td>
-                <td>
-                    Tag
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+<div class="card-columns">
+    @foreach (User user in Model.Users)
+    {
+        <div class="card card-inline-block mb-1">
+            <div class="card-body">
+                <h4 class="card-title">@user.UserName</h4>
+                <p class="card-text">
+                    <small class="text-muted">
+                        @SharedLocalizer["User"]
+                    </small>
+                </p>
+            </div>
+        </div>
+    }
+    @foreach (Collection collection in Model.Collections)
+    {
+        <div class="card card-inline-block mb-1">
+            <div class="card-header">
+                <p class="display-5"><a class="text-decoration-none" asp-action="Index" asp-controller="Collection" asp-route-id="@collection.Id">@collection.Name</a></p>
+            </div>
+            @if (collection.ImageData != null)
+            {
+                <img class="card-img-top" src="data:image/jpeg;base64,@(Convert.ToBase64String(collection.ImageData))" />
+            }
+            else
+            {
+                <img class="card-img-top" src="~/default-image.jpg" />
+            }
+            <div class="card-body">
+                <p class="card-text">
+                    @if (collection.Description is not null)
+                    {
+                        @collection.Description
+                    }
+                    else
+                    {
+                        @SharedLocalizer["NoCardDesc"]
+                    }
+                </p>
+                <p class="card-text">
+                    <small class="text-muted">
+                        @SharedLocalizer["Collection"] - <a asp-action="UserCollections" asp-controller="Collection" asp-route-username=@collection.User.UserName>@collection.User.UserName</a>
+                    </small>
+                </p>
+            </div>
+        </div>
+    }
+    @foreach (Item item in Model.Items)
+    {
+        <div class="card card-inline-block mb-1">
+            <div class="card-body">
+                <h4 class="card-title">@item.Name</h4>
+                <p class="card-text">
+                    <small class="text-muted">
+                        @SharedLocalizer["Item"] - <a asp-controller="Collection" asp-action="Index" asp-route-id="@item.CollectionId">@item.Collection.Name</a>
+                    </small>
+                </p>
+            </div>
+        </div>
+    }
+</div>

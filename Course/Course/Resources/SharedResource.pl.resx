@@ -297,6 +297,7 @@
   </data>
   <data name="NoCardDesc" xml:space="preserve">
     <value>Ta kolekcja nie ma opisu</value>
+    <comment>This collection has no description</comment>
   </data>
   <data name="Not found" xml:space="preserve">
     <value>Nie znaleziono</value>
