@@ -11,9 +11,9 @@
     @foreach (Collection collection in Model)
     {
         <div class="col-lg-4 col-md-6 mb-4">
-            <div class="card ms-1 me-1 bg-secondary h-100">
+            <div class="card ms-1 me-1 h-100" data-href="/Collection/Index/@collection.Id">
                 <div class="card-header">
-                    <p class="display-5"><a class="text-decoration-none text-white" asp-action="Index" asp-controller="Collection" asp-route-id="@collection.Id">@collection.Name</a></p>
+                    <p class="display-5">@collection.Name</p>
 
                 </div>
                 @if (collection.ImageData != null)
@@ -25,17 +25,17 @@
                     <img class="card-img-top" src="~/default-image.jpg" />
                 }
                 <div class="card-body">
-                    <p class="display-5 text-white">@collection.Theme</p>
+                    <p class="display-5">@collection.Theme</p>
                     @if (collection.Description != null)
                     {
-                        <p class="card-text text-white">@collection.Description</p>
+                        <p class="card-text">@collection.Description</p>
                     }
                     else
                     {
-                        <p class="card-text  text-white">@SharedLocalizer["NoCardDesc"]</p>
+                        <p class="card-text">@SharedLocalizer["NoCardDesc"]</p>
                     }
                 </div>
-                <div class="card-footer text-white">
+                <div class="card-footer">
                     @collection.Items.Count @SharedLocalizer["item(s)"]
                 </div>
             </div>
@@ -45,7 +45,7 @@
 @section Scripts{
     <script>
         $(document).ready(function () {
-            $('.trLink').click(function () {
+            $('.card').click(function () {
                 window.location.href = $(this).data('href');
             });
         });
