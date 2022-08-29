@@ -72,22 +72,7 @@
         <button type="submit" class="btn btn-primary mt-1">@SharedLocalizer["Send"]</button>
     </form>
     <div id="comments">
-        @foreach (Comment comment in Model.Comments)
-        {
-            <div class="card mb-2 border-0">
-                <div class="card-body">
-                    <b>
-                        <a asp-action="UserCollections" asp-route-id="@comment.User.Id" asp-controller="Collection" class="text-decoration-none">
-                            @comment.User.UserName
-                        </a>
-                    </b>
-                    <span>@comment.Text </span>
-                </div>
-                <div class="card-footer text-muted">
-                    <span class="type-Datetime">@comment.CreatedDate</span>
-                </div>
-            </div>
-        }
+        
     </div>
 </div>
 
@@ -104,4 +89,35 @@
             })
         </script>
     }
+    <script>
+        $(function () {
+            loadComments();
+            setInterval(loadComments, 5000);
+        });
+        function loadComments() {
+            $.getJSON('/api/comments/@Model.Id',
+                function (data) {
+                    let newComments = $('<div id="comments"></div>');
+                    for (let comment of data) {
+                        $(newComments).append(`
+                            <div class="card mb-2 border-0">
+                                <div class="card-body">
+                                    <b>
+                                        <a href="/Collection/UserCollections/${comment.userName}" class="text-decoration-none">
+                                            ${comment.userName}
+                                        </a>
+                                    </b>
+                                    <span>${comment.text} </span>
+                                </div>
+                                <div class="card-footer text-muted">
+                                    <span class="type-Datetime">${comment.createdDate}</span>
+                                </div>
+                            </div>
+                        `);
+                    }
+                    $('#comments').replaceWith(newComments);
+                }
+            )
+        }
+    </script>
 }
