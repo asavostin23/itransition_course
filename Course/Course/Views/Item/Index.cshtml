@@ -7,7 +7,9 @@
 @model ItemViewModel
 <div class="display-5">
     <h2>@Model.Name</h2>
-    <h5 class="text-muted"><a class="text-decoration-none" asp-action="Index" asp-controller="Collection" asp-route-id="@Model.CollectionId">@Model.CollectionName</a> - @Model.CollectionTheme - @SharedLocalizer["Item"] </h5>
+    <h5 class="text-muted">
+        <a class="text-decoration-none" asp-action="Index" asp-controller="Collection" asp-route-id="@Model.CollectionId">@Model.CollectionName</a> - @Model.CollectionTheme - @SharedLocalizer["Item"]
+    </h5>
 </div>
 <ul class="list-unstyled">
     <li>@SharedLocalizer["Id"] - @Model.Id</li>
@@ -16,7 +18,7 @@
     {
         <li>@Model.ItemFields[i].Name - @Model.ItemFields[i].Value</li>
     }
-    <li>@SharedLocalizer["Date created"] - @Model.CreatedDate</li>
+    <li>@SharedLocalizer["Date created"] - <span class="type-Datetime">@Model.CreatedDate</span></li>
     <li>
         @SharedLocalizer["Tags"]
         <ul>
@@ -31,7 +33,6 @@
             {
                 <li>@SharedLocalizer["No tags"]</li>
             }
-
         </ul>
     </li>
 </ul>
@@ -83,7 +84,7 @@
                     <span>@comment.Text </span>
                 </div>
                 <div class="card-footer text-muted">
-                    @comment.CreatedDate
+                    <span class="type-Datetime">@comment.CreatedDate</span>
                 </div>
             </div>
         }
