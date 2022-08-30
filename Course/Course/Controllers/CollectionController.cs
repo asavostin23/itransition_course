@@ -139,8 +139,6 @@ namespace Course.Controllers
             await _db.SaveChangesAsync();
             return RedirectToAction("Edit", new { id = collection.Id.ToString() });
         }
-        
-        
         [Route("{controller}/{action}/{username?}")]
         public async Task<IActionResult> UserCollections(string username)
         {
@@ -162,6 +160,19 @@ namespace Course.Controllers
                 await LoadCollectionAsync(collection, _db);
             return View(userCollections);
         }
-        
+        [Authorize]
+        public async Task<IActionResult> Delete(int id)
+        {
+            Collection? collection = _db.Collections.FirstOrDefault(collection => collection.Id == id);
+            if (collection == null)
+                return View("NotFound");
+            if (!(collection.UserId == _userManager.GetUserId(User) || User.IsInRole("Admin")))
+                return Redirect("/Identity/Account/AccessDenied");
+
+            _db.Collections.Remove(collection);
+            await _db.SaveChangesAsync();
+
+            return RedirectToAction("UserCollections");
+        }
     }
 }

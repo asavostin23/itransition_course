@@ -39,7 +39,7 @@ namespace Course.Models
         public string? CollectionName { get; set; }
         public string? CollectionTheme { get; set; }
 
-        public ItemField[] ItemFields { get; set; }
+        public ItemField[]? ItemFields { get; set; }
         public List<Comment> Comments { get; set; } = new();
         public string[]? Tags { get; set; }
         public static async Task<ItemViewModel> CreateFromItemId(int itemId, ApplicationDbContext _db)

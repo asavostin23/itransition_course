@@ -2,19 +2,27 @@
 @{
     ViewData["Title"] = @SharedLocalizer["Edit collection"];
 }
-<div class="row mb-3">
-    <div class="col-lg">
-        <h1 class="display-4">@Model.Name</h1>
-        <h1 class="display-6 text-muted">@SharedLocalizer["Author"] - @Model.User.UserName</h1>
-    </div>
-    @if (Model.ImageData != null)
-    {
-        <div class="col-lg-4">
-            <img src="data:image/jpeg;base64,@(Convert.ToBase64String(Model.ImageData))" width="100%" />
-        </div>
-    }
-</div>
 <form class="form" method="post" asp-action="Edit" asp-controller="Collection" enctype="multipart/form-data">
+    <div class="row mb-3">
+        <div class="col-lg">
+            <h1 class="display-4">@Model.Name</h1>
+            <h1 class="display-6 text-muted">@SharedLocalizer["Author"] - @Model.User.UserName</h1>
+            <div class="d-inline-flex mb-3">
+                <a class="btn btn-secondary me-1" asp-action="EditDeleteImage" asp-controller="Collection" asp-route-id=@Model.Id>@SharedLocalizer["Delete image"]</a>
+                <a class="btn btn-danger showDelCollectionModalBtn">@SharedLocalizer["Delete collection"]</a>
+            </div>
+            <div class="mb-1">
+                <label class="form-label" asp-for="ImageData">@SharedLocalizer["Upload image"]</label>
+                <input class="form-control" type="file" name="ImageData" />
+            </div>
+        </div>
+        @if (Model.ImageData != null)
+        {
+            <div class="col-lg-4">
+                <img src="data:image/jpeg;base64,@(Convert.ToBase64String(Model.ImageData))" width="100%" />
+            </div>
+        }
+    </div>
     <div class="row">
         <div class="col">
             <div class="mb-3">
@@ -35,16 +43,7 @@
             <textarea asp-for="Description" class="form-control formInput" id="inputCollectionDescription" placeholder='@SharedLocalizer["Description"]'>@Model.Description</textarea>
             <span asp-validation-for="Description" class="text-danger"></span>
         </div>
-        <div class="col-md-2">
-            <div>
-                <p><label asp-for="ImageData">@SharedLocalizer["Upload image"]</label></p>
-                <input class="form-input mb-3" type="file" name="ImageData" />
-            </div>
-            <div>
-                <a class="btn btn-danger" asp-action="EditDeleteImage" asp-controller="Collection" asp-route-id=@Model.Id>@SharedLocalizer["Delete image"]</a>
-            </div class="mb-1">
-            
-        </div>
+
     </div>
     <div class="mb-3">
         <a class="btn btn-primary" asp-action="NewItem" asp-controller="Item" asp-route-id=@Model.Id>@SharedLocalizer["Add item"]</a>
@@ -87,7 +86,7 @@
                         }
                         <td>@item.CreatedDate</td>
                         <td class="d-flex justify-content-end">
-                            <button type="button" class="btn btn-danger showModalBtn" data-itemId="@item.Id" data-toggle="modal" data-target="#deleteModal" >
+                            <button type="button" class="btn btn-danger showDelItemModalBtn" data-itemId="@item.Id" data-toggle="modal" data-target="#deleteItemModal">
                                 @SharedLocalizer["Delete"]
                             </button>
                         </td>
@@ -96,25 +95,44 @@
             </tbody>
         </table>
     </div>
-    <div class="modal fade" id="deleteModal" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="deleteModalLabel">@SharedLocalizer["Delete item"]</h5>
-                <button type="button" class="close btn btn-sm btn-outline-danger" data-dismiss="modal" onclick="$('#deleteModal').modal('hide')">
-                    <i class="bi bi-x"></i>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p>@SharedLocalizer["DeleteItemModal"]</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="$('#deleteModal').modal('hide')">@SharedLocalizer["Close"]</button>
-                <a id="deleteItemLink" class="btn btn-sm btn-danger" asp-action="DeleteItem" asp-controller="Item" asp-route-returnUrl="/collection/edit/@Model.Id">@SharedLocalizer["Delete item"]</a>
+    <div class="modal fade" id="deleteItemModal" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteItemModalLabel">@SharedLocalizer["Delete item"]</h5>
+                    <button type="button" class="close btn btn-sm btn-outline-danger" data-dismiss="modal" onclick="$('#deleteItemModal').modal('hide')">
+                        <i class="bi bi-x"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>@SharedLocalizer["DeleteItemModal"]</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="$('#deleteItemModal').modal('hide')">@SharedLocalizer["Close"]</button>
+                    <a id="deleteItemLink" class="btn btn-sm btn-danger" asp-action="DeleteItem" asp-controller="Item" asp-route-returnUrl="/collection/edit/@Model.Id">@SharedLocalizer["Delete item"]</a>
+                </div>
             </div>
         </div>
     </div>
-</div>
+    <div class="modal fade" id="deleteCollectionModal" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteCollectionModalLabel">@SharedLocalizer["Delete collection"]</h5>
+                    <button type="button" class="close btn btn-sm btn-outline-danger" data-dismiss="modal" onclick="$('#deleteCollectionModal').modal('hide')">
+                        <i class="bi bi-x"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>@SharedLocalizer["DeleteCollectionModal"]</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="$('#deleteCollectionModal').modal('hide')">@SharedLocalizer["Close"]</button>
+                    <a id="deleteCollectionLink" class="btn btn-danger" asp-action="Delete" asp-controller="Collection" asp-route-id="@Model.Id">@SharedLocalizer["Delete collection"]</a>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="row mb-3">
         <button type="submit" class="btn btn-primary">@SharedLocalizer["Submit"]</button>
     </div>
@@ -122,15 +140,18 @@
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
     <script>
-        $(function(){
-            $('.showModalBtn').on('click' ,function(){
-                 $('#deleteModal').data('itemid', $(this).data('itemid'));
-                $('#deleteModal').modal('show');
+        $(function () {
+            $('.showDelItemModalBtn').on('click', function () {
+                $('#deleteItemModal').data('itemid', $(this).data('itemid'));
+                $('#deleteItemModal').modal('show');
             });
-            $('#deleteModal').on('show.bs.modal', function(){
-                $('#deleteItemLink').prop('href', $('#deleteItemLink').prop('href').replace(/&id=[^&]*/,'') + '&id=' + $(this).data('itemid'));
+            $('#deleteItemModal').on('show.bs.modal', function () {
+                $('#deleteItemLink').prop('href', $('#deleteItemLink').prop('href').replace(/&id=[^&]*/, '') + '&id=' + $(this).data('itemid'));
             });
-            
+
+            $('.showDelCollectionModalBtn').on('click', function () {
+                $('#deleteCollectionModal').modal('show');
+            });
         })
     </script>
 }

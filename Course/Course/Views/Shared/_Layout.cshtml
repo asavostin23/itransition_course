@@ -30,8 +30,8 @@
                                 asp-items="cultureItems">
                         </select>
                     </form>
-                    <a id="a-dark-theme" class="ms-1 text-white" asp-action="SetTheme" asp-controller="Home" asp-route-theme="dark" asp-route-returnUrl="@(Context.Request.Path + Context.Request.QueryString.Value)"><i class="bi bi-sun-fill"></i></a>
-                    <a id="a-light-theme" class="ms-1 text-white" asp-action="SetTheme" asp-controller="Home" asp-route-theme="light" asp-route-returnUrl="@(Context.Request.Path + Context.Request.QueryString.Value)"><i class="bi bi-moon-fill"></i></a>
+                    <a id="a-dark-theme" class="ms-2 text-white" asp-action="SetTheme" asp-controller="Home" asp-route-theme="dark" asp-route-returnUrl="@(Context.Request.Path + Context.Request.QueryString.Value)"><i class="bi bi-sun-fill"></i></a>
+                    <a id="a-light-theme" class="ms-2 text-white" asp-action="SetTheme" asp-controller="Home" asp-route-theme="light" asp-route-returnUrl="@(Context.Request.Path + Context.Request.QueryString.Value)"><i class="bi bi-moon-fill"></i></a>
                 </div>
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"

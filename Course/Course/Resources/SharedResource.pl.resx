@@ -186,11 +186,18 @@
   <data name="Delete" xml:space="preserve">
     <value>Usunąć</value>
   </data>
+  <data name="Delete collection" xml:space="preserve">
+    <value>Usuń kolekcję</value>
+  </data>
   <data name="Delete image" xml:space="preserve">
     <value>Usuń obraz</value>
   </data>
   <data name="Delete item" xml:space="preserve">
     <value>Usuń rzecz</value>
+  </data>
+  <data name="DeleteCollectionModal" xml:space="preserve">
+    <value>Czy na pewno chcesz usunąć tę kolekcję?</value>
+    <comment>Are you sure you want to delete this collection?</comment>
   </data>
   <data name="DeleteItemModal" xml:space="preserve">
     <value>Czy na pewno chcesz usunąć ten element?</value>
