@@ -74,7 +74,7 @@
     <script>
         $(function () {
             $('.type-Datetime').html(function (index, oldValue) {
-                return new Date(oldValue + ' UTC').toLocaleString();
+                return new Date(oldValue).toLocaleString();
             });
         });
     </script>

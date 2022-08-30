@@ -26,7 +26,7 @@ namespace Course.Controllers
                 UserId = comment.UserId,
                 ItemId = comment.ItemId,
                 Text = comment.Text,
-                CreatedDate = comment.CreatedDate,
+                CreatedDate = comment.CreatedDate.ToString("r"),
                 UserName = comment.User.UserName
             }));
         }

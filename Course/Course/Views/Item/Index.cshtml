@@ -18,7 +18,7 @@
     {
         <li>@Model.ItemFields[i].Name - @Model.ItemFields[i].Value</li>
     }
-    <li>@SharedLocalizer["Date created"] - <span class="type-Datetime">@Model.CreatedDate</span></li>
+    <li>@SharedLocalizer["Date created"] - <span class="type-Datetime">@Model.CreatedDate.ToString("r")</span></li>
     <li>
         @SharedLocalizer["Tags"]
         <ul>
@@ -110,7 +110,7 @@
                                     <span>${comment.text} </span>
                                 </div>
                                 <div class="card-footer text-muted">
-                                    <span class="type-Datetime">${comment.createdDate}</span>
+                                            <span class="type-Datetime">${new Date(comment.createdDate).toLocaleString()} </span>
                                 </div>
                             </div>
                         `);
