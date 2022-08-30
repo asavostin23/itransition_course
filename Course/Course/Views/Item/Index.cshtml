@@ -85,7 +85,7 @@
     {
         <script>
             $('form').click(function () {
-                window.location.href = '/Identity/Account/Login';
+                window.location.href = '/Identity/Account/Login'  + ((window.location.search) ? window.location.search : '?') + '&returnUrl=' + window.location.pathname.replaceAll('/','%2F');
             })
         </script>
     }

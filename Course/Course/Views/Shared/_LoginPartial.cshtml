@@ -21,7 +21,7 @@
             </li>
         }
         <li class="nav-item">
-            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@(Context.Request.Path + Context.Request.QueryString.Value)">
                 <button type="submit" class="btn btn-outline-light">@SharedLocalizer["Logout"]</button>
             </form>
         </li>
@@ -32,7 +32,7 @@
             <a class="nav-link" asp-area="Identity" asp-page="/Account/Register">@SharedLocalizer["Register"]</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" asp-area="Identity" asp-page="/Account/Login">@SharedLocalizer["Login"]</a>
+            <a class="nav-link" asp-area="Identity" asp-page="/Account/Login" asp-route-returnUrl="@(Context.Request.Path + Context.Request.QueryString.Value)">@SharedLocalizer["Login"]</a>
         </li>
     }
 </ul>
