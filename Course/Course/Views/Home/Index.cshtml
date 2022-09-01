@@ -130,14 +130,26 @@
         </table>
     </div>
     <div class="col-md-2">
-        Tag cloud
+        <div id="tagCloud">
+            <h4>@SharedLocalizer["Tags"]</h4>
+        </div>
     </div>
 </div>
 @section Scripts{
+    <script src="~/lib/TagCloud/dist/TagCloud.min.js"></script>
     <script>
         $(document).ready(function () {
             $('.trLink').click(function () {
                 window.location.href = $(this).data('href');
+            });
+
+            let tagString = '@Model.GetTagNames()';
+            TagCloud('#tagCloud', JSON.parse(tagString.replaceAll('&quot;', `"`)), {});
+            let rootEl = document.querySelector('#tagCloud');
+            rootEl.addEventListener('click', function clickEventHandler(e) {
+                if (e.target.className === 'tagcloud--item') {
+                    window.open(`/search/index?searchText=${e.target.innerText}`);
+                }
             });
         });
     </script>

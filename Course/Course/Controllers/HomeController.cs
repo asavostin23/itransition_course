@@ -45,7 +45,7 @@ namespace Course.Controllers
                 await Item.LoadFieldsAsync(itemId, _db);
             }
             model.LastAddedItems = await _db.Items.OrderByDescending(item => item.CreatedDate).Take(10).Include(item => item.User).Include(item => item.Collection).ToListAsync();
-            model.Tags = await _db.Tags.Include(tag => tag.Items).ToListAsync();
+            model.Tags = await _db.Tags.Include(tag => tag.Items).Where(tag => tag.Items.Count > 0).ToListAsync();
 
             return View(model);
         }
