@@ -42,7 +42,7 @@ namespace Course.Models
                     "Integer" => (await db.IntegerItemFields.FirstOrDefaultAsync(field => field.CollectionFieldId == collectionField.Id && field.ItemId == item.Id)).Value.ToString(),
                     "String" => (await db.StringItemFields.FirstOrDefaultAsync(field => field.CollectionFieldId == collectionField.Id && field.ItemId == item.Id)).Value.ToString(),
                     "Text" => (await db.TextItemFields.FirstOrDefaultAsync(field => field.CollectionFieldId == collectionField.Id && field.ItemId == item.Id)).Value.ToString(),
-                    "Datetime" => (await db.DatetimeItemFields.FirstOrDefaultAsync(field => field.CollectionFieldId == collectionField.Id && field.ItemId == item.Id)).Value.ToString(),
+                    "Datetime" => (await db.DatetimeItemFields.FirstOrDefaultAsync(field => field.CollectionFieldId == collectionField.Id && field.ItemId == item.Id)).Value.ToString("s"),
                     "Bool" => (await db.BoolItemFields.FirstOrDefaultAsync(field => field.CollectionFieldId == collectionField.Id && field.ItemId == item.Id)).Value.ToString(),
                     _ => "Error"
                 };
