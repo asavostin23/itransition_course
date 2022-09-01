@@ -1,7 +1,144 @@
 ﻿@{
     ViewData["Title"] = @SharedLocalizer["Home Page"];
 }
-
+@model HomeIndexViewModel
 <div class="text-center">
-    <h1 class="display-4">@SharedLocalizer["Welcome"]@if(ViewBag.IsAdmin){<text>, @SharedLocalizer["Admin"]</text>}</h1>
+    <h1 class="display-4">
+        @SharedLocalizer["Welcome"]@if (ViewBag.IsAdmin)
+        {
+            <text>, @SharedLocalizer["Admin"]</text>
+        }
+    </h1>
 </div>
+<div class="row">
+    <h1 class="display-6">@SharedLocalizer["Top collections"]</h1>
+    <table class="table" id="topItemsTable">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>@SharedLocalizer["Name"]</th>
+                <th>@SharedLocalizer["Theme"]</th>
+                <th>@SharedLocalizer["Author"]</th>
+                <th>@SharedLocalizer["Item count"]</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.TopCollections.Count; i++)
+            {
+                <tr>
+                    <td data-bs-toggle="collapse" data-bs-target="#collapseRow-@i">
+                        @(i + 1) <i class="bi bi-chevron-expand"></i>
+                    </td>
+                    <td>
+                        <a class="text-decoration-none text-reset" asp-controller="Collection" asp-action="Index" asp-route-id="@Model.TopCollections[i].Id">
+                            @Model.TopCollections[i].Name
+                        </a>
+                    </td>
+                    <td>
+                        <a class="text-decoration-none text-reset" asp-controller="Search" asp-action="Index" asp-route-searchText="@Model.TopCollections[i].Theme">
+                            @Model.TopCollections[i].Theme
+                        </a>
+                    </td>
+                    <td>
+                        <a class="text-decoration-none text-reset" asp-controller="Collection" asp-action="UserCollections" asp-route-username="@Model.TopCollections[i].User.UserName">
+                            @Model.TopCollections[i].User.UserName
+                        </a>
+                    </td>
+                    <td>
+                        <a class="text-decoration-none text-reset" asp-controller="Collection" asp-action="Index" asp-route-id="@Model.TopCollections[i].Id">
+                            @Model.TopCollections[i].Items.Count
+                        </a>
+                    </td>
+                </tr>
+                <tr id="collapseRow-@i" class="collapse" data-bs-parent="#topItemsTable">
+                    <td colspan="6">
+                        @if (!string.IsNullOrWhiteSpace(Model.TopCollections[i].Description))
+                        {
+                            <p>@Model.TopCollections[i].Description</p>
+                        }
+                        <table class="table table-striped table-hover table-responsive-sm">
+                            <thead>
+                                <tr>
+                                    <th>@SharedLocalizer["Id"]</th>
+                                    <th>@SharedLocalizer["Name"]</th>
+                                    @foreach (CollectionField collectionField in Model.TopCollections[i].CollectionFields)
+                                    {
+                                        <th>@collectionField.Name</th>
+                                    }
+                                    <th>@SharedLocalizer["Date of creation"]</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (Item item in Model.TopCollections[i].Items)
+                                {
+                                    <tr class="trLink" data-href="/Item/Index/@item.Id">
+                                        <td>@item.Id</td>
+                                        <td>@item.Name</td>
+                                        @foreach (CollectionField field in Model.TopCollections[i].CollectionFields)
+                                        {
+                                            string fieldData = field.Type switch
+                                            {
+                                                "Integer" =>
+                                                item.IntegerFields.FirstOrDefault(itemField => itemField.CollectionFieldId == field.Id).Value.ToString(),
+                                                "String" =>
+                                                item.StringFields.FirstOrDefault(itemField => itemField.CollectionFieldId == field.Id).Value.ToString(),
+                                                "Text" =>
+                                                item.TextFields.FirstOrDefault(itemField => itemField.CollectionFieldId == field.Id).Value.ToString(),
+                                                "Datetime" =>
+                                                item.DatetimeFields.FirstOrDefault(itemField => itemField.CollectionFieldId == field.Id).Value.ToString(),
+                                                "Bool" =>
+                                                item.BoolFields.FirstOrDefault(itemField => itemField.CollectionFieldId == field.Id).Value.ToString()
+                                            };
+                                            <td>@fieldData</td>
+                                        }
+                                        <td><span class="type-Datetime">@item.CreatedDate.ToString("r")</span></td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div class="row">
+    <h1 class="display-6">@SharedLocalizer["Last added items"]</h1>
+    <div class="col-md-10">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>@SharedLocalizer["Id"]</th>
+                    <th>@SharedLocalizer["Name"]</th>
+                    <th>@SharedLocalizer["Collection"]</th>
+                    <th>@SharedLocalizer["Author"]</th>
+                    <th>@SharedLocalizer["Date"]</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Item item in Model.LastAddedItems)
+                {
+                    <tr class="trLink" data-href="/Item/Index/@item.Id">
+                        <td>@item.Id</td>
+                        <td>@item.Name</td>
+                        <td>@item.Collection.Name</td>
+                        <td>@item.User.UserName</td>
+                        <td class="type-Datetime">@item.CreatedDate.ToString("r")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-2">
+        Tag cloud
+    </div>
+</div>
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $('.trLink').click(function () {
+                window.location.href = $(this).data('href');
+            });
+        });
+    </script>
+}

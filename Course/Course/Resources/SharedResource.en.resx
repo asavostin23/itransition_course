@@ -180,6 +180,9 @@
   <data name="Create a new account." xml:space="preserve">
     <value>Create a new account.</value>
   </data>
+  <data name="Date" xml:space="preserve">
+    <value>Date</value>
+  </data>
   <data name="Date of creation" xml:space="preserve">
     <value>Date of creation</value>
   </data>
@@ -257,11 +260,17 @@
   <data name="Item" xml:space="preserve">
     <value>Item</value>
   </data>
+  <data name="Item count" xml:space="preserve">
+    <value>Item count</value>
+  </data>
   <data name="item(s)" xml:space="preserve">
     <value>item(s)</value>
   </data>
   <data name="Language" xml:space="preserve">
     <value>Language</value>
+  </data>
+  <data name="Last added items" xml:space="preserve">
+    <value>Last added items</value>
   </data>
   <data name="Locked out" xml:space="preserve">
     <value>Locked out</value>
@@ -392,6 +401,9 @@
   </data>
   <data name="This account has been locked out, please try again later." xml:space="preserve">
     <value>This account has been locked out, please try again later.</value>
+  </data>
+  <data name="Top collections" xml:space="preserve">
+    <value>Top collections</value>
   </data>
   <data name="Type your comment here" xml:space="preserve">
     <value>Type your comment here</value>

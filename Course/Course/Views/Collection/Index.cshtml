@@ -8,6 +8,7 @@
 <div class="row">
     <div class="col-md">
         <h1 class="display-4">@Model.Name</h1>
+        <h1 class="display-6"><span class="text-muted">@SharedLocalizer["Theme"]</span> - @Model.Theme</h1>
         <h1 class="display-6 text-muted mb-3">@SharedLocalizer["Author"] - <a class="text-decoration-none" asp-action="UserCollections" asp-route-userName="@Model.User.UserName">@Model.User.UserName</a></h1>
         @if (SignInManager.IsSignedIn(User) && (Model.UserId == UserManager.GetUserId(User) || User.IsInRole("Admin")))
         {
