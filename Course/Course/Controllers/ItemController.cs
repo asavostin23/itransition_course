@@ -48,7 +48,12 @@ namespace Course.Controllers
             itemViewModel.CollectionTheme = collection.Theme;
             itemViewModel.ItemFields = new ItemViewModel.ItemField[collection.CollectionFields.Count()];
             for (int i = 0; i < itemViewModel.ItemFields.Count(); i++)
-                itemViewModel.ItemFields[i] = new ItemViewModel.ItemField { Name = collection.CollectionFields[i].Name, Type = collection.CollectionFields[i].Type };
+                itemViewModel.ItemFields[i] = new ItemViewModel.ItemField
+                {
+                    Name = collection.CollectionFields[i].Name,
+                    Type = collection.CollectionFields[i].Type
+                };
+            itemViewModel.AllTags = _db.Tags.Select(tag => tag.Name).ToList();
             return View(itemViewModel);
         }
         [Authorize]

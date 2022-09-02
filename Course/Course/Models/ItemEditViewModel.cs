@@ -19,6 +19,7 @@ namespace Course.Models
         public string[]? Tags { get; set; }
         public string? CollectionName { get; set; }
         public string? CollectionTheme { get; set; }
+        public List<string>? AllTags { get; set; }
         public static async Task<ItemEditViewModel> CreateFromItemId(int itemId, ApplicationDbContext db)
         {
             Item item = await db.Items.Where(item => item.Id == itemId).Include(item => item.Tags).FirstOrDefaultAsync();
@@ -48,6 +49,7 @@ namespace Course.Models
                 };
                 result.ItemFields[i++] = itemField;
             }
+            result.AllTags = db.Tags.Select(tag => tag.Name).ToList();
             return result;
         }
     }

@@ -42,6 +42,7 @@ namespace Course.Models
         public ItemField[]? ItemFields { get; set; }
         public List<Comment> Comments { get; set; } = new();
         public string[]? Tags { get; set; }
+        public List<string>? AllTags { get; set; }
         public static async Task<ItemViewModel> CreateFromItemId(int itemId, ApplicationDbContext _db)
         {
             
