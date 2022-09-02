@@ -57,7 +57,7 @@
                         <div id="collapseRow-@i" class="collapse" data-bs-parent="#topItemsTable">
                             @if (!string.IsNullOrWhiteSpace(Model.TopCollections[i].Description))
                             {
-                                <p>@Model.TopCollections[i].Description</p>
+                                <markdown>@Model.TopCollections[i].Description</markdown>
                             }
                             <table class="table table-striped table-hover table-responsive-sm">
                                 <thead>

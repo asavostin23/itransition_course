@@ -18,7 +18,7 @@
         @if (!string.IsNullOrWhiteSpace(Model.Description))
         {
             <h1 class="display-6">@SharedLocalizer["Description"]</h1>
-            <p class="lead">@Model.Description</p>
+            <markdown>@Model.Description</markdown>
         }
     </div>
     @if (Model.ImageData != null)

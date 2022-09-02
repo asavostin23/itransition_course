@@ -37,7 +37,7 @@
                 <p class="card-text">
                     @if (collection.Description is not null)
                     {
-                        @collection.Description
+                        <markdown>@collection.Description</markdown>
                     }
                     else
                     {

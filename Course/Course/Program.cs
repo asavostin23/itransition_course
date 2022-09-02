@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using System.Globalization;
+using Westwind.AspNetCore.Markdown;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +18,9 @@ builder.Services.AddIdentity<User, IdentityRole>(options => options.SignIn.Requi
     .AddDefaultUI()
     .AddDefaultTokenProviders();
 builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
+
+builder.Services.AddMarkdown();
+
 builder.Services.AddControllersWithViews()
     .AddDataAnnotationsLocalization(options => {
         options.DataAnnotationLocalizerProvider = (type, factory) =>
@@ -57,6 +61,9 @@ else
 }
 app.UseHttpsRedirection();
 app.UseRequestLocalization();
+
+app.UseMarkdown();
+
 app.UseStaticFiles();
 app.UseRouting();
 app.UseAuthentication();

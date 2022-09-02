@@ -28,7 +28,9 @@
                     <p class="display-6">@collection.Theme</p>
                     @if (collection.Description != null)
                     {
-                        <p class="card-text">@collection.Description</p>
+                        <p class="card-text">
+                            <markdown>@collection.Description</markdown>
+                        </p>
                     }
                     else
                     {
