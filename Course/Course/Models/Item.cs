@@ -19,6 +19,8 @@ namespace Course.Models
         public List<TextItemField> TextFields { get; set; } = new();
         public List<BoolItemField> BoolFields { get; set; } = new();
         public List<DatetimeItemField> DatetimeFields { get; set; } = new();
+        public List<User> LikedUsers { get; set; } = new();
+        public List<Like> Likes { get; set; } = new();
         private Item()
         {
             CreatedDate = DateTime.Now.ToUniversalTime();

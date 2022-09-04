@@ -30,6 +30,10 @@ namespace Course.Controllers
                 return View("NotFound");
 
             ItemViewModel itemModel = await ItemViewModel.CreateFromItemId(id, _db);
+            if (User.Identity != null && User.Identity.IsAuthenticated)
+                itemModel.IsLiked = (await _db.Users.Where(user => user.UserName == User.Identity.Name)
+                    .Include(user => user.LikedItems).FirstAsync())
+                    .LikedItems.Any(item => item.Id == id);
             return View(itemModel);
         }
         [Authorize]

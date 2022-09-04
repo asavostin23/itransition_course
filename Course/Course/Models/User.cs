@@ -11,6 +11,14 @@ namespace Course.Models
         public List<Collection> Collections { get; set; } = new();
         public List<Item> Items { get; set; } = new();
         public List<Comment> Comments { get; set; } = new();
-
+        public List<Item> LikedItems { get; set; } = new();
+        public List<Like> Likes { get; set; } = new();
+        public void ToggleLikedItem(Item item)
+        {
+            if (LikedItems.Contains(item))
+                LikedItems.Remove(item);
+            else
+                LikedItems.Add(item);
+        }
     }
 }

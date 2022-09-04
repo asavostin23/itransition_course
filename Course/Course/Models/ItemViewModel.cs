@@ -43,9 +43,11 @@ namespace Course.Models
         public List<Comment> Comments { get; set; } = new();
         public string[]? Tags { get; set; }
         public List<string>? AllTags { get; set; }
+        public int LikeNumber { get; set; }
+        public bool IsLiked { get; set; } = false;
         public static async Task<ItemViewModel> CreateFromItemId(int itemId, ApplicationDbContext _db)
         {
-            
+
             List<Comment> itemComments = await _db.Comments.Where(comment => comment.ItemId == itemId).ToListAsync();
             await Item.LoadFieldsAsync(itemId, _db);
             Item item = _db.Items.Where(item => item.Id == itemId).Include(item => item.Tags).First();
@@ -88,12 +90,11 @@ namespace Course.Models
                         break;
                 }
             }
-            
-                itemModel.Comments = itemComments;
-            
+            itemModel.Comments = itemComments;
             itemModel.Tags = new string[item.Tags.Count];
             for (int i = 0; i < item.Tags.Count; i++)
                 itemModel.Tags[i] = item.Tags[i].Name;
+            itemModel.LikeNumber = _db.Users.Where(user => user.LikedItems.Contains(item)).Count();
             return itemModel;
         }
     }

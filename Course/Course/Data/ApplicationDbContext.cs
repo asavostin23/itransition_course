@@ -48,6 +48,15 @@ public class ApplicationDbContext : IdentityDbContext<User>
         builder.HasMany(user => user.Comments).WithOne(comment => comment.User).HasForeignKey(comment => comment.UserId).OnDelete(DeleteBehavior.NoAction);
         builder.HasMany(user => user.Items).WithOne(item => item.User).HasForeignKey(item => item.UserId).OnDelete(DeleteBehavior.NoAction);
         builder.HasMany(user => user.Collections).WithOne(collection => collection.User).HasForeignKey(collection => collection.UserId);
+        builder.HasMany(user => user.LikedItems).WithMany(item => item.LikedUsers)
+            .UsingEntity<Like>(
+            like => like.HasOne(l => l.Item).WithMany(i => i.Likes).HasForeignKey(l => l.ItemId).OnDelete(DeleteBehavior.NoAction),
+            like => like.HasOne(l => l.User).WithMany(u => u.Likes).HasForeignKey(l => l.UserId),
+            like => 
+            { 
+                like.HasKey(l => new { l.UserId, l.ItemId });
+                like.ToTable("Likes");
+            });
     }
     public void CollectionConfigure(EntityTypeBuilder<Collection> builder)
     {

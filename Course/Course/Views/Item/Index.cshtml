@@ -36,14 +36,33 @@
         </ul>
     </li>
 </ul>
-@if (SignInManager.IsSignedIn(User) && (Model.UserId == UserManager.GetUserId(User) || User.IsInRole("Admin")))
+@if (SignInManager.IsSignedIn(User))
 {
-    <div>
-        <a class="btn btn-primary" asp-action="EditItem" asp-route-id="@Model.Id">@SharedLocalizer["Edit"]</a>
-        <button type="button" class="btn btn-danger" onclick="$('#deleteModal').modal('show')">
-            @SharedLocalizer["Delete item"]
+    <div class="mb-1">
+        <button class="btn" id="likeBtn">
+            @if (Model.IsLiked)
+            {
+                <i class="bi bi-heart d-none"></i>
+                <i class="bi bi-heart-fill text-danger"></i>
+            }
+            else
+            {
+                <i class="bi bi-heart"></i>
+                <i class="bi bi-heart-fill d-none text-danger"></i>
+            }
+            <span id="likeNumber">@Model.LikeNumber</span>
         </button>
     </div>
+    @if (Model.UserId == UserManager.GetUserId(User) || User.IsInRole("Admin"))
+    {
+        <div>
+            <a class="btn btn-primary" asp-action="EditItem" asp-route-id="@Model.Id">@SharedLocalizer["Edit"]</a>
+            <button type="button" class="btn btn-danger" onclick="$('#deleteModal').modal('show')">
+                @SharedLocalizer["Delete item"]
+            </button>
+        </div>
+    }
+
 }
 <div class="modal fade" id="deleteModal" role="dialog">
     <div class="modal-dialog" role="document">
@@ -72,7 +91,6 @@
         <button type="submit" class="btn btn-primary mt-1">@SharedLocalizer["Send"]</button>
     </form>
     <div id="comments">
-        
     </div>
 </div>
 
@@ -85,35 +103,49 @@
     {
         <script>
             $('form').click(function () {
-                window.location.href = '/Identity/Account/Login'  + ((window.location.search) ? window.location.search : '?') + '&returnUrl=' + window.location.pathname.replaceAll('/','%2F');
+                window.location.href = '/Identity/Account/Login' + ((window.location.search) ? window.location.search : '?') + '&returnUrl=' + window.location.pathname.replaceAll('/', '%2F');
             })
         </script>
     }
     <script>
         $(function () {
-            loadComments();
-            setInterval(loadComments, 5000);
+            loadComments(@Model.Id);
+            setInterval(loadComments, 5000, @Model.Id);
         });
-        function loadComments() {
-            $.getJSON('/api/comments/@Model.Id',
+        $('#likeBtn').click(function () {
+            $.get('/api/like/' + @Model.Id);
+            let likeNumber = Number($(this).children('#likeNumber').html());
+            if ($(this).children('.bi-heart-fill').hasClass('d-none')) {
+                $(this).children('#likeNumber').html(likeNumber + 1);
+                $(this).children('.bi-heart-fill').removeClass('d-none');
+                $(this).children('.bi-heart').addClass('d-none');
+            }
+            else {
+                $(this).children('#likeNumber').html(likeNumber - 1);
+                $(this).children('.bi-heart').removeClass('d-none');
+                $(this).children('.bi-heart-fill').addClass('d-none');
+            }
+        });
+        function loadComments(commentId) {
+            $.getJSON('/api/comments/' + commentId,
                 function (data) {
                     let newComments = $('<div id="comments"></div>');
                     for (let comment of data) {
                         $(newComments).append(`
-                            <div class="card mb-2 border-0">
-                                <div class="card-body">
-                                    <b>
-                                        <a href="/Collection/UserCollections/${comment.userName}" class="text-decoration-none">
-                                            ${comment.userName}
-                                        </a>
-                                    </b>
-                                    <span>${comment.text} </span>
-                                </div>
-                                <div class="card-footer text-muted">
-                                            <span class="type-Datetime">${new Date(comment.createdDate).toLocaleString()} </span>
-                                </div>
-                            </div>
-                        `);
+                                                                    <div class="card mb-2 border-0">
+                                                                        <div class="card-body">
+                                                                            <b>
+                                                                                <a href="/Collection/UserCollections/${comment.userName}" class="text-decoration-none">
+                                                                                    ${comment.userName}
+                                                                                </a>
+                                                                            </b>
+                                                                            <span>${comment.text} </span>
+                                                                        </div>
+                                                                        <div class="card-footer text-muted">
+                                                                                    <span class="type-Datetime">${new Date(comment.createdDate).toLocaleString()} </span>
+                                                                        </div>
+                                                                    </div>
+                                                                `);
                     }
                     $('#comments').replaceWith(newComments);
                 }
